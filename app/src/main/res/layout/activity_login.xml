@@ -6,7 +6,8 @@
     <TextView
         android:id="@+id/login_textview_login"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/login_text"/>
 
     <EditText
         android:id="@+id/username_edittext_login"
@@ -14,18 +15,19 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:hint="@string/username" />
 
     <EditText
         android:id="@+id/password_edittext_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="@string/password"
         android:inputType="textPassword" />
 
     <Button
         android:id="@+id/inicio_button_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="@string/login"/>
 </LinearLayout>

@@ -1,13 +1,14 @@
 package com.example.cubatometro;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class GroupsActivity extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class VotesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_groups);
+        setContentView(R.layout.activity_votes);
     }
 }

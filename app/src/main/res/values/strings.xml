@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Cubatometro</string>
+    <string name="login_text">Pantalla de inicio</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="login">Iniciar</string>
+    <string name="music_vote">¿Quién pone la música?</string>
 </resources>
