@@ -1,7 +1,9 @@
-package com.example.cubatometro;
+package upv.dadm.cubatometro;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.cubatometro.R;
 
 public class GroupsActivity extends AppCompatActivity {
 

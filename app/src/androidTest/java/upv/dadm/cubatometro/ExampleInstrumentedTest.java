@@ -1,4 +1,4 @@
-package com.example.cubatometro;
+package upv.dadm.cubatometro;
 
 import android.content.Context;
 

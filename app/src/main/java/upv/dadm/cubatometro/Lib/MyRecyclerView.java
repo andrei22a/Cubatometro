@@ -1,8 +1,9 @@
-package com.example.cubatometro.Lib;
+package upv.dadm.cubatometro.Lib;
 
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import upv.dadm.cubatometro.R;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,8 +15,8 @@ public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.ViewHold
 
         public ViewHolder(View view, final OnItemClickListener oil, final OnItemLongClickListener oill ){
             super(view);
-            name = view.findViewById(R.id.tvCita);
-            vote_progress = view.findViewById(R.id.tvAutor);
+            name = view.findViewById(R.id.candidate_name_vote);
+            vote_progress = view.findViewById(R.id.candidate_progress_vote);
             view.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){

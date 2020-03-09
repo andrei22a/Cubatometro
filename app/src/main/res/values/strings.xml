@@ -5,4 +5,9 @@
     <string name="password">Contraseña</string>
     <string name="login">Iniciar</string>
     <string name="music_vote">¿Quién pone la música?</string>
+
+    <!-- Create group activity -->
+    <string name="titulo_grupo_label">Nombre del grupo</string>
+    <string name="añadir_miembros_label">Añadir miembros</string>
+    <string name="miembros_actuales_label">Miembros actuales</string>
 </resources>
