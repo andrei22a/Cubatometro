@@ -1,13 +1,20 @@
 <resources>
     <string name="app_name">Cubatometro</string>
-    <string name="login_text">Pantalla de inicio</string>
+    <string name="login_text">Inicie sesión para seguir</string>
     <string name="username">Nombre de usuario</string>
     <string name="password">Contraseña</string>
-    <string name="login">Iniciar</string>
+    <string name="login">Iniciar sesión</string>
     <string name="music_vote">¿Quién pone la música?</string>
 
     <!-- Create group activity -->
     <string name="titulo_grupo_label">Nombre del grupo</string>
     <string name="añadir_miembros_label">Añadir miembros</string>
     <string name="miembros_actuales_label">Miembros actuales</string>
+    <string name="buscar_miembros_label">Buscar miembro</string>
+
+    <!-- Ranking activity -->
+    <string name="ranking_label">Ranking</string>
+
+    <!-- Menu -->
+    <string name="menu_create_group">Crear grupo</string>
 </resources>
