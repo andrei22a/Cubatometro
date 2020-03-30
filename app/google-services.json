@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "439157555625",
+    "firebase_url": "https://cubatometro.firebaseio.com",
+    "project_id": "cubatometro",
+    "storage_bucket": "cubatometro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:439157555625:android:b45568a70f271860de44b8",
+        "android_client_info": {
+          "package_name": "upv.dadm.cubatometro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "439157555625-6cd4lv24h79mhuj1scf938cvvir3c162.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "upv.dadm.cubatometro",
+            "certificate_hash": "0992a4a8fc24d20b1e58ebc73e87395d09c97ec6"
+          }
+        },
+        {
+          "client_id": "439157555625-k0377j41f02hh52omnd9445gcpdpsjqu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXB7BJ6G1XD5zQ7ekFXPaodYqm0o5wYLM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "439157555625-k0377j41f02hh52omnd9445gcpdpsjqu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

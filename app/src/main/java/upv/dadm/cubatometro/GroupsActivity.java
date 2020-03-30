@@ -38,7 +38,5 @@ public class GroupsActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-
-
     }
 }
