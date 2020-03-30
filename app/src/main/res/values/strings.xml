@@ -15,6 +15,11 @@
     <!-- Ranking activity -->
     <string name="ranking_label">Ranking</string>
 
+    <!-- Register user activity -->
+    <string name="username_register_label">Nombre de usuario</string>
+    <string name="password_register_label">Contraseña</string>
+    <string name="registar_usuario_label">Registarse</string>
+
     <!-- Menu -->
     <string name="menu_create_group">Crear grupo</string>
 </resources>

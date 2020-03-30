@@ -27,7 +27,13 @@
 
     <Button
         android:id="@+id/inicio_button_login"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/login"/>
+        android:text="@string/login" />
+
+    <Button
+        android:id="@+id/registar_button_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 </LinearLayout>
