@@ -3,18 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context="upv.dadm.cubatometro.CreateGroupActivity">
 
     <EditText
-        android:id="@+id/grouptitle_edittext_creategroup"
-        android:layout_width="match_parent"
+        android:id="@+id/groupname_edittext_creategroup"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:ems="10"
+        android:hint="@string/titulo_grupo_label"
         android:inputType="textPersonName"
         android:text=""
-        android:hint="@string/titulo_grupo_label"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/groupicon_imageview_creategroup"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -24,7 +26,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/añadir_miembros_label"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/grouptitle_edittext_creategroup" />
+        app:layout_constraintTop_toBottomOf="@+id/groupicon_imageview_creategroup" />
 
     <SearchView
         android:id="@+id/searchmember_searchview_creategroup"
@@ -39,26 +41,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/addmembers_recyclerview_creategroup"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="350dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchmember_searchview_creategroup" />
-
-    <TextView
-        android:id="@+id/miembrosactuales_textview_creategroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/miembros_actuales_label"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addmembers_recyclerview_creategroup" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/miembrosactuales_recyclerview_creategroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/miembrosactuales_textview_creategroup" />
 
     <Button
         android:id="@+id/button_creategroup"
@@ -68,6 +54,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/miembrosactuales_recyclerview_creategroup" />
+        app:layout_constraintTop_toBottomOf="@+id/addmembers_recyclerview_creategroup" />
+
+    <ImageView
+        android:id="@+id/groupicon_imageview_creategroup"
+        android:layout_width="77dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_secure" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
