@@ -24,13 +24,11 @@ public class RankingActivity extends AppCompatActivity {
 
         ArrayList<HashMap<String, String>> array = new ArrayList<>();
 
+        /* Sustituir por llamada a getAllMembers() */
         HashMap<String, String> item = new HashMap<>();
         item.put("name", "David");
         item.put("points", "100");
         array.add(item);
-
-
-        Log.d("ARRAY CONTENTS", array.toString());
 
 
         ListView lv = findViewById(R.id.rankingmiembros_listview_ranking);
