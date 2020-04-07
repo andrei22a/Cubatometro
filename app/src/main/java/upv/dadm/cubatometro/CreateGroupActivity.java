@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 import upv.dadm.cubatometro.Lib.Grupo;
 import upv.dadm.cubatometro.Lib.User;
-import upv.dadm.cubatometro.adapter.CustomRecyclerView;
+import upv.dadm.cubatometro.adapter.CreateGroupAdapter;
 
 public class CreateGroupActivity extends AppCompatActivity {
     private final static int PICK_IMAGE = 1;
@@ -68,7 +68,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         data.add(new User(android.R.drawable.ic_menu_compass, "David", "1234"));
         data.add(new User(android.R.drawable.ic_menu_help, "0000", "9999"));
 
-        CustomRecyclerView adapter = new CustomRecyclerView(data);
+        CreateGroupAdapter adapter = new CreateGroupAdapter(data);
         recyclerView.setAdapter(adapter);
 
     }

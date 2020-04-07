@@ -15,11 +15,11 @@ import java.util.ArrayList;
 import upv.dadm.cubatometro.Lib.User;
 import upv.dadm.cubatometro.R;
 
-public class CustomRecyclerView extends RecyclerView.Adapter<CustomRecyclerView.ViewHolder> {
+public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.ViewHolder> {
     private ArrayList<User> data;
 
 
-    public CustomRecyclerView(ArrayList<User> data){
+    public CreateGroupAdapter(ArrayList<User> data){
         this.data = data;
     }
 
