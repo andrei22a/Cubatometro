@@ -10,11 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.google.firebase.database.FirebaseDatabase;
-
 import upv.dadm.cubatometro.Database.DAO;
-import upv.dadm.cubatometro.Database.FirebaseIni;
-import upv.dadm.cubatometro.Lib.User;
+import upv.dadm.cubatometro.entidades.User;
 
 public class RegisterUserActivity extends AppCompatActivity {
     private final static int PICK_IMAGE = 1;

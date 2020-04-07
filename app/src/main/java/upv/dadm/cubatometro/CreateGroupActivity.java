@@ -14,8 +14,8 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-import upv.dadm.cubatometro.Lib.Grupo;
-import upv.dadm.cubatometro.Lib.User;
+import upv.dadm.cubatometro.entidades.Grupo;
+import upv.dadm.cubatometro.entidades.User;
 import upv.dadm.cubatometro.adapter.CreateGroupAdapter;
 
 public class CreateGroupActivity extends AppCompatActivity {

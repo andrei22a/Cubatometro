@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import upv.dadm.cubatometro.Lib.User;
+import upv.dadm.cubatometro.entidades.User;
 import upv.dadm.cubatometro.R;
 
 public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.ViewHolder> {

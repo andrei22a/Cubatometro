@@ -5,11 +5,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import upv.dadm.cubatometro.Lib.Ranking;
+import upv.dadm.cubatometro.entidades.Ranking;
 import upv.dadm.cubatometro.adapter.RankingAdapter;
 
 public class RankingActivity extends AppCompatActivity {
@@ -21,6 +20,7 @@ public class RankingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking);
 
+        /* Sustituir por llamada al método getGroupMembers() */
         ArrayList<Ranking> array = new ArrayList<>();
         array.add(new Ranking("1", "David", "0"));
         array.add(new Ranking("2", "Pepe", "0"));

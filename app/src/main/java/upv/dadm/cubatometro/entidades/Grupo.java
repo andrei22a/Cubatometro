@@ -1,4 +1,4 @@
-package upv.dadm.cubatometro.Lib;
+package upv.dadm.cubatometro.entidades;
 
 import android.widget.ImageView;
 

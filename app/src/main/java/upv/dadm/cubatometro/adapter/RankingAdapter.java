@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import upv.dadm.cubatometro.Lib.Ranking;
+import upv.dadm.cubatometro.entidades.Ranking;
 import upv.dadm.cubatometro.R;
 
 public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHolder> implements View.OnClickListener, View.OnLongClickListener{

@@ -1,4 +1,4 @@
-package upv.dadm.cubatometro.Lib;
+package upv.dadm.cubatometro.entidades;
 
 public class User {
     private int image;
