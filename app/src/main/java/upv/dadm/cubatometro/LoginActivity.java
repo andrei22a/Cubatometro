@@ -1,28 +1,39 @@
 package upv.dadm.cubatometro;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
 import upv.dadm.cubatometro.Database.FirebaseIni;
 
 public class LoginActivity extends AppCompatActivity{
-    private EditText username;
-    private EditText password;
+    private FirebaseAuth mAuth;
+
+    private EditText usernameInput;
+    private EditText passwordInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        username = findViewById(R.id.username_edittext_login);
-        password = findViewById(R.id.password_edittext_login);
+        mAuth = FirebaseAuth.getInstance();
+
+        usernameInput = findViewById(R.id.username_edittext_login);
+        passwordInput = findViewById(R.id.password_edittext_login);
 
         Button iniciarSesion = findViewById(R.id.inicio_button_login);
         Button registrarUsuario = findViewById(R.id.registar_button_login);
@@ -30,11 +41,22 @@ public class LoginActivity extends AppCompatActivity{
         iniciarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkLogin()) {
-                    Intent intent = new Intent(LoginActivity.this, GroupsActivity.class);
-                    intent.putExtra("user", username.getText().toString());
-                    intent.putExtra("password", password.getText().toString());
-                    startActivity(intent);
+                String email = usernameInput.getText().toString();
+                String pass = passwordInput.getText().toString();
+                if(!email.equals("") && !pass.equals("")){
+                    mAuth.signInWithEmailAndPassword(email, pass)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        toastMessage("Logged correctly");
+                                        startActivity(new Intent(getApplicationContext(), GroupsActivity.class));
+                                    } else {
+                                        toastMessage("Login failed\n" + task.getException().getMessage());
+                                    }
+                                }
+                            });                }else{
+                    toastMessage("You didn't fill in all the fields.");
                 }
             }
         });
@@ -48,11 +70,7 @@ public class LoginActivity extends AppCompatActivity{
         });
     }
 
-    protected boolean checkLogin(){
-        /* Check if user and password match
-
-        */
-
-        return true;
+    private void toastMessage(String message){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

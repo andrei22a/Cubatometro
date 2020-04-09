@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "439157555625-9t0fujf9girolfbpcjkk6ej959r54t88.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "upv.dadm.cubatometro",
+            "certificate_hash": "62fd4ed8a6d60225126adb0e6a96821ab4c59c8a"
+          }
+        },
+        {
           "client_id": "439157555625-6cd4lv24h79mhuj1scf938cvvir3c162.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
