@@ -2,11 +2,23 @@ package upv.dadm.cubatometro.Database;
 
 import com.google.firebase.database.DatabaseReference;
 
-public class DAO {
-    public void insertNewUser(/* imagen */ String username, String password) {
-        DatabaseReference myRef = FirebaseIni.getInstance().getReference("Users");
-        myRef.child(username).setValue(password);
+import upv.dadm.cubatometro.entidades.Registro;
 
+public class DAO {
+    public void insertNewUser(String userID, Registro registro) {
+        DatabaseReference firebaseRef = FirebaseIni.getInstance().getReference("Users").child(userID);
+        DatabaseReference newRegistroRef = firebaseRef.push();
+        newRegistroRef.child("NumeroBotellas").setValue(registro.getNumBotellas());
+        newRegistroRef.child("NumeroMediasBotellas").setValue(registro.getNumMediasBotellas());
+        newRegistroRef.child("NumeroBotellasVino").setValue(registro.getNumBotellasVino());
+        newRegistroRef.child("NumeroChupitos").setValue(registro.getNumChupitos());
+        newRegistroRef.child("NumeroJarrasCerveza").setValue(registro.getNumJarrasCerveza());
+        newRegistroRef.child("NumeroLatasCerveza").setValue(registro.getNumLatasCerveza());
+        newRegistroRef.child("NumeroLitrosCerveza").setValue(registro.getNumLitrosCerveza());
+
+        newRegistroRef.child("FechaRegistro").setValue(registro.getFecha());
+
+    }
         /* createGroup - inserta un grupo en la base de datos
             argumentos - imagen , String groupName, ArrayList<User>
             return void                                           */
@@ -33,6 +45,6 @@ public class DAO {
             return - ArrayList<User>                    */
 
 
-    }
+
 
 }

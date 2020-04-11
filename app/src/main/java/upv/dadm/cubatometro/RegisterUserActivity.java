@@ -21,11 +21,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import upv.dadm.cubatometro.Database.DAO;
+import upv.dadm.cubatometro.Database.FirebaseIni;
+import upv.dadm.cubatometro.entidades.Registro;
 import upv.dadm.cubatometro.entidades.User;
 
 public class RegisterUserActivity extends AppCompatActivity {
@@ -69,7 +72,11 @@ public class RegisterUserActivity extends AppCompatActivity {
                             public void onComplete( Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     toastMessage("Register successfully");
-                                    uploadImageToFirebase();
+                                    addUserToFirebase();
+                                    if(selectedImageUri != null){
+                                        uploadImageToFirebase();
+                                    }
+
                                     startActivity(new Intent(getApplicationContext(), GroupsActivity.class));
                                 } else {
 
@@ -135,5 +142,13 @@ public class RegisterUserActivity extends AppCompatActivity {
         }else{
             Log.d(TAG, "checkBTPermissions: No need to check permissions. SDK version < LOLLIPOP.");
         }
+    }
+
+    private void addUserToFirebase(){
+        Registro registroInicial = new Registro();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String userID = user.getUid();
+        DAO dao = new DAO();
+        dao.insertNewUser(userID, registroInicial);
     }
 }
