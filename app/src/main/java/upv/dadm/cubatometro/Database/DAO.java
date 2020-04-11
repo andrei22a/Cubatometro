@@ -5,8 +5,9 @@ import com.google.firebase.database.DatabaseReference;
 import upv.dadm.cubatometro.entidades.Registro;
 
 public class DAO {
-    public void insertNewUser(String userID, Registro registro) {
+    public void insertNewUser(String userID, Registro registro, String username) {
         DatabaseReference firebaseRef = FirebaseIni.getInstance().getReference("Users").child(userID);
+        firebaseRef.child("NombreUsuario").setValue(username);
         DatabaseReference newRegistroRef = firebaseRef.push();
         newRegistroRef.child("NumeroBotellas").setValue(registro.getNumBotellas());
         newRegistroRef.child("NumeroMediasBotellas").setValue(registro.getNumMediasBotellas());

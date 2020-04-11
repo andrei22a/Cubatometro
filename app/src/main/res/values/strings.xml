@@ -17,6 +17,7 @@
 
     <!-- Register user activity -->
     <string name="username_register_label">Nombre de usuario</string>
+    <string name="email_register_label">Correo electrónico</string>
     <string name="password_register_label">Contraseña</string>
     <string name="registar_usuario_label">Registarse</string>
 

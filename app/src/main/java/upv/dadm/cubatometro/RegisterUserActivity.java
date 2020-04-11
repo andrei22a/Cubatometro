@@ -40,6 +40,7 @@ public class RegisterUserActivity extends AppCompatActivity {
     private Uri selectedImageUri;
 
     private EditText usernameInput;
+    private EditText emailInput;
     private EditText passwordInput;
     private ImageView userIcon;
 
@@ -54,6 +55,7 @@ public class RegisterUserActivity extends AppCompatActivity {
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
         usernameInput = findViewById(R.id.username_edittext_register);
+        emailInput = findViewById(R.id.email_edittext_register);
         passwordInput = findViewById(R.id.password_edittext_register);
         userIcon = findViewById(R.id.usericon_imageview_register);
 
@@ -62,7 +64,8 @@ public class RegisterUserActivity extends AppCompatActivity {
         registerUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            String email = usernameInput.getText().toString();
+            final String username = usernameInput.getText().toString();
+            String email = emailInput.getText().toString();
             String password = passwordInput.getText().toString();
             if(!email.equals("") && !password.equals("")){
 
@@ -72,7 +75,7 @@ public class RegisterUserActivity extends AppCompatActivity {
                             public void onComplete( Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     toastMessage("Register successfully");
-                                    addUserToFirebase();
+                                    addUserToFirebase(username);
                                     if(selectedImageUri != null){
                                         uploadImageToFirebase();
                                     }
@@ -144,11 +147,11 @@ public class RegisterUserActivity extends AppCompatActivity {
         }
     }
 
-    private void addUserToFirebase(){
+    private void addUserToFirebase(String username){
         Registro registroInicial = new Registro();
         FirebaseUser user = mAuth.getCurrentUser();
         String userID = user.getUid();
         DAO dao = new DAO();
-        dao.insertNewUser(userID, registroInicial);
+        dao.insertNewUser(userID, registroInicial, username);
     }
 }
