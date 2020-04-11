@@ -12,11 +12,6 @@ public class DAO {
             return void                                           */
 
 
-        /*  userExists - comprueba si un usuario está registrado
-            argumentos - String username
-            return - boolean                            */
-
-
         /*  getUser - devuelve el usuario asociado a ese nombre
             argumentos - String username
             return - User                               */
