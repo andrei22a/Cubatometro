@@ -42,7 +42,10 @@ public class ListGroupsAdapter extends RecyclerView.Adapter<ListGroupsAdapter.Vi
         holder.groupName.setText(data.get(position).getName());
 
         /* Hay que comprobar que la imagen del grupo no es null */
-        holder.groupIcon.setImageDrawable(data.get(position).getImage().getDrawable());
+        /*if(holder.groupIcon != null) {
+            holder.groupIcon.setImageDrawable(data.get(position).getImage().getDrawable());
+        }*/
+
     }
 
     @Override

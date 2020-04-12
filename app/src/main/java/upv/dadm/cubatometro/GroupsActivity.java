@@ -15,10 +15,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
-import java.util.ArrayList;
+import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import upv.dadm.cubatometro.Database.DAO;
 import upv.dadm.cubatometro.Lib.OnItemClickListener;
 import upv.dadm.cubatometro.Lib.OnItemLongClickListener;
+import upv.dadm.cubatometro.Listeners.GroupsListener;
 import upv.dadm.cubatometro.adapter.ListGroupsAdapter;
 import upv.dadm.cubatometro.entidades.Grupo;
 import upv.dadm.cubatometro.entidades.User;
@@ -29,12 +34,16 @@ public class GroupsActivity extends AppCompatActivity {
     private ArrayList<Grupo> data = new ArrayList<>();
     private OnItemClickListener clickListener;
     private OnItemLongClickListener longClickListener;
+    private DAO dao = new DAO();
+    private FirebaseAuth mAuth;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_groups);
+
+        mAuth = FirebaseAuth.getInstance();
 
         /* Listener que cambia de actividad cuando se pulsa sobre un grupo */
         clickListener = new OnItemClickListener() {
@@ -55,11 +64,19 @@ public class GroupsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerview_groups);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
-        
 
-        adapter = new ListGroupsAdapter(data, clickListener, longClickListener);
-        recyclerView.setAdapter(adapter);
+        dao.getGroups(mAuth.getCurrentUser().getUid(), new GroupsListener() {
+            @Override
+            public void onGroupsReceived(List<Grupo> grupos) {
+                data = (ArrayList<Grupo>) grupos;
+                adapter = new ListGroupsAdapter((ArrayList<Grupo>) data, clickListener, longClickListener);
+                recyclerView.setAdapter(adapter);            }
 
+            @Override
+            public void onError(Throwable error) {
+
+            }
+        });
     }
 
     @Override

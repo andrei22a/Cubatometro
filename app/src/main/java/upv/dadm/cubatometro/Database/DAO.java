@@ -89,8 +89,9 @@ public class DAO {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot data : dataSnapshot.getChildren()) {
+                    String username = data.child("NombreUsuario").getValue().toString();
                     if(memberIDs.contains(data.getKey())){
-                        members.add(new User(data.child("NombreUsuario").getValue().toString(), data.getKey()));
+                        members.add(new User(username, data.getKey()));
                     }
                 }
 
@@ -114,7 +115,6 @@ public class DAO {
                    final String groupID = data.getKey();
                    final String groupName = data.child("NombreGrupo").getValue().toString();
                    List<String> memberIDs = new ArrayList<>();
-                   List<User> members = new ArrayList<>();
 
                    for(DataSnapshot userID : data.child("Miembros").getChildren()){
                        memberIDs.add(userID.getValue().toString());
@@ -123,6 +123,7 @@ public class DAO {
                        @Override
                        public void onMembersReceived(List<User> members) {
                            userGroups.add(new Grupo(null, groupName, groupID, (ArrayList<User>) members));
+                           callback.onGroupsReceived(userGroups);
                        }
 
                        @Override
@@ -133,7 +134,6 @@ public class DAO {
 
                }
 
-               callback.onGroupsReceived(userGroups);
            }
 
            @Override

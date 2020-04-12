@@ -84,7 +84,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    startActivity(new Intent(CreateGroupActivity.this, RankingActivity.class));
+                    startActivity(new Intent(CreateGroupActivity.this, GroupsActivity.class));
                 } else {
                     toastMessage("You must type a name for your group");
                 }
