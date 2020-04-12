@@ -46,7 +46,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     public static CreateGroupAdapter adapter;
     private static Context context;
     private static ArrayList<User> data = new ArrayList<>();
-    private FirebaseAuth mAuth;
+    private static FirebaseAuth mAuth;
     private StorageReference mStorageRef;
     private Uri selectedImageUri;
 
@@ -77,6 +77,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 getSelectedMembers();
+                addCurrentUserToGroup();
                 Grupo nuevoGrupo = new Grupo(groupIcon, groupID, members);
                 /************** Añadir grupo a Firebase *********************/
 
@@ -152,8 +153,19 @@ public class CreateGroupActivity extends AppCompatActivity {
     }
 
     public static void loadUser(User user){
-        data.add(user);
-        adapter.notifyItemInserted(data.size());
+        if(!user.getUserID().equals(mAuth.getCurrentUser().getUid())) {
+            data.add(user);
+            adapter.notifyItemInserted(data.size());
+        }
+    }
+
+    public void addCurrentUserToGroup(){
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        assert currentUser != null;
+        ImageView image = new ImageView(context);
+        image.setImageURI(currentUser.getPhotoUrl());
+        User user = new User(image, currentUser.getDisplayName(), currentUser.getUid());
+        members.add(user);
     }
 
     private void toastMessage(String message){

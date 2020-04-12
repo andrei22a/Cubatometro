@@ -21,6 +21,11 @@
     <string name="password_register_label">Contraseña</string>
     <string name="registar_usuario_label">Registarse</string>
 
+    <!-- Groups activity -->
+    <string name="dialog_message">¿Estás seguro de que quieres eliminar este grupo?</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+
     <!-- Menu -->
     <string name="menu_create_group">Crear grupo</string>
 </resources>

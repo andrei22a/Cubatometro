@@ -13,7 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".RegisterUserActivity"></activity>
-        <activity android:name=".HistoricActivity" />
         <activity
             android:name=".RankingActivity"
             android:parentActivityName=".GroupsActivity" />

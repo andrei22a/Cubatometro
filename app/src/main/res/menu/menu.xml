@@ -7,4 +7,9 @@
         android:title="@string/menu_create_group"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/menu_settings"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title=""
+        app:showAsAction="collapseActionView" />
 </menu>
