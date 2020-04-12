@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
@@ -109,13 +110,14 @@ public class CreateGroupActivity extends AppCompatActivity {
         }
     }
 
-    protected ArrayList<User> getSelectedMembers(){
-        /* Acceder al RecyclerView y seleccionar todos los items con el Switch=true
-
-
-         */
-
-        return this.members;
+    protected void getSelectedMembers() {
+        Boolean[] selectedUsers = adapter.getSelectedIds();
+        for (int i = 0; i <= selectedUsers.length; i++) {
+            if (selectedUsers[i]) {
+                members.add(adapter.getItem(i));
+            }
+        }
+        Log.d("ARRAY MEMBERS", this.members.toString());
     }
 
     private void uploadImageToFirebase(String groupID) throws IOException {
