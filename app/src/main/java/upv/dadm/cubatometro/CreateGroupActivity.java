@@ -67,6 +67,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         //Este va a ser el id del grupo
         final String groupID = UUID.randomUUID().toString();
 
+        data.clear();
 
         Button crearGrupo = findViewById(R.id.button_creategroup);
         crearGrupo.setOnClickListener(new View.OnClickListener() {

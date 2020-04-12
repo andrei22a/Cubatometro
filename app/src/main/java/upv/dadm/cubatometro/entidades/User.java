@@ -7,6 +7,7 @@ public class User {
     private ImageView profilePic;
     private String username;
 
+
     public User(ImageView profilePic, String name, String userID){
         this.profilePic = profilePic;
         this.username = name;
