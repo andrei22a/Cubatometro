@@ -10,8 +10,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,7 +41,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     private final static int PICK_IMAGE = 1;
     private ImageView groupIcon;
     private EditText groupName;
-    private ArrayList<User> members;
+    private ArrayList<User> members = new ArrayList<>();
     private static RecyclerView recyclerView;
     public static CreateGroupAdapter adapter;
     private static Context context;
@@ -64,14 +64,22 @@ public class CreateGroupActivity extends AppCompatActivity {
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
         //Este va a ser el id del grupo
-        String groupID = UUID.randomUUID().toString();
+        final String groupID = UUID.randomUUID().toString();
 
 
         Button crearGrupo = findViewById(R.id.button_creategroup);
         crearGrupo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Grupo newGroup = new Grupo(groupIcon, groupName.getText().toString(), members);
+                try {
+                    uploadImageToFirebase(groupID);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                getSelectedMembers();
+                Grupo nuevoGrupo = new Grupo(groupIcon, groupID, members);
+                /************** Añadir grupo a Firebase *********************/
+
                 startActivity(new Intent(CreateGroupActivity.this, RankingActivity.class));
             }
         });
@@ -111,13 +119,15 @@ public class CreateGroupActivity extends AppCompatActivity {
     }
 
     protected void getSelectedMembers() {
-        Boolean[] selectedUsers = adapter.getSelectedIds();
-        for (int i = 0; i <= selectedUsers.length; i++) {
-            if (selectedUsers[i]) {
-                members.add(adapter.getItem(i));
-            }
+        ArrayList<Integer> selectedUsers = adapter.getSelectedIds();
+        for (int i = 0; i < selectedUsers.size(); i++) {
+            //Log.d("SELECTED IDS", data.get(selectedUsers.get(i)).getUsername());
+            String id = data.get(selectedUsers.get(i)).getUserID();
+            String username = data.get(selectedUsers.get(i)).getUsername();
+            ImageView profilePic = data.get(selectedUsers.get(i)).getProfilePic();
+            members.add(new User(profilePic, username, id));
         }
-        Log.d("ARRAY MEMBERS", this.members.toString());
+        //Log.d("ARRAY MEMBERS", members.toString());
     }
 
     private void uploadImageToFirebase(String groupID) throws IOException {
