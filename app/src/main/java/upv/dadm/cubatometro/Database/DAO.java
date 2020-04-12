@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageException;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
@@ -44,6 +45,15 @@ public class DAO {
 
     }
 
+    public void insertNewGroup(String groupID, String name, List<User> members){
+        DatabaseReference firebaseRef = FirebaseIni.getInstance().getReference("Groups").child(groupID);
+        firebaseRef.child("NombreGrupo").setValue(name);
+        DatabaseReference newMembersListRef = firebaseRef.push();
+        for(int i = 0; i < members.size(); i++){
+            newMembersListRef.child("Miembro " + i).setValue(members.get(i).getUserID());
+        }
+    }
+
     public void getAllUsers(){
         DatabaseReference firebaseRef = FirebaseIni.getInstance().getReference("Users");
         firebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -67,15 +77,18 @@ public class DAO {
     }
 
     public void getUserProfilePics(final String userID,  final ImageView profilePic) {
+
         StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/users/" + userID + "/profilePic.jpg");
 
-            storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override //El problema es que setAdapter tiene que ejecutarse despues de la ejecucion del listener pero no se como hacerlo
-                public void onSuccess(Uri uri) {
-                    String imageURL = uri.toString();
-                    Picasso.get().load(imageURL).into(profilePic);
-                }
-            });
+        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override //El problema es que setAdapter tiene que ejecutarse despues de la ejecucion del listener pero no se como hacerlo
+            public void onSuccess(Uri uri) {
+                String imageURL = uri.toString();
+                Picasso.get().load(imageURL).into(profilePic);
+            }
+        });
+
+
 
     }
         /* createGroup - inserta un grupo en la base de datos
