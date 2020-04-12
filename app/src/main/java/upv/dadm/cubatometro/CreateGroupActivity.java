@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,7 +14,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import upv.dadm.cubatometro.Database.DAO;
 import upv.dadm.cubatometro.entidades.Grupo;
 import upv.dadm.cubatometro.entidades.User;
 import upv.dadm.cubatometro.adapter.CreateGroupAdapter;
@@ -23,11 +26,16 @@ public class CreateGroupActivity extends AppCompatActivity {
     private ImageView groupIcon;
     private EditText groupName;
     private ArrayList<User> members;
+    private static RecyclerView recyclerView;
+    public static CreateGroupAdapter adapter;
+    private static Context context;
+    private static ArrayList<User> data = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group);
+        CreateGroupActivity.context = getApplicationContext();
 
         groupName = findViewById(R.id.groupname_edittext_creategroup);
 
@@ -51,26 +59,19 @@ public class CreateGroupActivity extends AppCompatActivity {
             }
         });
 
-        RecyclerView recyclerView = findViewById(R.id.addmembers_recyclerview_creategroup);
+        recyclerView = findViewById(R.id.addmembers_recyclerview_creategroup);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
 
         /* Array de prueba. Hay que sustituir por llamada a método getAllUsers() */
-        ArrayList<User> data = new ArrayList<>();
-        data.add(new User(android.R.drawable.ic_menu_compass, "David", "1234"));
-        data.add(new User(android.R.drawable.ic_menu_help, "0000", "9999"));
-        data.add(new User(android.R.drawable.ic_menu_compass, "David", "1234"));
-        data.add(new User(android.R.drawable.ic_menu_help, "0000", "9999"));
-        data.add(new User(android.R.drawable.ic_menu_compass, "David", "1234"));
-        data.add(new User(android.R.drawable.ic_menu_help, "0000", "9999"));
-        data.add(new User(android.R.drawable.ic_menu_compass, "David", "1234"));
-        data.add(new User(android.R.drawable.ic_menu_help, "0000", "9999"));
-        data.add(new User(android.R.drawable.ic_menu_compass, "David", "1234"));
-        data.add(new User(android.R.drawable.ic_menu_help, "0000", "9999"));
+        new DAO().getAllUsers();
 
         CreateGroupAdapter adapter = new CreateGroupAdapter(data);
         recyclerView.setAdapter(adapter);
+    }
 
+    public static Context getAppContext() {
+        return CreateGroupActivity.context;
     }
 
     protected void onActivityResult(int reqCode, int resultCode, Intent data) {
@@ -101,5 +102,13 @@ public class CreateGroupActivity extends AppCompatActivity {
         return users;
     }
 
+    public static void loadUser(User user){
+        data.add(user);
+        adapter.notifyDataSetChanged();
+    }
 
+    public static void updateUsersRecycler(){
+        adapter = new CreateGroupAdapter(data);
+        recyclerView.setAdapter(adapter);
+    }
 }

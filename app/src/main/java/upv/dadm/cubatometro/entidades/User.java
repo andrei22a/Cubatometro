@@ -1,37 +1,39 @@
 package upv.dadm.cubatometro.entidades;
 
+import android.widget.ImageView;
+
 public class User {
-    private int image;
-    private String name;
-    private String password;
+    private String userID;
+    private ImageView profilePic;
+    private String username;
 
-    public User(int image, String name, String password){
-        this.image = image;
-        this.name = name;
-        this.password = password;
+    public User(ImageView profilePic, String name, String userID){
+        this.profilePic = profilePic;
+        this.username = name;
+        this.userID = userID;
     }
 
-    public int getImage() {
-        return image;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+    public ImageView getProfilePic() {
+        return profilePic;
     }
 
-    public String getName() {
-        return name;
+    public void setProfilePic(ImageView profilePic) {
+        this.profilePic = profilePic;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getUsername() {
+        return username;
     }
 
-    public String getPassword() {
-        return password;
+    public void setUsername(String name) {
+        this.username = name;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

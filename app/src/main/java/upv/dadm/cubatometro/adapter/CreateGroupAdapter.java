@@ -32,8 +32,8 @@ public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.memberIcon.setImageResource(data.get(position).getImage());
-        holder.memberName.setText(data.get(position).getName());
+        holder.memberIcon.setImageDrawable(data.get(position).getProfilePic().getDrawable());
+        holder.memberName.setText(data.get(position).getUsername());
         holder.addMember.setChecked(false);
     }
 
