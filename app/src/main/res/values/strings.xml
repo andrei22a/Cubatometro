@@ -28,4 +28,5 @@
 
     <!-- Menu -->
     <string name="menu_create_group">Crear grupo</string>
+    <string name="menu_settings">Ajustes</string>
 </resources>

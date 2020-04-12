@@ -40,6 +40,8 @@ public class ListGroupsAdapter extends RecyclerView.Adapter<ListGroupsAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.groupName.setText(data.get(position).getName());
+
+        /* Hay que comprobar que la imagen del grupo no es null */
         holder.groupIcon.setImageDrawable(data.get(position).getImage().getDrawable());
     }
 
