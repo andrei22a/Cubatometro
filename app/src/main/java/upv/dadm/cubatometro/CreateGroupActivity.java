@@ -40,7 +40,7 @@ import upv.dadm.cubatometro.adapter.CreateGroupAdapter;
 public class CreateGroupActivity extends AppCompatActivity {
     private final static int PICK_IMAGE = 1;
     private ImageView groupIcon;
-    private EditText groupName;
+    private EditText groupNameInput;
     private ArrayList<User> members = new ArrayList<>();
     private static RecyclerView recyclerView;
     public static CreateGroupAdapter adapter;
@@ -49,6 +49,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     private static FirebaseAuth mAuth;
     private StorageReference mStorageRef;
     private Uri selectedImageUri;
+    private DAO dao = new DAO();
 
 
 
@@ -58,7 +59,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_group);
         CreateGroupActivity.context = getApplicationContext();
 
-        groupName = findViewById(R.id.groupname_edittext_creategroup);
+        groupNameInput = findViewById(R.id.groupname_edittext_creategroup);
 
         mAuth = FirebaseAuth.getInstance();
         mStorageRef = FirebaseStorage.getInstance().getReference();
@@ -71,17 +72,23 @@ public class CreateGroupActivity extends AppCompatActivity {
         crearGrupo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    uploadImageToFirebase(groupID);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
                 getSelectedMembers();
                 addCurrentUserToGroup();
-                Grupo nuevoGrupo = new Grupo(groupIcon, groupID, members);
-                /************** Añadir grupo a Firebase *********************/
+                if(!groupNameInput.getText().toString().equals("")) {
+                    String groupName = groupNameInput.getText().toString();
+                    Grupo nuevoGrupo = new Grupo(groupIcon, groupName, groupID, members);
+                    /************** Añadir grupo a Firebase *********************/
+                    dao.insertNewGroup(groupID, groupName, members);
+                    try {
+                        uploadImageToFirebase(groupID);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    startActivity(new Intent(CreateGroupActivity.this, RankingActivity.class));
+                } else {
+                    toastMessage("You must type a name for your group");
+                }
 
-                startActivity(new Intent(CreateGroupActivity.this, RankingActivity.class));
             }
         });
 
@@ -100,7 +107,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(manager);
 
         /* Array de prueba. Hay que sustituir por llamada a método getAllUsers() */
-        new DAO().getAllUsers();
+        dao.getAllUsers();
 
         adapter = new CreateGroupAdapter(data);
         recyclerView.setAdapter(adapter);

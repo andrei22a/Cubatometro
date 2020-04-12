@@ -10,7 +10,7 @@ public class Grupo {
     private ArrayList<User> members;
     private String groupID;
 
-    public Grupo(ImageView image, String name, ArrayList<User> members){
+    public Grupo(ImageView image, String name, String groupID, ArrayList<User> members){
         this.image = image;
         this.name = name;
         this.members = members;
