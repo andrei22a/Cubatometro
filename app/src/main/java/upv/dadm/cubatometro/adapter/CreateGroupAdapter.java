@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import upv.dadm.cubatometro.Database.DAO;
 import upv.dadm.cubatometro.entidades.User;
 import upv.dadm.cubatometro.R;
 
@@ -32,7 +33,8 @@ public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.memberIcon.setImageDrawable(data.get(position).getProfilePic().getDrawable());
+        if(data.get(position).getProfilePic() == null) new DAO().getUserProfilePics(data.get(position).getUserID(), holder.memberIcon);
+        else {holder.memberIcon.setImageDrawable(data.get(position).getProfilePic().getDrawable());}
         holder.memberName.setText(data.get(position).getUsername());
         holder.addMember.setChecked(false);
     }

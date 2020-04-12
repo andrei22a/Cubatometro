@@ -66,7 +66,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         /* Array de prueba. Hay que sustituir por llamada a método getAllUsers() */
         new DAO().getAllUsers();
 
-        CreateGroupAdapter adapter = new CreateGroupAdapter(data);
+        adapter = new CreateGroupAdapter(data);
         recyclerView.setAdapter(adapter);
     }
 
@@ -104,7 +104,7 @@ public class CreateGroupActivity extends AppCompatActivity {
 
     public static void loadUser(User user){
         data.add(user);
-        adapter.notifyDataSetChanged();
+        adapter.notifyItemInserted(data.size());
     }
 
     public static void updateUsersRecycler(){

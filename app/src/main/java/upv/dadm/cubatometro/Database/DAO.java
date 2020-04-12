@@ -52,7 +52,10 @@ public class DAO {
                 for(final DataSnapshot data : dataSnapshot.getChildren()) {
                     final String username = data.child("NombreUsuario").getValue().toString();
 
-                    getUserProfilePics(data.getKey(), username);
+                    //getUserProfilePics(data.getKey(), username);
+                    User user = new User(null, username, data.getKey());
+                    CreateGroupActivity.loadUser(user);
+                    //74crear user con image null, invocar load user
                 }
             }
 
@@ -63,22 +66,16 @@ public class DAO {
         });
     }
 
-    public static void getUserProfilePics(final String userID, final String username) {
-        List<StorageReference> storageReferences = new ArrayList<>();
-        storageReferences.add(FirebaseStorage.getInstance().getReference("images/users/" + userID + "/profilePic.jpg"));
-        for(StorageReference storageReference : storageReferences) {
+    public void getUserProfilePics(final String userID,  final ImageView profilePic) {
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/users/" + userID + "/profilePic.jpg");
+
             storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override //El problema es que setAdapter tiene que ejecutarse despues de la ejecucion del listener pero no se como hacerlo
                 public void onSuccess(Uri uri) {
-                    ImageView auxImage = new ImageView(CreateGroupActivity.getAppContext());
-                    User user = new User(auxImage, username, userID);
                     String imageURL = uri.toString();
-                    Picasso.get().load(imageURL).into(user.getProfilePic());
-
-                    CreateGroupActivity.loadUser(user);
+                    Picasso.get().load(imageURL).into(profilePic);
                 }
             });
-        }
 
     }
         /* createGroup - inserta un grupo en la base de datos
