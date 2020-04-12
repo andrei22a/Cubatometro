@@ -24,6 +24,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import upv.dadm.cubatometro.CreateGroupActivity;
+import upv.dadm.cubatometro.Listeners.GroupsListener;
+import upv.dadm.cubatometro.Listeners.MembersIDListener;
+import upv.dadm.cubatometro.Listeners.MembersListener;
+import upv.dadm.cubatometro.entidades.Grupo;
 import upv.dadm.cubatometro.entidades.Registro;
 import upv.dadm.cubatometro.entidades.User;
 
@@ -32,7 +36,7 @@ public class DAO {
     public void insertNewUser(String userID, Registro registro, String username) {
         DatabaseReference firebaseRef = FirebaseIni.getInstance().getReference("Users").child(userID);
         firebaseRef.child("NombreUsuario").setValue(username);
-        DatabaseReference newRegistroRef = firebaseRef.push();
+        DatabaseReference newRegistroRef = firebaseRef.child("Registros").push();
         newRegistroRef.child("NumeroBotellas").setValue(registro.getNumBotellas());
         newRegistroRef.child("NumeroMediasBotellas").setValue(registro.getNumMediasBotellas());
         newRegistroRef.child("NumeroBotellasVino").setValue(registro.getNumBotellasVino());
@@ -46,13 +50,98 @@ public class DAO {
     }
 
     public void insertNewGroup(String groupID, String name, List<User> members){
-        DatabaseReference firebaseRef = FirebaseIni.getInstance().getReference("Groups").child(groupID);
-        firebaseRef.child("NombreGrupo").setValue(name);
-        DatabaseReference newMembersListRef = firebaseRef.push();
-        for(int i = 0; i < members.size(); i++){
-            newMembersListRef.child("Miembro " + i).setValue(members.get(i).getUserID());
+        for(int i = 0; i < members.size(); i++) {
+            DatabaseReference memberIDRef = FirebaseIni.getInstance().getReference("Users").child(members.get(i).getUserID())
+                    .child("Groups").child(groupID);
+            memberIDRef.child("NombreGrupo").setValue(name);
+            DatabaseReference newMembersListRef = memberIDRef.child("Miembros");
+            for(int j = 0; j < members.size(); j++){
+                newMembersListRef.child("Miembro " + j).setValue(members.get(j).getUserID());
+            }
         }
     }
+
+   /* public List<String> getMembersIDOfGroup(String groupID, final MembersIDListener listener) {
+        final List<String> userIDs = new ArrayList<>();
+        DatabaseReference groupMembersRef = FirebaseIni.getInstance().getReference("Groups").child(groupID).child("Miembros");
+        groupMembersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot data : dataSnapshot.getChildren()) {
+                    userIDs.add(data.getKey());
+
+                    listener.onMembersIDReceived(userIDs);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                listener.onError(databaseError.toException());
+            }
+        });
+
+    }*/
+
+    public void getMembersOfGroup(final List<String> memberIDs, final MembersListener callback){
+        final List<User> members = new ArrayList<>();
+        DatabaseReference usersRef = FirebaseIni.getInstance().getReference("Users");
+        usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot data : dataSnapshot.getChildren()) {
+                    if(memberIDs.contains(data.getKey())){
+                        members.add(new User(data.child("NombreUsuario").getValue().toString(), data.getKey()));
+                    }
+                }
+
+                callback.onMembersReceived(members);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+   public void getGroups(String userID, final GroupsListener callback){
+       final List<Grupo> userGroups = new ArrayList<>();
+       DatabaseReference userGroupsRef = FirebaseIni.getInstance().getReference("Users").child(userID).child("Groups");
+       userGroupsRef.addValueEventListener(new ValueEventListener() {
+           @Override
+           public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+               for(DataSnapshot data : dataSnapshot.getChildren()){
+                   final String groupID = data.getKey();
+                   final String groupName = data.child("NombreGrupo").getValue().toString();
+                   List<String> memberIDs = new ArrayList<>();
+                   List<User> members = new ArrayList<>();
+
+                   for(DataSnapshot userID : data.child("Miembros").getChildren()){
+                       memberIDs.add(userID.getValue().toString());
+                   }
+                   getMembersOfGroup(memberIDs, new MembersListener() {
+                       @Override
+                       public void onMembersReceived(List<User> members) {
+                           userGroups.add(new Grupo(null, groupName, groupID, (ArrayList<User>) members));
+                       }
+
+                       @Override
+                       public void onError(Throwable error) {
+
+                       }
+                   });
+
+               }
+
+               callback.onGroupsReceived(userGroups);
+           }
+
+           @Override
+           public void onCancelled(@NonNull DatabaseError databaseError) {
+
+           }
+       });
+   }
 
     public void getAllUsers(){
         DatabaseReference firebaseRef = FirebaseIni.getInstance().getReference("Users");
@@ -62,10 +151,8 @@ public class DAO {
                 for(final DataSnapshot data : dataSnapshot.getChildren()) {
                     final String username = data.child("NombreUsuario").getValue().toString();
 
-                    //getUserProfilePics(data.getKey(), username);
                     User user = new User(null, username, data.getKey());
                     CreateGroupActivity.loadUser(user);
-                    //74crear user con image null, invocar load user
                 }
             }
 

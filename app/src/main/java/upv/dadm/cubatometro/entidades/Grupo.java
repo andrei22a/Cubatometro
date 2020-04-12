@@ -14,6 +14,7 @@ public class Grupo {
         this.image = image;
         this.name = name;
         this.members = members;
+        this.groupID = groupID;
     }
 
     public ImageView getImage() {
