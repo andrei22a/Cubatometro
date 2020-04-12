@@ -8,6 +8,7 @@ public class Grupo {
     private ImageView image;
     private String name;
     private ArrayList<User> members;
+    private String groupID;
 
     public Grupo(ImageView image, String name, ArrayList<User> members){
         this.image = image;
@@ -39,4 +40,11 @@ public class Grupo {
         this.members = members;
     }
 
+    public String getGroupID() {
+        return groupID;
+    }
+
+    public void setGroupID(String groupID) {
+        this.groupID = groupID;
+    }
 }

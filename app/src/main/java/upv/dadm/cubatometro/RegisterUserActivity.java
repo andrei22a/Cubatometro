@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +27,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import upv.dadm.cubatometro.Database.DAO;
 import upv.dadm.cubatometro.Database.FirebaseIni;
@@ -77,7 +82,11 @@ public class RegisterUserActivity extends AppCompatActivity {
                                     toastMessage("Register successfully");
                                     addUserToFirebase(username);
                                     if(selectedImageUri != null){
-                                        uploadImageToFirebase();
+                                        try {
+                                            uploadImageToFirebase();
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
 
                                     startActivity(new Intent(getApplicationContext(), GroupsActivity.class));
@@ -116,21 +125,26 @@ public class RegisterUserActivity extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    private void uploadImageToFirebase(){
+    private void uploadImageToFirebase() throws IOException {
         FirebaseUser user = mAuth.getCurrentUser();
         String  userID = user.getUid();
 
         StorageReference storageReference = mStorageRef.child("images/users/" + userID + "/profilePic.jpg");
-        storageReference.putFile(selectedImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 25, baos);
+        byte[] data = baos.toByteArray();
+        //uploading the image
+        UploadTask uploadTask2 = storageReference.putBytes(data);
+        uploadTask2.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                //Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                toastMessage("Upload Success");
+                toastMessage("Upload success");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                toastMessage("Upload Failed");
+                toastMessage("Upload failed");
             }
         });
     }
