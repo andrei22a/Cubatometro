@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import upv.dadm.cubatometro.CreateGroupActivity;
 import upv.dadm.cubatometro.Listeners.GroupsListener;
+import upv.dadm.cubatometro.Listeners.ImageListener;
 import upv.dadm.cubatometro.Listeners.MiembrosConRegistroListener;
 import upv.dadm.cubatometro.entidades.Grupo;
 import upv.dadm.cubatometro.entidades.Registro;
@@ -140,20 +141,29 @@ public class DAO {
         });
     }
 
-    public void getUserProfilePics(final String userID,  final ImageView profilePic) {
+    public void getUserProfilePics(final String userID, final ImageView profilePic, final ImageListener callback) {
 
         StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/users/" + userID + "/profilePic.jpg");
 
         storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override //El problema es que setAdapter tiene que ejecutarse despues de la ejecucion del listener pero no se como hacerlo
             public void onSuccess(Uri uri) {
-                String imageURL = uri.toString();
-                Picasso.get().load(imageURL).into(profilePic);
+                String imageURI = uri.toString();
+                callback.onImageReceived(imageURI);
             }
         });
+    }
 
+    public void getGroupPic(final String groupID, final ImageListener callback) {
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/groups/" + groupID + "/groupPic.jpg");
 
-
+        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                String imageURI = uri.toString();
+                callback.onImageReceived(imageURI);
+            }
+        });
     }
         /* createGroup - inserta un grupo en la base de datos
             argumentos - imagen , String groupName, ArrayList<User>

@@ -85,7 +85,7 @@ public class GroupsActivity extends AppCompatActivity {
             @Override
             public void onGroupsReceived(List<Grupo> grupos) {
                 data = (ArrayList<Grupo>) grupos;
-                adapter = new ListGroupsAdapter((ArrayList<Grupo>) data, clickListener, longClickListener);
+                adapter = new ListGroupsAdapter(data, clickListener, longClickListener);
                 recyclerView.setAdapter(adapter);            }
 
             @Override

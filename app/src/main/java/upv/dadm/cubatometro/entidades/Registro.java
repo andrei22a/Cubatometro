@@ -12,7 +12,6 @@ public class Registro {
     private int numChupitos;
 
     private String fecha;
-    private String userID;
 
     public Registro(){
         this.numBotellas = 0;

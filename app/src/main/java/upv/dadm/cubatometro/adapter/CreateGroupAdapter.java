@@ -12,9 +12,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import upv.dadm.cubatometro.Database.DAO;
+import upv.dadm.cubatometro.Listeners.ImageListener;
 import upv.dadm.cubatometro.entidades.User;
 import upv.dadm.cubatometro.R;
 
@@ -36,8 +39,18 @@ public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        if(data.get(position).getProfilePic() == null) new DAO().getUserProfilePics(data.get(position).getUserID(), holder.memberIcon);
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+        if(data.get(position).getProfilePic() == null) new DAO().getGroupPic(data.get(position).getUserID(), new ImageListener() {
+            @Override
+            public void onImageReceived(String imageURI) {
+                Picasso.get().load(imageURI).into(holder.memberIcon);
+            }
+
+            @Override
+            public void onError(Throwable error) {
+
+            }
+        });
         else {holder.memberIcon.setImageDrawable(data.get(position).getProfilePic().getDrawable());}
         holder.memberName.setText(data.get(position).getUsername());
         holder.addMember.setChecked(false);

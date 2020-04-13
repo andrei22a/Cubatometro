@@ -11,10 +11,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
+import upv.dadm.cubatometro.Database.DAO;
 import upv.dadm.cubatometro.Lib.OnItemClickListener;
 import upv.dadm.cubatometro.Lib.OnItemLongClickListener;
+import upv.dadm.cubatometro.Listeners.ImageListener;
 import upv.dadm.cubatometro.R;
 import upv.dadm.cubatometro.entidades.Grupo;
 
@@ -38,14 +42,20 @@ public class ListGroupsAdapter extends RecyclerView.Adapter<ListGroupsAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.groupName.setText(data.get(position).getName());
+        if(data.get(position).getImage() == null) new DAO().getGroupPic(data.get(position).getGroupID(), new ImageListener() {
+            @Override
+            public void onImageReceived(String imageURI) {
+                Picasso.get().load(imageURI).into(holder.groupIcon);
+            }
 
-        /* Hay que comprobar que la imagen del grupo no es null */
-        /*if(holder.groupIcon != null) {
-            holder.groupIcon.setImageDrawable(data.get(position).getImage().getDrawable());
-        }*/
+            @Override
+            public void onError(Throwable error) {
 
+            }
+        });
+        else {holder.groupIcon.setImageDrawable(data.get(position).getImage().getDrawable());}
     }
 
     @Override

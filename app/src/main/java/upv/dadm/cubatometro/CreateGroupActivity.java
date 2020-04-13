@@ -142,7 +142,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     }
 
     private void uploadImageToFirebase(String groupID) throws IOException {
-        StorageReference storageReference = mStorageRef.child("images/groups/" + groupID + "/profilePic.jpg");
+        StorageReference storageReference = mStorageRef.child("images/groups/" + groupID + "/groupPic.jpg");
         Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 25, baos);
