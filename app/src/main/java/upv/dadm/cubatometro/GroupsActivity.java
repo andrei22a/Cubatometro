@@ -109,6 +109,11 @@ public class GroupsActivity extends AppCompatActivity {
             case R.id.menu_create_group:
                 startActivity(new Intent(GroupsActivity.this, CreateGroupActivity.class));
                 return true;
+
+            case R.id.menu_update_registro:
+                startActivity(new Intent(GroupsActivity.this, RankingActivity.class));
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".RankingActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rankingmiembros_recyclerview_ranking"
+    <ListView
+        android:id="@+id/rankingmiembros_listview_ranking"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,4 +24,9 @@
         android:text="@string/ranking_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/registro_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

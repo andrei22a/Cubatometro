@@ -1,22 +1,12 @@
 package upv.dadm.cubatometro.entidades;
 
-public class Ranking {
-    private String position;
+public class Ranking implements Comparable<Ranking>{
     private String name;
-    private String points;
+    private int points;
 
-    public Ranking(String position, String name, String points) {
-        this.position = position;
+    public Ranking(String name, int points) {
         this.name = name;
         this.points = points;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
     }
 
     public String getName() {
@@ -27,11 +17,19 @@ public class Ranking {
         this.name = name;
     }
 
-    public String getPoints() {
+    public int getPoints() {
         return points;
     }
 
-    public void setPoints(String points) {
+    public void setPoints(int points) {
         this.points = points;
+    }
+
+    @Override
+    public int compareTo(Ranking o) {
+        if(this.points < o.points) { return 1; }
+        else if (this.points == o.points) { return 0; }
+        else { return -1; }
+
     }
 }

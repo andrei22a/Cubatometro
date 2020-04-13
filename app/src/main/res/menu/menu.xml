@@ -8,8 +8,8 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/menu_settings"
-        android:icon="@android:drawable/ic_menu_manage"
-        android:title=""
-        app:showAsAction="collapseActionView" />
+        android:id="@+id/menu_update_registro"
+        android:icon="@android:drawable/ic_menu_more"
+        android:title="@string/menu_update_registro"
+        app:showAsAction="always" />
 </menu>

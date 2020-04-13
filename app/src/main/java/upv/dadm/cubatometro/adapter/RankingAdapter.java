@@ -1,67 +1,72 @@
 package upv.dadm.cubatometro.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 import upv.dadm.cubatometro.entidades.Ranking;
 import upv.dadm.cubatometro.R;
 
-public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHolder> implements View.OnClickListener, View.OnLongClickListener{
+public class RankingAdapter extends BaseAdapter {
     private ArrayList<Ranking> data;
+    private Context context;
+    private LayoutInflater inflater;
 
-    public RankingAdapter(ArrayList<Ranking> data){
+    public RankingAdapter(ArrayList<Ranking> data, Context context){
         this.data = data;
-    }
-
-
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ranking_list_item, parent, false);
-        return new ViewHolder(view);
+        this.context = context;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RankingAdapter.ViewHolder holder, int position) {
-        holder.position.setText(data.get(position).getPosition());
-        holder.name.setText(data.get(position).getName());
-        holder.points.setText(data.get(position).getPoints() + " puntos");
-    }
-
-    @Override
-    public int getItemCount() {
+    public int getCount() {
         return data.size();
     }
 
     @Override
-    public void onClick(View v) {
-
+    public Object getItem(int position){
+        return data.get(position);
     }
 
     @Override
-    public boolean onLongClick(View v) {
-        return false;
+    public long getItemId(int position){
+        return position;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView position;
+    @Override
+    public View getView(int position, View scoreView, ViewGroup parent){
+        ViewHolder holder;
+
+        if(inflater == null){
+            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+        if(scoreView == null){
+            scoreView = inflater.inflate(R.layout.ranking_list_item, parent, false);
+            holder = new ViewHolder();
+            holder.name = scoreView.findViewById(R.id.membername_textview_rankinglist);
+            holder.points = scoreView.findViewById(R.id.memberpoints_textview_rankinglist);
+
+            scoreView.setTag(holder);
+        } else {
+            holder = (ViewHolder) scoreView.getTag();
+        }
+
+        final Ranking m = data.get(position);
+        holder.name.setText(m.getName());
+        holder.points.setText(m.getPoints() + "");
+
+        return scoreView;
+    }
+
+    public static class ViewHolder{
         public TextView name;
         public TextView points;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            position = itemView.findViewById(R.id.position_textview_rankinglist);
-            name = itemView.findViewById(R.id.membername_textview_rankinglist);
-            points = itemView.findViewById(R.id.memberpoints_textview_rankinglist);
-        }
     }
-
 
 }
