@@ -34,6 +34,7 @@ import java.util.UUID;
 
 import upv.dadm.cubatometro.Database.DAO;
 import upv.dadm.cubatometro.entidades.Grupo;
+import upv.dadm.cubatometro.entidades.Registro;
 import upv.dadm.cubatometro.entidades.User;
 import upv.dadm.cubatometro.adapter.CreateGroupAdapter;
 
@@ -79,7 +80,8 @@ public class CreateGroupActivity extends AppCompatActivity {
                     String groupName = groupNameInput.getText().toString();
                     Grupo nuevoGrupo = new Grupo(groupIcon, groupName, groupID, members);
                     /************** Añadir grupo a Firebase *********************/
-                    dao.insertNewGroup(groupID, groupName, members);
+                    Registro registroInicial = new Registro();
+                    dao.insertNewGroup(groupID, groupName, members, registroInicial);
                     try {
                         uploadImageToFirebase(groupID);
                     } catch (IOException e) {

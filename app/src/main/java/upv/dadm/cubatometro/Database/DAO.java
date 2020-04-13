@@ -10,103 +10,58 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageException;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
 import upv.dadm.cubatometro.CreateGroupActivity;
 import upv.dadm.cubatometro.Listeners.GroupsListener;
-import upv.dadm.cubatometro.Listeners.MembersIDListener;
-import upv.dadm.cubatometro.Listeners.MembersListener;
+import upv.dadm.cubatometro.Listeners.MiembrosConRegistroListener;
 import upv.dadm.cubatometro.entidades.Grupo;
 import upv.dadm.cubatometro.entidades.Registro;
 import upv.dadm.cubatometro.entidades.User;
 
 public class DAO {
 
-    public void insertNewUser(String userID, Registro registro, String username) {
+    public void insertNewUser(String userID, String username) {
         DatabaseReference firebaseRef = FirebaseIni.getInstance().getReference("Users").child(userID);
         firebaseRef.child("NombreUsuario").setValue(username);
-        DatabaseReference newRegistroRef = firebaseRef.child("Registros").push();
-        newRegistroRef.child("NumeroBotellas").setValue(registro.getNumBotellas());
-        newRegistroRef.child("NumeroMediasBotellas").setValue(registro.getNumMediasBotellas());
-        newRegistroRef.child("NumeroBotellasVino").setValue(registro.getNumBotellasVino());
-        newRegistroRef.child("NumeroChupitos").setValue(registro.getNumChupitos());
-        newRegistroRef.child("NumeroJarrasCerveza").setValue(registro.getNumJarrasCerveza());
-        newRegistroRef.child("NumeroLatasCerveza").setValue(registro.getNumLatasCerveza());
-        newRegistroRef.child("NumeroLitrosCerveza").setValue(registro.getNumLitrosCerveza());
 
-        newRegistroRef.child("FechaRegistro").setValue(registro.getFecha());
 
     }
 
-    public void insertNewGroup(String groupID, String name, List<User> members){
+    public void insertNewGroup(String groupID, String name, List<User> members, Registro registroInicial){
         for(int i = 0; i < members.size(); i++) {
             DatabaseReference memberIDRef = FirebaseIni.getInstance().getReference("Users").child(members.get(i).getUserID())
                     .child("Groups").child(groupID);
             memberIDRef.child("NombreGrupo").setValue(name);
             DatabaseReference newMembersListRef = memberIDRef.child("Miembros");
             for(int j = 0; j < members.size(); j++){
-                newMembersListRef.child("Miembro " + j).setValue(members.get(j).getUserID());
+                newMembersListRef.child(members.get(j).getUserID()).child("NombreUsuario").setValue(members.get(j).getUsername());
+                DatabaseReference newMemberRef = newMembersListRef.child(members.get(j).getUserID()).child("Registros").push();
+
+                newMemberRef.child("NumeroBotellas").setValue(registroInicial.getNumBotellas());
+                newMemberRef.child("NumeroMediasBotellas").setValue(registroInicial.getNumMediasBotellas());
+                newMemberRef.child("NumeroBotellasVino").setValue(registroInicial.getNumBotellasVino());
+                newMemberRef.child("NumeroChupitos").setValue(registroInicial.getNumChupitos());
+                newMemberRef.child("NumeroJarrasCerveza").setValue(registroInicial.getNumJarrasCerveza());
+                newMemberRef.child("NumeroLatasCerveza").setValue(registroInicial.getNumLatasCerveza());
+                newMemberRef.child("NumeroLitrosCerveza").setValue(registroInicial.getNumLitrosCerveza());
+
+                newMemberRef.child("FechaRegistro").setValue(registroInicial.getFecha());
             }
         }
     }
 
-   /* public List<String> getMembersIDOfGroup(String groupID, final MembersIDListener listener) {
-        final List<String> userIDs = new ArrayList<>();
-        DatabaseReference groupMembersRef = FirebaseIni.getInstance().getReference("Groups").child(groupID).child("Miembros");
-        groupMembersRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot data : dataSnapshot.getChildren()) {
-                    userIDs.add(data.getKey());
-
-                    listener.onMembersIDReceived(userIDs);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                listener.onError(databaseError.toException());
-            }
-        });
-
-    }*/
-
-    public void getMembersOfGroup(final List<String> memberIDs, final MembersListener callback){
-        final List<User> members = new ArrayList<>();
-        DatabaseReference usersRef = FirebaseIni.getInstance().getReference("Users");
-        usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot data : dataSnapshot.getChildren()) {
-                    String username = data.child("NombreUsuario").getValue().toString();
-                    if(memberIDs.contains(data.getKey())){
-                        members.add(new User(username, data.getKey()));
-                    }
-                }
-
-                callback.onMembersReceived(members);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
    public void getGroups(String userID, final GroupsListener callback){
        final List<Grupo> userGroups = new ArrayList<>();
+       final List<User> members = new ArrayList<>();
        DatabaseReference userGroupsRef = FirebaseIni.getInstance().getReference("Users").child(userID).child("Groups");
        userGroupsRef.addValueEventListener(new ValueEventListener() {
            @Override
@@ -114,26 +69,10 @@ public class DAO {
                for(DataSnapshot data : dataSnapshot.getChildren()){
                    final String groupID = data.getKey();
                    final String groupName = data.child("NombreGrupo").getValue().toString();
-                   List<String> memberIDs = new ArrayList<>();
 
-                   for(DataSnapshot userID : data.child("Miembros").getChildren()){
-                       memberIDs.add(userID.getValue().toString());
-                   }
-                   getMembersOfGroup(memberIDs, new MembersListener() {
-                       @Override
-                       public void onMembersReceived(List<User> members) {
-                           userGroups.add(new Grupo(null, groupName, groupID, (ArrayList<User>) members));
-                           callback.onGroupsReceived(userGroups);
-                       }
-
-                       @Override
-                       public void onError(Throwable error) {
-
-                       }
-                   });
-
+                   userGroups.add(new Grupo(null, groupName, groupID));
                }
-
+               callback.onGroupsReceived(userGroups);
            }
 
            @Override
@@ -141,6 +80,44 @@ public class DAO {
 
            }
        });
+   }
+
+   public void getMiembrosConRegistros(String userID, String groupID, final MiembrosConRegistroListener callback){
+        final List<Registro> registros = new ArrayList<>();
+        final List<User> miembrosConRegistro = new ArrayList<>();
+        final DatabaseReference groupMembersRef = FirebaseIni.getInstance().getReference("Users").child(userID).child("Groups").child(groupID).child("Miembros");
+        groupMembersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot userID : dataSnapshot.getChildren()){
+                    final User member = new User();
+                    member.setUserID(userID.toString());
+                    member.setUsername(userID.child("NombreUsuario").getValue().toString());
+
+                    for(DataSnapshot registrosID : userID.child("Registros").getChildren()) {
+                        Registro registro = new Registro();
+
+                        registro.setFecha(registrosID.child("FechaRegistro").getValue().toString());
+                        registro.setNumBotellas(Integer.valueOf(registrosID.child("NumeroBotellas").getValue().toString()));
+                        registro.setNumBotellasVino(Integer.valueOf(registrosID.child("NumeroBotellasVino").getValue().toString()));
+                        registro.setNumChupitos(Integer.valueOf(registrosID.child("NumeroChupitos").getValue().toString()));
+                        registro.setNumJarrasCerveza(Integer.valueOf(registrosID.child("NumeroJarrasCerveza").getValue().toString()));
+                        registro.setNumLatasCerveza(Integer.valueOf(registrosID.child("NumeroLatasCerveza").getValue().toString()));
+                        registro.setNumLitrosCerveza(Integer.valueOf(registrosID.child("NumeroLitrosCerveza").getValue().toString()));
+                        registro.setNumMediasBotellas(Integer.valueOf(registrosID.child("NumeroMediasBotellas").getValue().toString()));
+                        registros.add(registro);
+                    }
+                    member.setRegistros(registros);
+                    miembrosConRegistro.add(member);
+                }
+                callback.onMiembrosReceived(miembrosConRegistro);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
    }
 
     public void getAllUsers(){

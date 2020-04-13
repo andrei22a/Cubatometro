@@ -24,6 +24,7 @@ import upv.dadm.cubatometro.Database.DAO;
 import upv.dadm.cubatometro.Lib.OnItemClickListener;
 import upv.dadm.cubatometro.Lib.OnItemLongClickListener;
 import upv.dadm.cubatometro.Listeners.GroupsListener;
+import upv.dadm.cubatometro.Listeners.MiembrosConRegistroListener;
 import upv.dadm.cubatometro.adapter.ListGroupsAdapter;
 import upv.dadm.cubatometro.entidades.Grupo;
 import upv.dadm.cubatometro.entidades.User;
@@ -49,7 +50,22 @@ public class GroupsActivity extends AppCompatActivity {
         clickListener = new OnItemClickListener() {
             @Override
             public void onClickListener(int position) {
-                rankingIntent();
+                dao.getMiembrosConRegistros(mAuth.getCurrentUser().getUid(), data.get(position).getGroupID(), new MiembrosConRegistroListener() {
+                    @Override
+                    public void onMiembrosReceived(List<User> miembros) {
+                        for(User user : miembros){
+                            System.out.println(user.getRegistros());
+                            System.out.println(user.getUserID());
+                            System.out.println(user.getUsername());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable error) {
+
+                    }
+                });
+                //rankingIntent();
             }
         };
 

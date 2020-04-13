@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -162,10 +163,11 @@ public class RegisterUserActivity extends AppCompatActivity {
     }
 
     private void addUserToFirebase(String username){
-        Registro registroInicial = new Registro();
         FirebaseUser user = mAuth.getCurrentUser();
         String userID = user.getUid();
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(username).build();
+        user.updateProfile(profileUpdates);
         DAO dao = new DAO();
-        dao.insertNewUser(userID, registroInicial, username);
+        dao.insertNewUser(userID,  username);
     }
 }

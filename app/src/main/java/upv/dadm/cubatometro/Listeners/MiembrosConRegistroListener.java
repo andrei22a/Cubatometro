@@ -4,7 +4,7 @@ import java.util.List;
 
 import upv.dadm.cubatometro.entidades.User;
 
-public interface MembersListener {
-    void onMembersReceived(User member);
+public interface MiembrosConRegistroListener {
+    void onMiembrosReceived(List<User> miembros);
     void onError(Throwable error);
 }

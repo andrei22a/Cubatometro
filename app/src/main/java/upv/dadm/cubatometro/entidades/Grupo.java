@@ -17,6 +17,12 @@ public class Grupo {
         this.groupID = groupID;
     }
 
+    public Grupo(ImageView image, String name, String groupID){
+        this.image = image;
+        this.name = name;
+        this.groupID = groupID;
+    }
+
     public ImageView getImage() {
         return image;
     }
