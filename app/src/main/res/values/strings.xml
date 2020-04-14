@@ -29,4 +29,12 @@
     <!-- Menu -->
     <string name="menu_create_group">Crear grupo</string>
     <string name="menu_update_registro">Actualizar puntuación</string>
+
+    <!-- Chart -->
+    <string name="title_stadistics_activity_label"> Estadísticas pasadas</string>
+    <string name="introduce_dates_range_label"> Introduce rango de fechas </string>
+    <string name="beginning_date_label"> Fecha de inicio: </string>
+    <string name="end_date_label"> Fecha de fin: </string>
+    <string name="selected_dates_range_label"> Desde %s hasta %s </string>
+    <string name="search_button"> Buscar registros </string>
 </resources>

@@ -20,11 +20,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import upv.dadm.cubatometro.CreateGroupActivity;
 import upv.dadm.cubatometro.Listeners.GroupsListener;
 import upv.dadm.cubatometro.Listeners.ImageListener;
 import upv.dadm.cubatometro.Listeners.MiembrosConRegistroListener;
+import upv.dadm.cubatometro.Listeners.RegistrosListener;
 import upv.dadm.cubatometro.entidades.Grupo;
 import upv.dadm.cubatometro.entidades.Registro;
 import upv.dadm.cubatometro.entidades.User;
@@ -188,8 +191,45 @@ public class DAO {
             nuevoRegistroRef.child("NumeroMediasBotellas").setValue(nuevoRegistro.getNumMediasBotellas());
 
         }
-
     }
+
+    //Devuelve un HashMap de clave miembroID y valor Lista de registros.
+    public void getRegistros(String currentUserID, String groupID, final RegistrosListener callback){
+        final HashMap<String, List<Registro>> registros = new HashMap<>();
+        DatabaseReference groupMembersRef = FirebaseIni.getInstance().getReference("Users").child(currentUserID).child("Groups").child(groupID).child("Miembros");
+        groupMembersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot miembro : dataSnapshot.getChildren()){
+                    List<Registro> registrosUsuario = new ArrayList<>();
+                    for(DataSnapshot registroUsuario : miembro.child("Registro").getChildren()) {
+                        Registro registro = new Registro();
+
+                        registro.setFecha(registroUsuario.child("FechaRegistro").getValue().toString());
+                        registro.setNumBotellas(Integer.valueOf(registroUsuario.child("NumeroBotellas").getValue().toString()));
+                        registro.setNumBotellasVino(Integer.valueOf(registroUsuario.child("NumeroBotellasVino").getValue().toString()));
+                        registro.setNumChupitos(Integer.valueOf(registroUsuario.child("NumeroChupitos").getValue().toString()));
+                        registro.setNumJarrasCerveza(Integer.valueOf(registroUsuario.child("NumeroJarrasCerveza").getValue().toString()));
+                        registro.setNumLatasCerveza(Integer.valueOf(registroUsuario.child("NumeroLatasCerveza").getValue().toString()));
+                        registro.setNumLitrosCerveza(Integer.valueOf(registroUsuario.child("NumeroLitrosCerveza").getValue().toString()));
+                        registro.setNumMediasBotellas(Integer.valueOf(registroUsuario.child("NumeroMediasBotellas").getValue().toString()));
+
+                        registrosUsuario.add(registro);
+                    }
+                    registros.put(miembro.getKey(), registrosUsuario);
+                }
+
+                callback.onRegistrosReceived(registros);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void getUser(String searchName){}
         /* createGroup - inserta un grupo en la base de datos
             argumentos - imagen , String groupName, ArrayList<User>
             return void                                           */
