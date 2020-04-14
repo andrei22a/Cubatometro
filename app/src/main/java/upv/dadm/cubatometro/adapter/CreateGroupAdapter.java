@@ -40,7 +40,7 @@ public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-        if(data.get(position).getProfilePic() == null) new DAO().getGroupPic(data.get(position).getUserID(), new ImageListener() {
+        if(data.get(position).getProfilePic() == null) new DAO().getUserProfilePics(data.get(position).getUserID(), new ImageListener() {
             @Override
             public void onImageReceived(String imageURI) {
                 Picasso.get().load(imageURI).into(holder.memberIcon);

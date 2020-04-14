@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -67,6 +68,7 @@ public class DAO {
        userGroupsRef.addValueEventListener(new ValueEventListener() {
            @Override
            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+               userGroups.clear();
                for(DataSnapshot data : dataSnapshot.getChildren()){
                    final String groupID = data.getKey();
                    final String groupName = data.child("NombreGrupo").getValue().toString();
@@ -141,7 +143,7 @@ public class DAO {
         });
     }
 
-    public void getUserProfilePics(final String userID, final ImageView profilePic, final ImageListener callback) {
+    public void getUserProfilePics(final String userID , final ImageListener callback) {
 
         StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/users/" + userID + "/profilePic.jpg");
 
@@ -164,6 +166,29 @@ public class DAO {
                 callback.onImageReceived(imageURI);
             }
         });
+    }
+
+    public void deleteGroup(String userID, String groupID) {
+       FirebaseIni.getInstance().getReference("Users").child(userID).child("Groups").child(groupID).removeValue();
+    }
+
+    public void setRegistro(List<String> miembrosID, String userID, String groupID, Registro nuevoRegistro){
+        for(String miembroID : miembrosID) {
+            DatabaseReference registrosUsuarioRef = FirebaseIni.getInstance().getReference("Users").child(miembroID).child("Groups")
+                    .child(groupID).child("Miembros").child(userID).child("Registros");
+
+            DatabaseReference nuevoRegistroRef = registrosUsuarioRef.push();
+            nuevoRegistroRef.child("FechaRegistro").setValue(nuevoRegistro.getFecha());
+            nuevoRegistroRef.child("NumeroBotellas").setValue(nuevoRegistro.getNumBotellas());
+            nuevoRegistroRef.child("NumeroBotellasVino").setValue(nuevoRegistro.getNumBotellasVino());
+            nuevoRegistroRef.child("NumeroChupitos").setValue(nuevoRegistro.getNumChupitos());
+            nuevoRegistroRef.child("NumeroJarrasCerveza").setValue(nuevoRegistro.getNumJarrasCerveza());
+            nuevoRegistroRef.child("NumeroLatasCerveza").setValue(nuevoRegistro.getNumLatasCerveza());
+            nuevoRegistroRef.child("NumeroLitrosCerveza").setValue(nuevoRegistro.getNumLitrosCerveza());
+            nuevoRegistroRef.child("NumeroMediasBotellas").setValue(nuevoRegistro.getNumMediasBotellas());
+
+        }
+
     }
         /* createGroup - inserta un grupo en la base de datos
             argumentos - imagen , String groupName, ArrayList<User>
