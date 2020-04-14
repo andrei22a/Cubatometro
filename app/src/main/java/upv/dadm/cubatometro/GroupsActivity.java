@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,6 +28,7 @@ import upv.dadm.cubatometro.Listeners.GroupsListener;
 import upv.dadm.cubatometro.Listeners.MiembrosConRegistroListener;
 import upv.dadm.cubatometro.adapter.ListGroupsAdapter;
 import upv.dadm.cubatometro.entidades.Grupo;
+import upv.dadm.cubatometro.entidades.Registro;
 import upv.dadm.cubatometro.entidades.User;
 
 public class GroupsActivity extends AppCompatActivity {
@@ -44,28 +46,17 @@ public class GroupsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_groups);
 
+        final Intent intent = new Intent(GroupsActivity.this, RankingActivity.class);
+
         mAuth = FirebaseAuth.getInstance();
 
         /* Listener que cambia de actividad cuando se pulsa sobre un grupo */
         clickListener = new OnItemClickListener() {
             @Override
-            public void onClickListener(int position) {
-                dao.getMiembrosConRegistros(mAuth.getCurrentUser().getUid(), data.get(position).getGroupID(), new MiembrosConRegistroListener() {
-                    @Override
-                    public void onMiembrosReceived(List<User> miembros) {
-                        for(User user : miembros){
-                            System.out.println(user.getRegistros());
-                            System.out.println(user.getUserID());
-                            System.out.println(user.getUsername());
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable error) {
-
-                    }
-                });
-                //rankingIntent();
+            public void onClickListener(final int position) {
+                String groupID = data.get(position).getGroupID();
+                intent.putExtra("groupID", data.get(position).getGroupID());
+                startActivity(intent);
             }
         };
 
@@ -86,7 +77,8 @@ public class GroupsActivity extends AppCompatActivity {
             public void onGroupsReceived(List<Grupo> grupos) {
                 data = (ArrayList<Grupo>) grupos;
                 adapter = new ListGroupsAdapter(data, clickListener, longClickListener);
-                recyclerView.setAdapter(adapter);            }
+                recyclerView.setAdapter(adapter);
+            }
 
             @Override
             public void onError(Throwable error) {
@@ -110,19 +102,15 @@ public class GroupsActivity extends AppCompatActivity {
                 startActivity(new Intent(GroupsActivity.this, CreateGroupActivity.class));
                 return true;
 
-            case R.id.menu_update_registro:
+            /*case R.id.menu_update_registro:
                 startActivity(new Intent(GroupsActivity.this, RankingActivity.class));
-                return true;
+                return true;*/
 
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    public void rankingIntent(){
-        Intent intent = new Intent(GroupsActivity.this, RankingActivity.class);
-        startActivity(intent);
-    }
 
     public void showDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(GroupsActivity.this);
