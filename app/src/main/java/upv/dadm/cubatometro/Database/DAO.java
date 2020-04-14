@@ -171,6 +171,25 @@ public class DAO {
     public void deleteGroup(String userID, String groupID) {
        FirebaseIni.getInstance().getReference("Users").child(userID).child("Groups").child(groupID).removeValue();
     }
+
+    public void setRegistro(List<String> miembrosID, String userID, String groupID, Registro nuevoRegistro){
+        for(String miembroID : miembrosID) {
+            DatabaseReference registrosUsuarioRef = FirebaseIni.getInstance().getReference("Users").child(miembroID).child("Groups")
+                    .child(groupID).child("Miembros").child(userID).child("Registros");
+
+            DatabaseReference nuevoRegistroRef = registrosUsuarioRef.push();
+            nuevoRegistroRef.child("FechaRegistro").setValue(nuevoRegistro.getFecha());
+            nuevoRegistroRef.child("NumeroBotellas").setValue(nuevoRegistro.getNumBotellas());
+            nuevoRegistroRef.child("NumeroBotellasVino").setValue(nuevoRegistro.getNumBotellasVino());
+            nuevoRegistroRef.child("NumeroChupitos").setValue(nuevoRegistro.getNumChupitos());
+            nuevoRegistroRef.child("NumeroJarrasCerveza").setValue(nuevoRegistro.getNumJarrasCerveza());
+            nuevoRegistroRef.child("NumeroLatasCerveza").setValue(nuevoRegistro.getNumLatasCerveza());
+            nuevoRegistroRef.child("NumeroLitrosCerveza").setValue(nuevoRegistro.getNumLitrosCerveza());
+            nuevoRegistroRef.child("NumeroMediasBotellas").setValue(nuevoRegistro.getNumMediasBotellas());
+
+        }
+
+    }
         /* createGroup - inserta un grupo en la base de datos
             argumentos - imagen , String groupName, ArrayList<User>
             return void                                           */
