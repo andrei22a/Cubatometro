@@ -11,8 +11,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import upv.dadm.cubatometro.entidades.Registro;
+import upv.dadm.cubatometro.entidades.User;
 
 public class ContadorActivity extends AppCompatActivity {
     private ArrayList<Registro> data = new ArrayList<>();
@@ -76,7 +78,7 @@ public class ContadorActivity extends AppCompatActivity {
         anyadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                numBotellas.setText(Integer.parseInt(numBotellas.getText().toString()) + 1);
+                numBotellas.setText(Integer.parseInt(numBotellas.getText().toString()) + 1 + "");
             }
         });
 
@@ -85,7 +87,7 @@ public class ContadorActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(Integer.parseInt(numBotellas.getText().toString()) != valorActual) {
-                    numBotellas.setText(Integer.parseInt(numBotellas.getText().toString()) - 1);
+                    numBotellas.setText(Integer.parseInt(numBotellas.getText().toString()) - 1 + "");
                 }
             }
         });

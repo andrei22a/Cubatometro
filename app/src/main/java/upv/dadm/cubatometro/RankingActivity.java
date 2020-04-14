@@ -42,7 +42,9 @@ public class RankingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking);
-        Log.d("GROUP ID", getIntent().getStringExtra("groupID"));
+
+        getSharedPreferences("groupDetails", MODE_PRIVATE).getString("groupID", "");
+
         mAuth = FirebaseAuth.getInstance();
 
         /*** Obtener los miembros del grupo y guardarlos en el array members ***/

@@ -40,13 +40,10 @@ public class GroupsActivity extends AppCompatActivity {
     private DAO dao = new DAO();
     private FirebaseAuth mAuth;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_groups);
-
-        final Intent intent = new Intent(GroupsActivity.this, RankingActivity.class);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -55,7 +52,8 @@ public class GroupsActivity extends AppCompatActivity {
             @Override
             public void onClickListener(final int position) {
                 String groupID = data.get(position).getGroupID();
-                intent.putExtra("groupID", data.get(position).getGroupID());
+                getSharedPreferences("groupDetails", MODE_PRIVATE).edit().putString("groupID", groupID);
+                Intent intent = new Intent(GroupsActivity.this, RankingActivity.class);
                 startActivity(intent);
             }
         };
@@ -120,6 +118,7 @@ public class GroupsActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 /******* Borrar el grupo de firebase *******/
+
             }
         });
 
