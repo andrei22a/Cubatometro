@@ -72,8 +72,8 @@ public class GroupsActivity extends AppCompatActivity {
         /* Listener que permite borrar un grupo cuando se mantiene pulsado sobre él */
         longClickListener = new OnItemLongClickListener() {
             @Override
-            public void onLongClickListener(int position) {
-                showDialog();
+            final public void onLongClickListener(int position) {
+                showDeleteDialog(position);
             }
         };
 
@@ -86,13 +86,16 @@ public class GroupsActivity extends AppCompatActivity {
             public void onGroupsReceived(List<Grupo> grupos) {
                 data = (ArrayList<Grupo>) grupos;
                 adapter = new ListGroupsAdapter(data, clickListener, longClickListener);
-                recyclerView.setAdapter(adapter);            }
+                recyclerView.setAdapter(adapter);
+            }
 
             @Override
             public void onError(Throwable error) {
 
             }
         });
+
+
     }
 
     @Override
@@ -124,7 +127,8 @@ public class GroupsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void showDialog() {
+
+    public void showDeleteDialog(final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(GroupsActivity.this);
         builder.setMessage(R.string.dialog_message);
 
@@ -132,6 +136,8 @@ public class GroupsActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 /******* Borrar el grupo de firebase *******/
+                dao.deleteGroup(mAuth.getCurrentUser().getUid(), data.get(position).getGroupID());
+                adapter.notifyItemRemoved(position);
             }
         });
 
