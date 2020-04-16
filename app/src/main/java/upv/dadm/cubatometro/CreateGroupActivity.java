@@ -13,9 +13,11 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -33,6 +35,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import upv.dadm.cubatometro.Database.DAO;
+import upv.dadm.cubatometro.adapter.DividerItemDecoration;
 import upv.dadm.cubatometro.entidades.Grupo;
 import upv.dadm.cubatometro.entidades.Registro;
 import upv.dadm.cubatometro.entidades.User;
@@ -42,6 +45,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     private final static int PICK_IMAGE = 1;
     private ImageView groupIcon;
     private EditText groupNameInput;
+    private SearchView searchView;
     private ArrayList<User> members = new ArrayList<>();
     private static RecyclerView recyclerView;
     public static CreateGroupAdapter adapter;
@@ -61,6 +65,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         CreateGroupActivity.context = getApplicationContext();
 
         groupNameInput = findViewById(R.id.groupname_edittext_creategroup);
+        searchView = findViewById(R.id.searchmember_searchview_creategroup);
 
         mAuth = FirebaseAuth.getInstance();
         mStorageRef = FirebaseStorage.getInstance().getReference();
@@ -69,6 +74,20 @@ public class CreateGroupActivity extends AppCompatActivity {
         final String groupID = UUID.randomUUID().toString();
 
         data.clear();
+
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return true;
+            }
+        });
 
         Button crearGrupo = findViewById(R.id.button_creategroup);
         crearGrupo.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +127,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.addmembers_recyclerview_creategroup);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this));
 
         /* Array de prueba. Hay que sustituir por llamada a método getAllUsers() */
         dao.getAllUsers();
@@ -118,6 +138,20 @@ public class CreateGroupActivity extends AppCompatActivity {
 
     public static Context getAppContext() {
         return CreateGroupActivity.context;
+    }
+
+
+    private ArrayList<User> filter(ArrayList<User> datas, String newText) {
+        newText = newText.toLowerCase();
+
+        final ArrayList<User> filteredModelList = new ArrayList<>();
+        for (User data : datas) {
+            final String text = data.getUsername().toLowerCase();
+            if (text.contains(newText)) {
+                filteredModelList.add(data);
+            }
+        }
+        return filteredModelList;
     }
 
     protected void onActivityResult(int reqCode, int resultCode, Intent data) {

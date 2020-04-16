@@ -10,14 +10,29 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import upv.dadm.cubatometro.Database.DAO;
+import upv.dadm.cubatometro.Listeners.RegistrosListener;
 import upv.dadm.cubatometro.entidades.Registro;
 import upv.dadm.cubatometro.entidades.User;
 
 public class ContadorActivity extends AppCompatActivity {
+    private String groupID;
+    TextView numBotellas;
+    TextView numMediasBotellas;
+    TextView numJarras;
+    TextView numLitros;
+    TextView numLatas;
+    TextView numVino;
+    TextView numChupitos;
+
     private ArrayList<Registro> data = new ArrayList<>();
+    private FirebaseAuth mAuth;
 
 
 
@@ -25,6 +40,16 @@ public class ContadorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contador);
+
+        groupID = getSharedPreferences("groupDetails", MODE_PRIVATE).getString("groupID", "");
+
+        numBotellas = findViewById(R.id.botellas_contador_textview);
+        numMediasBotellas = findViewById(R.id.mediasbotellas_contador_textview);
+        numJarras = findViewById(R.id.jarras_contador_textview);
+        numLitros = findViewById(R.id.litros_contador_textview);
+        numLatas = findViewById(R.id.latas_contador_textview);
+        numVino = findViewById(R.id.vino_contador_textview);
+        numChupitos = findViewById(R.id.chupitos_contador_textview);
 
         actualizarBotellas();
         actualizarChupitos();
@@ -34,13 +59,38 @@ public class ContadorActivity extends AppCompatActivity {
         actualizarMediasBotellas();
         actualizarVino();
 
+        mAuth = FirebaseAuth.getInstance();
+        final DAO dao = new DAO();
+
         Button actualizar = findViewById(R.id.actualizar_registro_button);
         actualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("PUNTOS", calcularPuntos() + "");
-                Intent intent = new Intent(ContadorActivity.this, RankingActivity.class);
-                startActivity(intent);
+                final String userID = mAuth.getCurrentUser().getUid();
+                dao.getRegistros(userID, groupID, new RegistrosListener() {
+                    @Override
+                    public void onRegistrosReceived(HashMap<String, List<Registro>> registrosGrupo) {
+                        List<String> miembrosID = new ArrayList<>(registrosGrupo.keySet());
+                        for (Registro registro : registrosGrupo.get(userID)) {
+                            registro.setNumBotellas(Integer.parseInt(numBotellas.getText().toString()));
+                            registro.setNumBotellasVino(Integer.parseInt(numVino.getText().toString()));
+                            registro.setNumChupitos(Integer.parseInt(numChupitos.getText().toString()));
+                            registro.setNumJarrasCerveza(Integer.parseInt(numJarras.getText().toString()));
+                            registro.setNumLatasCerveza(Integer.parseInt(numLatas.getText().toString()));
+                            registro.setNumMediasBotellas(Integer.parseInt(numMediasBotellas.getText().toString()));
+                            registro.setNumLitrosCerveza(Integer.parseInt(numLitros.getText().toString()));
+                            dao.setRegistro(miembrosID, userID, groupID, registro);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable error) {
+
+                    }
+                });
+                /*Intent intent = new Intent(ContadorActivity.this, RankingActivity.class);
+                startActivity(intent);*/
             }
         });
 
@@ -48,13 +98,6 @@ public class ContadorActivity extends AppCompatActivity {
 
     public int calcularPuntos(){
         /*** Declarar los contadores como atributos de la clase??? La aplicación explota ***/
-        TextView numBotellas = findViewById(R.id.botellas_contador_textview);
-        TextView numMediasBotellas = findViewById(R.id.mediasbotellas_contador_textview);
-        TextView numJarras = findViewById(R.id.jarras_contador_textview);
-        TextView numLitros = findViewById(R.id.litros_contador_textview);
-        TextView numLatas = findViewById(R.id.latas_contador_textview);
-        TextView numVino = findViewById(R.id.vino_contador_textview);
-        TextView numChupitos = findViewById(R.id.chupitos_contador_textview);
         int botellas = Integer.parseInt(numBotellas.getText().toString());
         int mediasBotellas = Integer.parseInt(numMediasBotellas.getText().toString());
         int jarras = Integer.parseInt(numJarras.getText().toString());
@@ -72,7 +115,6 @@ public class ContadorActivity extends AppCompatActivity {
     }
 
     public void actualizarBotellas(){
-        final TextView numBotellas = findViewById(R.id.botellas_contador_textview);
         final int valorActual = Integer.parseInt(numBotellas.getText().toString());
         ImageButton anyadir = findViewById(R.id.botellas_añadir_button);
         anyadir.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +136,6 @@ public class ContadorActivity extends AppCompatActivity {
     }
 
     public void actualizarMediasBotellas(){
-        final TextView numMediasBotellas = findViewById(R.id.mediasbotellas_contador_textview);
         final int valorActual = Integer.parseInt(numMediasBotellas.getText().toString());
         ImageButton anyadir = findViewById(R.id.mediasbotellas_añadir_button);
         anyadir.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +157,6 @@ public class ContadorActivity extends AppCompatActivity {
     }
 
     public void actualizarJarras(){
-        final TextView numJarras = findViewById(R.id.jarras_contador_textview);
         final int valorActual = Integer.parseInt(numJarras.getText().toString());
         ImageButton anyadir = findViewById(R.id.jarras_añadir_button);
         anyadir.setOnClickListener(new View.OnClickListener() {
@@ -138,7 +178,6 @@ public class ContadorActivity extends AppCompatActivity {
     }
 
     public void actualizarLitros(){
-        final TextView numLitros = findViewById(R.id.litros_contador_textview);
         final int valorActual = Integer.parseInt(numLitros.getText().toString());
         ImageButton anyadir = findViewById(R.id.litros_añadir_button);
         anyadir.setOnClickListener(new View.OnClickListener() {
@@ -160,7 +199,6 @@ public class ContadorActivity extends AppCompatActivity {
     }
 
     public void actualizarLatas(){
-        final TextView numLatas = findViewById(R.id.latas_contador_textview);
         final int valorActual = Integer.parseInt(numLatas.getText().toString());
         ImageButton anyadir = findViewById(R.id.latas_añadir_button);
         anyadir.setOnClickListener(new View.OnClickListener() {
@@ -182,7 +220,6 @@ public class ContadorActivity extends AppCompatActivity {
     }
 
     public void actualizarVino(){
-        final TextView numVino = findViewById(R.id.vino_contador_textview);
         final int valorActual = Integer.parseInt(numVino.getText().toString());
         ImageButton anyadir = findViewById(R.id.vino_añadir_button);
         anyadir.setOnClickListener(new View.OnClickListener() {
@@ -204,7 +241,6 @@ public class ContadorActivity extends AppCompatActivity {
     }
 
     public void actualizarChupitos(){
-        final TextView numChupitos = findViewById(R.id.chupitos_contador_textview);
         final int valorActual = Integer.parseInt(numChupitos.getText().toString());
         ImageButton anyadir = findViewById(R.id.chupitos_añadir_button);
         anyadir.setOnClickListener(new View.OnClickListener() {

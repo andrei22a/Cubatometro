@@ -23,7 +23,7 @@
         android:id="@+id/addmembers_textview_creategroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="@string/añadir_miembros_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/groupicon_imageview_creategroup" />
@@ -32,17 +32,17 @@
         android:id="@+id/searchmember_searchview_creategroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:queryHint="@string/buscar_miembros_label"
+        android:layout_marginTop="16dp"
         android:iconifiedByDefault="false"
+        android:queryHint="@string/buscar_miembros_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addmembers_textview_creategroup" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/addmembers_recyclerview_creategroup"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="370dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchmember_searchview_creategroup" />
 
@@ -50,6 +50,7 @@
         android:id="@+id/button_creategroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="Crear grupo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

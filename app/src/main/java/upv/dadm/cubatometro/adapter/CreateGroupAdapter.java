@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import upv.dadm.cubatometro.Database.DAO;
 import upv.dadm.cubatometro.Listeners.ImageListener;
@@ -79,6 +82,37 @@ public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.
     public ArrayList<Integer> getSelectedIds(){
         return checkArray;
     }
+
+    public Filter getFilter(){
+        return filter;
+    }
+
+    private Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            ArrayList<User> filteredList = new ArrayList<>();
+            if(constraint == null || constraint.length() == 0){
+                filteredList.addAll(data);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for (User user : data){
+                    if (user.getUsername().toLowerCase().contains(filterPattern)){
+                        filteredList.add(user);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            data.clear();
+            data.addAll((ArrayList<User>) results.values);
+            notifyDataSetChanged();
+        }
+    };
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder{

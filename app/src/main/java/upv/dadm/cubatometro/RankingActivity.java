@@ -31,6 +31,7 @@ import upv.dadm.cubatometro.entidades.Registro;
 import upv.dadm.cubatometro.entidades.User;
 
 public class RankingActivity extends AppCompatActivity {
+    private String groupID;
     private ListView listView;
     private RankingAdapter adapter;
     private ArrayList<Ranking> data = new ArrayList<>();
@@ -43,14 +44,15 @@ public class RankingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking);
 
-        getSharedPreferences("groupDetails", MODE_PRIVATE).getString("groupID", "");
+        groupID = getSharedPreferences("groupDetails", MODE_PRIVATE).getString("groupID", "");
 
         mAuth = FirebaseAuth.getInstance();
 
         /*** Obtener los miembros del grupo y guardarlos en el array members ***/
-        dao.getMiembrosConRegistros(mAuth.getCurrentUser().getUid(), getIntent().getStringExtra("groupID"), new MiembrosConRegistroListener() {
+        dao.getMiembrosConRegistros(mAuth.getCurrentUser().getUid(), groupID, new MiembrosConRegistroListener() {
             @Override
             public void onMiembrosReceived(List<User> miembros) {
+                data.clear();
                 for(User user : miembros){
                     int puntos = calcularPuntos(user);
                     data.add(new Ranking(user.getUsername(), puntos));
@@ -76,6 +78,47 @@ public class RankingActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter = new RankingAdapter(data, this);
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+        Log.d("ON RESTART", data.toString());
+        adapter = new RankingAdapter(data, this);
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        Log.d("ON POST RESUME", data.toString());
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("ON START", data.toString());
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("ON STOP", data.toString());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("ON DESTROY", data.toString());
     }
 
     @Override

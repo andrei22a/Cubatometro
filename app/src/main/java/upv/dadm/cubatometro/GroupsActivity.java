@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -26,12 +27,15 @@ import upv.dadm.cubatometro.Lib.OnItemClickListener;
 import upv.dadm.cubatometro.Lib.OnItemLongClickListener;
 import upv.dadm.cubatometro.Listeners.GroupsListener;
 import upv.dadm.cubatometro.Listeners.MiembrosConRegistroListener;
+import upv.dadm.cubatometro.adapter.DividerItemDecoration;
 import upv.dadm.cubatometro.adapter.ListGroupsAdapter;
 import upv.dadm.cubatometro.entidades.Grupo;
 import upv.dadm.cubatometro.entidades.Registro;
 import upv.dadm.cubatometro.entidades.User;
 
 public class GroupsActivity extends AppCompatActivity {
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
     private ListGroupsAdapter adapter;
     private RecyclerView recyclerView;
     private ArrayList<Grupo> data = new ArrayList<>();
@@ -46,13 +50,16 @@ public class GroupsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_groups);
 
         mAuth = FirebaseAuth.getInstance();
+        preferences = getSharedPreferences("groupDetails", MODE_PRIVATE);
+        editor = preferences.edit();
 
         /* Listener que cambia de actividad cuando se pulsa sobre un grupo */
         clickListener = new OnItemClickListener() {
             @Override
             public void onClickListener(final int position) {
                 String groupID = data.get(position).getGroupID();
-                getSharedPreferences("groupDetails", MODE_PRIVATE).edit().putString("groupID", groupID);
+                editor.putString("groupID", groupID);
+                editor.commit();
                 Intent intent = new Intent(GroupsActivity.this, RankingActivity.class);
                 startActivity(intent);
             }
@@ -65,10 +72,10 @@ public class GroupsActivity extends AppCompatActivity {
                 showDeleteDialog(position);
             }
         };
-
         recyclerView = findViewById(R.id.recyclerview_groups);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this));
 
         dao.getGroups(mAuth.getCurrentUser().getUid(), new GroupsListener() {
             @Override
