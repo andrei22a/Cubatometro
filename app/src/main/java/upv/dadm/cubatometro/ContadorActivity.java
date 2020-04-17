@@ -15,8 +15,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import upv.dadm.cubatometro.Database.DAO;
+import upv.dadm.cubatometro.Database.FirebaseIni;
 import upv.dadm.cubatometro.Listeners.RegistrosListener;
 import upv.dadm.cubatometro.entidades.Registro;
 import upv.dadm.cubatometro.entidades.User;
@@ -31,7 +33,7 @@ public class ContadorActivity extends AppCompatActivity {
     TextView numVino;
     TextView numChupitos;
 
-    private ArrayList<Registro> data = new ArrayList<>();
+    private HashMap<String, List<Registro>> registros;
     private FirebaseAuth mAuth;
 
 
@@ -42,6 +44,8 @@ public class ContadorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_contador);
 
         groupID = getSharedPreferences("groupDetails", MODE_PRIVATE).getString("groupID", "");
+        mAuth = FirebaseAuth.getInstance();
+        final String userID = mAuth.getCurrentUser().getUid();
 
         numBotellas = findViewById(R.id.botellas_contador_textview);
         numMediasBotellas = findViewById(R.id.mediasbotellas_contador_textview);
@@ -67,30 +71,31 @@ public class ContadorActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("PUNTOS", calcularPuntos() + "");
-                final String userID = mAuth.getCurrentUser().getUid();
-                dao.getRegistros(userID, groupID, new RegistrosListener() {
-                    @Override
-                    public void onRegistrosReceived(HashMap<String, List<Registro>> registrosGrupo) {
-                        List<String> miembrosID = new ArrayList<>(registrosGrupo.keySet());
-                        for (Registro registro : registrosGrupo.get(userID)) {
-                            registro.setNumBotellas(Integer.parseInt(numBotellas.getText().toString()));
-                            registro.setNumBotellasVino(Integer.parseInt(numVino.getText().toString()));
-                            registro.setNumChupitos(Integer.parseInt(numChupitos.getText().toString()));
-                            registro.setNumJarrasCerveza(Integer.parseInt(numJarras.getText().toString()));
-                            registro.setNumLatasCerveza(Integer.parseInt(numLatas.getText().toString()));
-                            registro.setNumMediasBotellas(Integer.parseInt(numMediasBotellas.getText().toString()));
-                            registro.setNumLitrosCerveza(Integer.parseInt(numLitros.getText().toString()));
-                            dao.setRegistro(miembrosID, userID, groupID, registro);
-                        }
-                    }
+                List<String> miembrosID = new ArrayList<>(registros.keySet());
+                for (Registro registro : Objects.requireNonNull(registros.get(userID))) {
+                    Log.d("BOTELLAS", registro.getNumBotellas() + "");
+                    registro.setNumBotellas(Integer.parseInt(numBotellas.getText().toString()));
+                    registro.setNumBotellasVino(Integer.parseInt(numVino.getText().toString()));
+                    registro.setNumChupitos(Integer.parseInt(numChupitos.getText().toString()));
+                    registro.setNumJarrasCerveza(Integer.parseInt(numJarras.getText().toString()));
+                    registro.setNumLatasCerveza(Integer.parseInt(numLatas.getText().toString()));
+                    registro.setNumMediasBotellas(Integer.parseInt(numMediasBotellas.getText().toString()));
+                    registro.setNumLitrosCerveza(Integer.parseInt(numLitros.getText().toString()));
+                    dao.setRegistro(miembrosID, userID, groupID, registro);
+                    Log.d("BOTELLAS", registro.getNumBotellas() + "");
+                }
+            }
+        });
 
-                    @Override
-                    public void onError(Throwable error) {
+        dao.getRegistros(userID, groupID, new RegistrosListener() {
+            @Override
+            public void onRegistrosReceived(HashMap<String, List<Registro>> registrosGrupo) {
+                registros = registrosGrupo;
+            }
 
-                    }
-                });
-                /*Intent intent = new Intent(ContadorActivity.this, RankingActivity.class);
-                startActivity(intent);*/
+            @Override
+            public void onError(Throwable error) {
+
             }
         });
 

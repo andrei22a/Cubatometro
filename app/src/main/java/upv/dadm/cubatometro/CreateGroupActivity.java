@@ -84,6 +84,9 @@ public class CreateGroupActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                if(newText == null || newText.length() == 0){
+                    dao.getAllUsers();
+                }
                 adapter.getFilter().filter(newText);
                 return true;
             }
@@ -164,14 +167,14 @@ public class CreateGroupActivity extends AppCompatActivity {
     }
 
     protected void getSelectedMembers() {
-        ArrayList<Integer> selectedUsers = adapter.getSelectedIds();
-        for (int i = 0; i < selectedUsers.size(); i++) {
+        members = adapter.getSelectedIds();
+        /*for (int i = 0; i < selectedUsers.size(); i++) {
             //Log.d("SELECTED IDS", data.get(selectedUsers.get(i)).getUsername());
             String id = data.get(selectedUsers.get(i)).getUserID();
             String username = data.get(selectedUsers.get(i)).getUsername();
             ImageView profilePic = data.get(selectedUsers.get(i)).getProfilePic();
             members.add(new User(profilePic, username, id));
-        }
+        }*/
         //Log.d("ARRAY MEMBERS", members.toString());
     }
 

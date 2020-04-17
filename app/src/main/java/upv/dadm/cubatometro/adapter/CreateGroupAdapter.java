@@ -1,5 +1,6 @@
 package upv.dadm.cubatometro.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,12 +27,14 @@ import upv.dadm.cubatometro.R;
 
 public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.ViewHolder> {
     private ArrayList<User> data;
-    private ArrayList<Integer> checkArray;
+    private ArrayList<User> fullData;
+    private ArrayList<User> selectedMembers;
 
 
     public CreateGroupAdapter(ArrayList<User> data){
         this.data = data;
-        checkArray = new ArrayList<>();
+        fullData = new ArrayList<>(data);
+        selectedMembers = new ArrayList<>(data.size());
     }
 
     @NonNull
@@ -62,10 +65,11 @@ public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
-                    checkArray.add(position);
+                    selectedMembers.add(data.get(position));
                 } else {
-                    checkArray.remove(position);
+                    selectedMembers.remove(data.get(position));
                 }
+                Log.d("SELECTED MEMBERS", selectedMembers.toString());
             }
         });
     }
@@ -79,8 +83,8 @@ public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.
         return data.get(position);
     }
 
-    public ArrayList<Integer> getSelectedIds(){
-        return checkArray;
+    public ArrayList<User> getSelectedIds(){
+        return selectedMembers;
     }
 
     public Filter getFilter(){
@@ -91,12 +95,13 @@ public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             ArrayList<User> filteredList = new ArrayList<>();
-            if(constraint == null || constraint.length() == 0){
-                filteredList.addAll(data);
+            if (constraint == null || constraint.length() == 0){
+                filteredList.clear();
+                filteredList.addAll(fullData);
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
-                for (User user : data){
-                    if (user.getUsername().toLowerCase().contains(filterPattern)){
+                for (User user : data) {
+                    if (user.getUsername().toLowerCase().contains(filterPattern)) {
                         filteredList.add(user);
                     }
                 }

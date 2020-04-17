@@ -104,13 +104,13 @@ public class DAO {
                         Registro registro = new Registro();
 
                         registro.setFecha(registrosID.child("FechaRegistro").getValue().toString());
-                        registro.setNumBotellas(Integer.valueOf(registrosID.child("NumeroBotellas").getValue().toString()));
-                        registro.setNumBotellasVino(Integer.valueOf(registrosID.child("NumeroBotellasVino").getValue().toString()));
-                        registro.setNumChupitos(Integer.valueOf(registrosID.child("NumeroChupitos").getValue().toString()));
-                        registro.setNumJarrasCerveza(Integer.valueOf(registrosID.child("NumeroJarrasCerveza").getValue().toString()));
-                        registro.setNumLatasCerveza(Integer.valueOf(registrosID.child("NumeroLatasCerveza").getValue().toString()));
-                        registro.setNumLitrosCerveza(Integer.valueOf(registrosID.child("NumeroLitrosCerveza").getValue().toString()));
-                        registro.setNumMediasBotellas(Integer.valueOf(registrosID.child("NumeroMediasBotellas").getValue().toString()));
+                        registro.setNumBotellas(Integer.parseInt(registrosID.child("NumeroBotellas").getValue().toString()));
+                        registro.setNumBotellasVino(Integer.parseInt(registrosID.child("NumeroBotellasVino").getValue().toString()));
+                        registro.setNumChupitos(Integer.parseInt(registrosID.child("NumeroChupitos").getValue().toString()));
+                        registro.setNumJarrasCerveza(Integer.parseInt(registrosID.child("NumeroJarrasCerveza").getValue().toString()));
+                        registro.setNumLatasCerveza(Integer.parseInt(registrosID.child("NumeroLatasCerveza").getValue().toString()));
+                        registro.setNumLitrosCerveza(Integer.parseInt(registrosID.child("NumeroLitrosCerveza").getValue().toString()));
+                        registro.setNumMediasBotellas(Integer.parseInt(registrosID.child("NumeroMediasBotellas").getValue().toString()));
                         registros.add(registro);
                     }
                     member.setRegistros(registros);
@@ -206,13 +206,13 @@ public class DAO {
                         Registro registro = new Registro();
 
                         registro.setFecha(registroUsuario.child("FechaRegistro").getValue().toString());
-                        registro.setNumBotellas(Integer.valueOf(registroUsuario.child("NumeroBotellas").getValue().toString()));
-                        registro.setNumBotellasVino(Integer.valueOf(registroUsuario.child("NumeroBotellasVino").getValue().toString()));
-                        registro.setNumChupitos(Integer.valueOf(registroUsuario.child("NumeroChupitos").getValue().toString()));
-                        registro.setNumJarrasCerveza(Integer.valueOf(registroUsuario.child("NumeroJarrasCerveza").getValue().toString()));
-                        registro.setNumLatasCerveza(Integer.valueOf(registroUsuario.child("NumeroLatasCerveza").getValue().toString()));
-                        registro.setNumLitrosCerveza(Integer.valueOf(registroUsuario.child("NumeroLitrosCerveza").getValue().toString()));
-                        registro.setNumMediasBotellas(Integer.valueOf(registroUsuario.child("NumeroMediasBotellas").getValue().toString()));
+                        registro.setNumBotellas(Integer.parseInt(registroUsuario.child("NumeroBotellas").getValue().toString()));
+                        registro.setNumBotellasVino(Integer.parseInt(registroUsuario.child("NumeroBotellasVino").getValue().toString()));
+                        registro.setNumChupitos(Integer.parseInt(registroUsuario.child("NumeroChupitos").getValue().toString()));
+                        registro.setNumJarrasCerveza(Integer.parseInt(registroUsuario.child("NumeroJarrasCerveza").getValue().toString()));
+                        registro.setNumLatasCerveza(Integer.parseInt(registroUsuario.child("NumeroLatasCerveza").getValue().toString()));
+                        registro.setNumLitrosCerveza(Integer.parseInt(registroUsuario.child("NumeroLitrosCerveza").getValue().toString()));
+                        registro.setNumMediasBotellas(Integer.parseInt(registroUsuario.child("NumeroMediasBotellas").getValue().toString()));
 
                         registrosUsuario.add(registro);
                     }
@@ -228,34 +228,5 @@ public class DAO {
             }
         });
     }
-
-    public void getUser(String searchName){}
-        /* createGroup - inserta un grupo en la base de datos
-            argumentos - imagen , String groupName, ArrayList<User>
-            return void                                           */
-
-
-        /*  getUser - devuelve el usuario asociado a ese nombre
-            argumentos - String username
-            return - User                               */
-
-
-        /* getAllUsers - devuelve una lista con todos los usuarios registrados
-            return - ArrayList<User>                    */
-
-
-
-        /* getUserGroups - devuelve una lista con los grupos asociados a ese usuario
-            argumentos - User user
-            return - ArrayList<Grupo>
-                                                        */
-
-
-        /* getGroupMembers - devuelve una lista con los usuarios que forman parte de un grupo
-            argumentos - String groupName
-            return - ArrayList<User>                    */
-
-
-
 
 }
