@@ -13,14 +13,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ContadorActivity"></activity>
+        <activity android:name=".ContadorActivity"
+            android:parentActivityName=".RankingActivity" />
         <activity android:name=".RegisterUserActivity" />
         <activity
             android:name=".RankingActivity"
-            android:parentActivityName=".GroupsActivity" />
+            android:parentActivityName=".GroupsActivity"
+            android:label="@string/ranking_label"/>
         <activity
             android:name=".CreateGroupActivity"
-            android:parentActivityName=".GroupsActivity" />
+            android:parentActivityName=".GroupsActivity"
+            android:label=""/>
         <activity android:name=".GroupsActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>

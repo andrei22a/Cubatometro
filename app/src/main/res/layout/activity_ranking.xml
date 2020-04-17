@@ -6,27 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".RankingActivity">
 
-    <ListView
-        android:id="@+id/rankingmiembros_listview_ranking"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rankingmiembros_textview_ranking" />
-
     <TextView
         android:id="@+id/rankingmiembros_textview_ranking"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:textColor="@android:color/black"
         android:text="@string/ranking_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <FrameLayout
-        android:id="@+id/registro_fragment"
+    <ListView
+        android:id="@+id/rankingmiembros_listview_ranking"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rankingmiembros_textview_ranking" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

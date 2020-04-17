@@ -8,8 +8,8 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/menu_update_registro"
-        android:icon="@android:drawable/ic_menu_more"
+        android:id="@+id/menu_logout"
+        android:icon="@android:drawable/ic_lock_power_off"
         android:title="@string/menu_update_registro"
         app:showAsAction="always" />
 </menu>

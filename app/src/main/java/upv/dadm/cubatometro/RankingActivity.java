@@ -124,14 +124,14 @@ public class RankingActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu, menu);
+        menuInflater.inflate(R.menu.menu_ranking, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.menu_update_registro:
+            case R.id.menu_actualizar_registros:
                 startActivity(new Intent(RankingActivity.this, ContadorActivity.class));
                 return true;
 

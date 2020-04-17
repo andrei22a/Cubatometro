@@ -109,9 +109,9 @@ public class GroupsActivity extends AppCompatActivity {
                 startActivity(new Intent(GroupsActivity.this, CreateGroupActivity.class));
                 return true;
 
-            /*case R.id.menu_update_registro:
-                startActivity(new Intent(GroupsActivity.this, RankingActivity.class));
-                return true;*/
+            case R.id.menu_logout:
+                startActivity(new Intent(GroupsActivity.this, LoginActivity.class));
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);

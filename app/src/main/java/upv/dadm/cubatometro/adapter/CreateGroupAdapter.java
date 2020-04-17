@@ -8,7 +8,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Filter;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,8 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 
 import upv.dadm.cubatometro.Database.DAO;
 import upv.dadm.cubatometro.Listeners.ImageListener;
@@ -59,7 +56,6 @@ public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.
         });
         else {holder.memberIcon.setImageDrawable(data.get(position).getProfilePic().getDrawable());}
         holder.memberName.setText(data.get(position).getUsername());
-        holder.addMember.setChecked(false);
 
         holder.addMember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

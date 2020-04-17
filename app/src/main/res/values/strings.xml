@@ -1,15 +1,17 @@
 <resources>
     <string name="app_name">Cubatometro</string>
+
+    <!-- Login activity -->
     <string name="login_text">Inicie sesión para seguir</string>
     <string name="username">Nombre de usuario</string>
     <string name="password">Contraseña</string>
-    <string name="login">Iniciar sesión</string>
-    <string name="music_vote">¿Quién pone la música?</string>
+    <string name="login_label">Iniciar sesión</string>
+    <string name="registar_usuario_label">Registarse</string>
+    <string name="recordar_usuario">Recordar usuario en este dispositivo</string>
 
     <!-- Create group activity -->
     <string name="titulo_grupo_label">Nombre del grupo</string>
     <string name="añadir_miembros_label">Añadir miembros</string>
-    <string name="miembros_actuales_label">Miembros actuales</string>
     <string name="buscar_miembros_label">Buscar miembro</string>
 
     <!-- Ranking activity -->
@@ -19,7 +21,6 @@
     <string name="username_register_label">Nombre de usuario</string>
     <string name="email_register_label">Correo electrónico</string>
     <string name="password_register_label">Contraseña</string>
-    <string name="registar_usuario_label">Registarse</string>
 
     <!-- Groups activity -->
     <string name="dialog_message">¿Estás seguro de que quieres eliminar este grupo?</string>
@@ -31,10 +32,4 @@
     <string name="menu_update_registro">Actualizar puntuación</string>
 
     <!-- Chart -->
-    <string name="title_stadistics_activity_label"> Estadísticas pasadas</string>
-    <string name="introduce_dates_range_label"> Introduce rango de fechas </string>
-    <string name="beginning_date_label"> Fecha de inicio: </string>
-    <string name="end_date_label"> Fecha de fin: </string>
-    <string name="selected_dates_range_label"> Desde %s hasta %s </string>
-    <string name="search_button"> Buscar registros </string>
 </resources>
