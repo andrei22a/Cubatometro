@@ -9,29 +9,34 @@ public class User {
     private ImageView profilePic;
     private String username;
     private List<Registro> registros;
+    private boolean isSelected;
 
     public User(ImageView profilePic, String name, String userID, List<Registro> registros){
         this.profilePic = profilePic;
         this.username = name;
         this.userID = userID;
         this.registros = registros;
+        this.isSelected = false;
     }
 
     public User(ImageView profilePic, String name, String userID){
         this.profilePic = profilePic;
         this.username = name;
         this.userID = userID;
+        this.isSelected = false;
     }
 
     public User(String name, String userID, List<Registro> registros){
         this.username = name;
         this.userID = userID;
         this.registros = registros;
+        this.isSelected = false;
     }
 
     public User(String name, String userID){
         this.username = name;
         this.userID = userID;
+        this.isSelected = false;
     }
 
     public User(){}
@@ -46,6 +51,7 @@ public class User {
     public void setUserID(String userID) {
         this.userID = userID;
     }
+
     public ImageView getProfilePic() {
         return profilePic;
     }
@@ -68,5 +74,13 @@ public class User {
 
     public void setRegistros(List<Registro> registros) {
         this.registros = registros;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.isSelected = selected;
     }
 }

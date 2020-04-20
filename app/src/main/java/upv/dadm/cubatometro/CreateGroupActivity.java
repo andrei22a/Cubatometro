@@ -51,6 +51,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     public static CreateGroupAdapter adapter;
     private static Context context;
     private static ArrayList<User> data = new ArrayList<>();
+    private static ArrayList<User> originalData = new ArrayList<>();
     private static FirebaseAuth mAuth;
     private StorageReference mStorageRef;
     private Uri selectedImageUri;
@@ -85,6 +86,7 @@ public class CreateGroupActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 if(newText == null || newText.length() == 0){
+                    data.clear();
                     dao.getAllUsers();
                 }
                 adapter.getFilter().filter(newText);
@@ -135,6 +137,8 @@ public class CreateGroupActivity extends AppCompatActivity {
 
         /* Array de prueba. Hay que sustituir por llamada a método getAllUsers() */
         dao.getAllUsers();
+        originalData = data;
+
 
         adapter = new CreateGroupAdapter(data);
         recyclerView.setAdapter(adapter);
@@ -142,20 +146,6 @@ public class CreateGroupActivity extends AppCompatActivity {
 
     public static Context getAppContext() {
         return CreateGroupActivity.context;
-    }
-
-
-    private ArrayList<User> filter(ArrayList<User> datas, String newText) {
-        newText = newText.toLowerCase();
-
-        final ArrayList<User> filteredModelList = new ArrayList<>();
-        for (User data : datas) {
-            final String text = data.getUsername().toLowerCase();
-            if (text.contains(newText)) {
-                filteredModelList.add(data);
-            }
-        }
-        return filteredModelList;
     }
 
     protected void onActivityResult(int reqCode, int resultCode, Intent data) {

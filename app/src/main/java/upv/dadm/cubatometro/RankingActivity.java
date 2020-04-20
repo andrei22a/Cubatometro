@@ -49,28 +49,28 @@ public class RankingActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         /*** Obtener los miembros del grupo y guardarlos en el array members ***/
-        dao.getMiembrosConRegistros(mAuth.getCurrentUser().getUid(), groupID, new MiembrosConRegistroListener() {
-            @Override
-            public void onMiembrosReceived(List<User> miembros) {
-                data.clear();
-                for(User user : miembros){
-                    int puntos = calcularPuntos(user);
-                    data.add(new Ranking(user.getUsername(), puntos));
-                }
-            }
 
-            @Override
-            public void onError(Throwable error) {
-
-            }
-        });
         /*** Obtener los registros de cada miembro y añadir al array data los nombres de los miembros y su puntuación cada 20 segundos ***/
-        /*new Timer().scheduleAtFixedRate(new TimerTask() {
+        new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
+                dao.getMiembrosConRegistros(mAuth.getCurrentUser().getUid(), groupID, new MiembrosConRegistroListener() {
+                    @Override
+                    public void onMiembrosReceived(List<User> miembros) {
+                        data.clear();
+                        for(User user : miembros){
+                            int puntos = calcularPuntos(user);
+                            data.add(new Ranking(user.getUsername(), puntos));
+                        }
+                    }
 
+                    @Override
+                    public void onError(Throwable error) {
+
+                    }
+                });
             }
-        },0, 20000);*/
+        },0, 20000);
 
         listView = findViewById(R.id.rankingmiembros_listview_ranking);
         Collections.sort(data); // Ordenar el array descendentemente
@@ -133,6 +133,7 @@ public class RankingActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.menu_actualizar_registros:
                 startActivity(new Intent(RankingActivity.this, ContadorActivity.class));
+                finish();
                 return true;
 
             default:

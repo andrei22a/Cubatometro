@@ -56,13 +56,18 @@ public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.
         });
         else {holder.memberIcon.setImageDrawable(data.get(position).getProfilePic().getDrawable());}
         holder.memberName.setText(data.get(position).getUsername());
+        if (data.get(position).isSelected()){
+            holder.addMember.setChecked(true);
+        }
 
         holder.addMember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
+                    data.get(position).setSelected(true);
                     selectedMembers.add(data.get(position));
                 } else {
+                    data.get(position).setSelected(false);
                     selectedMembers.remove(data.get(position));
                 }
                 Log.d("SELECTED MEMBERS", selectedMembers.toString());
