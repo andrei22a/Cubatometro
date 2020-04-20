@@ -1,8 +1,10 @@
 package upv.dadm.cubatometro;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -163,7 +165,9 @@ public class StadisticsActivity extends AppCompatActivity {
                             @Override
                             public void onRegistrosReceived(HashMap<String, List<Registro>> registrosGrupo) throws ParseException {
                                 //TODO poner cuando se carguen los datos en las graficas
-
+                                closeKeyboard();
+                                clearDateInputs();
+                                changeLabel(initialDate, finalDate);
                                 cargarDatos(registrosGrupo);
                                 progressBar.setVisibility(View.GONE);
                             }
@@ -188,7 +192,7 @@ public class StadisticsActivity extends AppCompatActivity {
     }
 
     public boolean fechaEntreRango(String fechaRegistro, String fechaInicial, String fechaFinal) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
         Date fechaInicialDate = format.parse(fechaInicial);
         Date fechaFinalDate = format.parse(fechaFinal);
@@ -214,10 +218,7 @@ public class StadisticsActivity extends AppCompatActivity {
 
 
             for(Registro registro : registrosUsuario) {
-                //if(fechaEntreRango(registro.getFecha(), initialDate, finalDate)){
-                    /*totalScore += registro.getNumBotellas() * 20 + registro.getNumMediasBotellas() * 8 + registro.getNumLitrosCerveza() * 3
-                            + registro.getNumJarrasCerveza() * 2 + registro.getNumLatasCerveza() + registro.getNumLitrosCerveza() * 4
-                            + registro.getNumChupitos();*/
+                if(fechaEntreRango(registro.getFecha(), initialDate, finalDate)){
                     numBotellas += registro.getNumBotellas();
                     numMediasBotellas += registro.getNumMediasBotellas();
                     numLitros += registro.getNumLitrosCerveza();
@@ -225,7 +226,7 @@ public class StadisticsActivity extends AppCompatActivity {
                     numLatas += registro.getNumLatasCerveza();
                     numVinos += registro.getNumBotellasVino();
                     numChupitos += registro.getNumChupitos();
-                //}
+                }
             }
 
             yValues.add(new Entry(1, numBotellas));
@@ -249,5 +250,23 @@ public class StadisticsActivity extends AppCompatActivity {
     public int randomColorGenerator(){
         Random generator = new Random();
         return generator.nextInt(256);
+    }
+
+    private void closeKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+    private void changeLabel(String initialDate, String finalDate){
+        selectedDateRangeLabel.setText(getString(R.string.selected_dates_range_label).replace("%1s", initialDate).replace("%2s", finalDate));
+        selectedDateRangeLabel.setVisibility(View.VISIBLE);
+    }
+
+    private void clearDateInputs(){
+        initialDateInput.getText().clear();
+        finalDateInput.getText().clear();
     }
 }

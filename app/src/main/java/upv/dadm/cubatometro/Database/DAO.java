@@ -219,7 +219,6 @@ public class DAO {
                     }
                     registros.put(miembro.child("NombreUsuario").getValue().toString(), registrosUsuario);
                 }
-
                 try {
                     callback.onRegistrosReceived(registros);
                 } catch (ParseException e) {

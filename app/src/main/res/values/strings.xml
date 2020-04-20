@@ -38,6 +38,6 @@
     <string name="beginning_date_label">Fecha de inicio: </string>
     <string name="end_date_label">Fecha de fin: </string>
     <string name="search_button">Buscar registros</string>
-    <string name="selected_dates_range_label">Desde %s hasta %s</string>
+    <string name="selected_dates_range_label">Desde %1s hasta %2s</string>
 
 </resources>

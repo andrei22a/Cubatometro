@@ -13,9 +13,5 @@
         android:title="@string/menu_update_registro"
         app:showAsAction="always" />
 
-    <item
-        android:id="@+id/menu_view_stadistics"
-        android:icon="@android:drawable/ic_menu_info_details"
-        android:title="@string/menu_view_stadistics"
-        app:showAsAction="always" />
+
 </menu>
