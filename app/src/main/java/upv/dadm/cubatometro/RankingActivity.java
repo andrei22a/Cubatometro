@@ -135,6 +135,11 @@ public class RankingActivity extends AppCompatActivity {
                 startActivity(new Intent(RankingActivity.this, ContadorActivity.class));
                 finish();
                 return true;
+            case R.id.menu_view_stadistics:
+                String groupID = getIntent().getStringExtra("groupID");
+                Intent intent = new Intent(RankingActivity.this, StadisticsActivity.class);
+                intent.putExtra("groupID", groupID);
+                startActivity(intent);
 
             default:
                 return super.onOptionsItemSelected(item);

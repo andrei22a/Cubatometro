@@ -5,5 +5,5 @@
         android:id="@+id/menu_actualizar_registros"
         app:showAsAction="always"
         android:title="Actualizar Puntuación"
-        android:icon="@mipmap/ic_menu"/>
+        android:icon="@android:drawable/btn_dialog"/>
 </menu>

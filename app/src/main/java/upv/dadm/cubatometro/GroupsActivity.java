@@ -61,6 +61,7 @@ public class GroupsActivity extends AppCompatActivity {
                 editor.putString("groupID", groupID);
                 editor.commit();
                 Intent intent = new Intent(GroupsActivity.this, RankingActivity.class);
+                intent.putExtra("groupID", groupID);
                 startActivity(intent);
             }
         };

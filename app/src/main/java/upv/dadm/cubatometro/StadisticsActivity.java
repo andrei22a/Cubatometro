@@ -1,0 +1,253 @@
+package upv.dadm.cubatometro;
+
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.lang.reflect.Array;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+import upv.dadm.cubatometro.Database.DAO;
+import upv.dadm.cubatometro.Listeners.RegistrosListener;
+import upv.dadm.cubatometro.entidades.Registro;
+
+public class StadisticsActivity extends AppCompatActivity {
+
+    private DAO dao = new DAO();
+    private FirebaseAuth mAuth;
+
+    private TextView selectedDateRangeLabel;
+    private EditText initialDateInput;
+    private EditText finalDateInput;
+    private Button searchButton;
+    private LineChart lineChart;
+    private ProgressBar progressBar;
+
+    private int totalScore;
+    private String initialDate;
+    private String finalDate;
+
+    String username;
+    private String groupID;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_stadistics);
+
+
+        groupID = getIntent().getStringExtra("groupID");
+
+        mAuth = FirebaseAuth.getInstance();
+        username = mAuth.getCurrentUser().getDisplayName();
+
+        selectedDateRangeLabel = findViewById(R.id.selected_dates_textView);
+        initialDateInput = findViewById(R.id.initial_date_editText);
+        finalDateInput = findViewById(R.id.final_date_editText);
+        searchButton = findViewById(R.id.search_button);
+        lineChart = findViewById(R.id.line_chart);
+        progressBar = findViewById(R.id.progressBar);
+
+        ArrayList<String> xLabels = new ArrayList<>();
+        xLabels.add("");
+        xLabels.add("Botellas");
+        xLabels.add("1/2 Botellas");
+        xLabels.add("Litros");
+        xLabels.add("Jarras");
+        xLabels.add("Latas");
+        xLabels.add("Vino");
+        xLabels.add("Chupitos");
+
+
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setCenterAxisLabels(false);
+        xAxis.setPosition(XAxis.XAxisPosition.TOP);
+        xAxis.setLabelCount(xLabels.size());
+        xAxis.setGranularity(1);
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(xLabels));
+
+
+
+       /* ArrayList<Entry> yValuesSebas = new ArrayList<>();
+        yValuesSebas.add(new Entry(1, 40f));
+        yValuesSebas.add(new Entry(2, 10f));
+        yValuesSebas.add(new Entry(3, 20f));
+        yValuesSebas.add(new Entry(4, 50f));
+        yValuesSebas.add(new Entry(5, 40f));
+        yValuesSebas.add(new Entry(6, 10f));
+        yValuesSebas.add(new Entry(7, 20f));
+
+        ArrayList<Entry> yValuesQuino = new ArrayList<>();
+        yValuesQuino.add(new Entry(1, 40f));
+        yValuesQuino.add(new Entry(2, 30f));
+        yValuesQuino.add(new Entry(3, 20f));
+        yValuesQuino.add(new Entry(4, 20f));
+        yValuesQuino.add(new Entry(5, 40f));
+        yValuesQuino.add(new Entry(6, 10f));
+        yValuesQuino.add(new Entry(7, 50f));
+
+        ArrayList<Entry> yValuesNazar = new ArrayList<>();
+        yValuesNazar.add(new Entry(1, 10f));
+        yValuesNazar.add(new Entry(2, 10f));
+        yValuesNazar.add(new Entry(3, 20f));
+        yValuesNazar.add(new Entry(4, 50f));
+        yValuesNazar.add(new Entry(5, 40f));
+        yValuesNazar.add(new Entry(6, 30f));
+        yValuesNazar.add(new Entry(7, 20f));
+
+        LineDataSet lineDataSetSebas = new LineDataSet(yValuesSebas, "Sebas");
+        LineDataSet lineDataSetQuino = new LineDataSet(yValuesQuino, "Quino");
+        LineDataSet lineDataSetNazar = new LineDataSet(yValuesNazar, "Nazar");
+
+        lineDataSetSebas.setColor(Color.RED);
+        lineDataSetQuino.setColor(Color.YELLOW);
+        lineDataSetNazar.setColor(Color.GREEN);
+
+       ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+       dataSets.add(lineDataSetSebas);
+       dataSets.add(lineDataSetQuino);
+       dataSets.add(lineDataSetNazar);
+
+       LineData lineData = new LineData(dataSets);
+
+       lineChart.setData(lineData);*/
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!initialDateInput.getText().equals("") && !finalDateInput.getText().equals("")){
+                    if(initialDateInput.getText().toString().matches("^\\d{1,2}\\/\\d{1,2}\\/\\d{4}$") && finalDateInput.getText().toString().matches("^\\d{1,2}\\/\\d{1,2}\\/\\d{4}$")){
+                        initialDate = initialDateInput.getText().toString();
+                        finalDate = finalDateInput.getText().toString();
+
+                        progressBar.setVisibility(View.VISIBLE);
+
+
+
+                        dao.getRegistros(mAuth.getCurrentUser().getUid(), groupID, new RegistrosListener() {
+                            @Override
+                            public void onRegistrosReceived(HashMap<String, List<Registro>> registrosGrupo) throws ParseException {
+                                //TODO poner cuando se carguen los datos en las graficas
+
+                                cargarDatos(registrosGrupo);
+                                progressBar.setVisibility(View.GONE);
+                            }
+
+                            @Override
+                            public void onError(Throwable error) {
+
+                            }
+                        });
+
+
+
+                    } else {
+                        toastMessage("Error: el formato de las fechas debe ser dd/MM/yyyy");
+                    }
+                } else {
+                    toastMessage("Rellena los campos fecha inicial y fecha final");
+                }
+            }
+        });
+
+    }
+
+    public boolean fechaEntreRango(String fechaRegistro, String fechaInicial, String fechaFinal) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+
+        Date fechaInicialDate = format.parse(fechaInicial);
+        Date fechaFinalDate = format.parse(fechaFinal);
+        Date fechaRegistroDate = format.parse(fechaRegistro);
+
+        if (fechaRegistroDate.compareTo(fechaFinalDate) <= 0 && fechaRegistroDate.compareTo(fechaInicialDate) >= 0) {
+            return true;
+        } else return false;
+    }
+
+    private void toastMessage(String message){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public void cargarDatos(HashMap<String, List<Registro>> registros) throws ParseException {
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+
+        for(Map.Entry<String, List<Registro>> entry : registros.entrySet()) {
+            float numBotellas = 0, numMediasBotellas = 0, numLitros = 0, numJarras = 0, numLatas = 0, numVinos = 0, numChupitos = 0;
+            List<Registro> registrosUsuario = entry.getValue();
+            String nombreUsuario = entry.getKey();
+            ArrayList<Entry> yValues = new ArrayList<>();
+
+
+            for(Registro registro : registrosUsuario) {
+                //if(fechaEntreRango(registro.getFecha(), initialDate, finalDate)){
+                    /*totalScore += registro.getNumBotellas() * 20 + registro.getNumMediasBotellas() * 8 + registro.getNumLitrosCerveza() * 3
+                            + registro.getNumJarrasCerveza() * 2 + registro.getNumLatasCerveza() + registro.getNumLitrosCerveza() * 4
+                            + registro.getNumChupitos();*/
+                    numBotellas += registro.getNumBotellas();
+                    numMediasBotellas += registro.getNumMediasBotellas();
+                    numLitros += registro.getNumLitrosCerveza();
+                    numJarras += registro.getNumJarrasCerveza();
+                    numLatas += registro.getNumLatasCerveza();
+                    numVinos += registro.getNumBotellasVino();
+                    numChupitos += registro.getNumChupitos();
+                //}
+            }
+
+            yValues.add(new Entry(1, numBotellas));
+            yValues.add(new Entry(2, numMediasBotellas));
+            yValues.add(new Entry(3, numLitros));
+            yValues.add(new Entry(4, numJarras));
+            yValues.add(new Entry(5, numLatas));
+            yValues.add(new Entry(6, numVinos));
+            yValues.add(new Entry(7, numChupitos));
+
+            LineDataSet lineDataSet = new LineDataSet(yValues, nombreUsuario);
+            lineDataSet.setColor(Color.rgb(randomColorGenerator(), randomColorGenerator(), randomColorGenerator()));
+            dataSets.add(lineDataSet);
+        }
+
+        LineData lineData = new LineData(dataSets);
+        lineChart.setData(lineData);
+
+    }
+
+    public int randomColorGenerator(){
+        Random generator = new Random();
+        return generator.nextInt(256);
+    }
+}

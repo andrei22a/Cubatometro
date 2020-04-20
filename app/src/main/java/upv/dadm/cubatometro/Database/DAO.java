@@ -19,6 +19,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -66,7 +68,6 @@ public class DAO {
 
    public void getGroups(String userID, final GroupsListener callback){
        final List<Grupo> userGroups = new ArrayList<>();
-       final List<User> members = new ArrayList<>();
        DatabaseReference userGroupsRef = FirebaseIni.getInstance().getReference("Users").child(userID).child("Groups");
        userGroupsRef.addValueEventListener(new ValueEventListener() {
            @Override
@@ -202,7 +203,7 @@ public class DAO {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot miembro : dataSnapshot.getChildren()){
                     List<Registro> registrosUsuario = new ArrayList<>();
-                    for(DataSnapshot registroUsuario : miembro.child("Registro").getChildren()) {
+                    for(DataSnapshot registroUsuario : miembro.child("Registros").getChildren()) {
                         Registro registro = new Registro();
 
                         registro.setFecha(registroUsuario.child("FechaRegistro").getValue().toString());
@@ -216,10 +217,14 @@ public class DAO {
 
                         registrosUsuario.add(registro);
                     }
-                    registros.put(miembro.getKey(), registrosUsuario);
+                    registros.put(miembro.child("NombreUsuario").getValue().toString(), registrosUsuario);
                 }
 
-                callback.onRegistrosReceived(registros);
+                try {
+                    callback.onRegistrosReceived(registros);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
