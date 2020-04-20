@@ -15,7 +15,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -43,6 +45,7 @@ public class GroupsActivity extends AppCompatActivity {
     private OnItemLongClickListener longClickListener;
     private DAO dao = new DAO();
     private FirebaseAuth mAuth;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,9 @@ public class GroupsActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         preferences = getSharedPreferences("groupDetails", MODE_PRIVATE);
         editor = preferences.edit();
+
+        progressBar = findViewById(R.id.progressBar_groups);
+        progressBar.setVisibility(View.VISIBLE);
 
         /* Listener que cambia de actividad cuando se pulsa sobre un grupo */
         clickListener = new OnItemClickListener() {
@@ -81,6 +87,7 @@ public class GroupsActivity extends AppCompatActivity {
         dao.getGroups(mAuth.getCurrentUser().getUid(), new GroupsListener() {
             @Override
             public void onGroupsReceived(List<Grupo> grupos) {
+                progressBar.setVisibility(View.GONE);
                 data = (ArrayList<Grupo>) grupos;
                 adapter = new ListGroupsAdapter(data, clickListener, longClickListener);
                 recyclerView.setAdapter(adapter);

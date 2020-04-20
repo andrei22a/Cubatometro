@@ -83,7 +83,7 @@ public class StadisticsActivity extends AppCompatActivity {
         finalDateInput = findViewById(R.id.final_date_editText);
         searchButton = findViewById(R.id.search_button);
         lineChart = findViewById(R.id.line_chart);
-        progressBar = findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar_stadistics);
 
         ArrayList<String> xLabels = new ArrayList<>();
         xLabels.add("");
@@ -103,51 +103,6 @@ public class StadisticsActivity extends AppCompatActivity {
         xAxis.setGranularity(1);
         xAxis.setValueFormatter(new IndexAxisValueFormatter(xLabels));
 
-
-
-       /* ArrayList<Entry> yValuesSebas = new ArrayList<>();
-        yValuesSebas.add(new Entry(1, 40f));
-        yValuesSebas.add(new Entry(2, 10f));
-        yValuesSebas.add(new Entry(3, 20f));
-        yValuesSebas.add(new Entry(4, 50f));
-        yValuesSebas.add(new Entry(5, 40f));
-        yValuesSebas.add(new Entry(6, 10f));
-        yValuesSebas.add(new Entry(7, 20f));
-
-        ArrayList<Entry> yValuesQuino = new ArrayList<>();
-        yValuesQuino.add(new Entry(1, 40f));
-        yValuesQuino.add(new Entry(2, 30f));
-        yValuesQuino.add(new Entry(3, 20f));
-        yValuesQuino.add(new Entry(4, 20f));
-        yValuesQuino.add(new Entry(5, 40f));
-        yValuesQuino.add(new Entry(6, 10f));
-        yValuesQuino.add(new Entry(7, 50f));
-
-        ArrayList<Entry> yValuesNazar = new ArrayList<>();
-        yValuesNazar.add(new Entry(1, 10f));
-        yValuesNazar.add(new Entry(2, 10f));
-        yValuesNazar.add(new Entry(3, 20f));
-        yValuesNazar.add(new Entry(4, 50f));
-        yValuesNazar.add(new Entry(5, 40f));
-        yValuesNazar.add(new Entry(6, 30f));
-        yValuesNazar.add(new Entry(7, 20f));
-
-        LineDataSet lineDataSetSebas = new LineDataSet(yValuesSebas, "Sebas");
-        LineDataSet lineDataSetQuino = new LineDataSet(yValuesQuino, "Quino");
-        LineDataSet lineDataSetNazar = new LineDataSet(yValuesNazar, "Nazar");
-
-        lineDataSetSebas.setColor(Color.RED);
-        lineDataSetQuino.setColor(Color.YELLOW);
-        lineDataSetNazar.setColor(Color.GREEN);
-
-       ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-       dataSets.add(lineDataSetSebas);
-       dataSets.add(lineDataSetQuino);
-       dataSets.add(lineDataSetNazar);
-
-       LineData lineData = new LineData(dataSets);
-
-       lineChart.setData(lineData);*/
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
