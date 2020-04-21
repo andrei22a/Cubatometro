@@ -91,7 +91,7 @@ public class ContadorActivity extends AppCompatActivity {
                 }
 
 
-                //startActivity(new Intent(ContadorActivity.this, RankingActivity.class));
+                startActivity(new Intent(ContadorActivity.this, RankingActivity.class));
             }
 
 

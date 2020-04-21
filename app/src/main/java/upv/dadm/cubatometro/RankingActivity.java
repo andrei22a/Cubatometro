@@ -48,6 +48,7 @@ public class RankingActivity extends AppCompatActivity {
         groupID = getSharedPreferences("groupDetails", MODE_PRIVATE).getString("groupID", "");
 
         mAuth = FirebaseAuth.getInstance();
+        listView = findViewById(R.id.rankingmiembros_listview_ranking);
 
         /*** Obtener los miembros del grupo y guardarlos en el array members ***/
 
@@ -64,8 +65,11 @@ public class RankingActivity extends AppCompatActivity {
                     Log.d("miembrosID", miembrosID.toString());
                     data.add(new Ranking(user.getUsername(), puntos));
                 }
-                Collections.sort(data);
-            }
+                Collections.sort(data); // Ordenar el array descendentemente
+                adapter = new RankingAdapter(data, getApplicationContext());
+                listView.setAdapter(adapter);
+
+                adapter.notifyDataSetChanged();            }
 
             @Override
             public void onError(Throwable error) {
@@ -73,12 +77,7 @@ public class RankingActivity extends AppCompatActivity {
             }
         });
 
-        listView = findViewById(R.id.rankingmiembros_listview_ranking);
-        Collections.sort(data); // Ordenar el array descendentemente
-        adapter = new RankingAdapter(data, this);
-        listView.setAdapter(adapter);
 
-        adapter.notifyDataSetChanged();
     }
 
     /*@Override
@@ -160,7 +159,7 @@ public class RankingActivity extends AppCompatActivity {
             int latas = registro.getNumLatasCerveza();
             int vino = registro.getNumBotellasVino();
             int chupitos = registro.getNumChupitos();
-            res = botellas*20 + mediasBotellas*8 + jarras*2 + litros*3 + latas*1 + vino*4 + chupitos*1;
+            res += botellas*20 + mediasBotellas*8 + jarras*2 + litros*3 + latas*1 + vino*4 + chupitos*1;
         }
 
         return res;
