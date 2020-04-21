@@ -64,6 +64,7 @@ public class RankingActivity extends AppCompatActivity {
                     Log.d("miembrosID", miembrosID.toString());
                     data.add(new Ranking(user.getUsername(), puntos));
                 }
+                Collections.sort(data);
             }
 
             @Override
