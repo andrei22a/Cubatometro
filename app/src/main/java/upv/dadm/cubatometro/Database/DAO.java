@@ -3,9 +3,11 @@ package upv.dadm.cubatometro.Database;
 import android.content.Context;
 import android.media.Image;
 import android.net.Uri;
+import android.os.Build;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
@@ -93,6 +95,7 @@ public class DAO {
         final List<User> miembrosConRegistro = new ArrayList<>();
         final DatabaseReference groupMembersRef = FirebaseIni.getInstance().getReference("Users").child(userID).child("Groups").child(groupID).child("Miembros");
         groupMembersRef.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot userID : dataSnapshot.getChildren()){
@@ -199,6 +202,7 @@ public class DAO {
         final HashMap<String, List<Registro>> registros = new HashMap<>();
         DatabaseReference groupMembersRef = FirebaseIni.getInstance().getReference("Users").child(currentUserID).child("Groups").child(groupID).child("Miembros");
         groupMembersRef.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot miembro : dataSnapshot.getChildren()){

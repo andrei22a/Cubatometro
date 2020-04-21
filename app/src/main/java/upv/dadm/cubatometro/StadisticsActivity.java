@@ -104,7 +104,7 @@ public class StadisticsActivity extends AppCompatActivity {
         xAxis.setValueFormatter(new IndexAxisValueFormatter(xLabels));
 
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
+       /* searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!initialDateInput.getText().equals("") && !finalDateInput.getText().equals("")){
@@ -142,8 +142,45 @@ public class StadisticsActivity extends AppCompatActivity {
                     toastMessage("Rellena los campos fecha inicial y fecha final");
                 }
             }
-        });
+        });*/
 
+    }
+
+    public void onClickSearchButton(View view){
+        if(!initialDateInput.getText().toString().equals("") && !finalDateInput.getText().toString().equals("")){
+            if(initialDateInput.getText().toString().matches("^\\d{1,2}\\/\\d{1,2}\\/\\d{4}$") && finalDateInput.getText().toString().matches("^\\d{1,2}\\/\\d{1,2}\\/\\d{4}$")){
+                initialDate = initialDateInput.getText().toString();
+                finalDate = finalDateInput.getText().toString();
+
+                progressBar.setVisibility(View.VISIBLE);
+
+
+
+                dao.getRegistros(mAuth.getCurrentUser().getUid(), groupID, new RegistrosListener() {
+                    @Override
+                    public void onRegistrosReceived(HashMap<String, List<Registro>> registrosGrupo) throws ParseException {
+                        //TODO poner cuando se carguen los datos en las graficas
+                        closeKeyboard();
+                        clearDateInputs();
+                        changeLabel(initialDate, finalDate);
+                        cargarDatos(registrosGrupo);
+                        progressBar.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError(Throwable error) {
+
+                    }
+                });
+
+
+
+            } else {
+                toastMessage("Error: el formato de las fechas debe ser dd/MM/yyyy");
+            }
+        } else {
+            toastMessage("Rellena los campos fecha inicial y fecha final");
+        }
     }
 
     public boolean fechaEntreRango(String fechaRegistro, String fechaInicial, String fechaFinal) throws ParseException {

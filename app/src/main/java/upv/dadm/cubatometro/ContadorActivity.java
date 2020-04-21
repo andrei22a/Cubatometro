@@ -1,8 +1,10 @@
 package upv.dadm.cubatometro;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -71,6 +73,7 @@ public class ContadorActivity extends AppCompatActivity {
 
         final Button actualizar = findViewById(R.id.actualizar_registro_button);
         actualizar.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 if(numBotellas.getText().toString().equals("0") && numVino.getText().toString().equals("0") && numChupitos.getText().toString().equals("0") && numJarras.getText().toString().equals("0") && numLatas.getText().toString().equals("0") && numMediasBotellas.getText().toString().equals("0") && numLitros.getText().toString().equals("0")){

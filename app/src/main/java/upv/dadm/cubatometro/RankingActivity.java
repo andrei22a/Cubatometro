@@ -155,7 +155,7 @@ public class RankingActivity extends AppCompatActivity {
             int botellas = registro.getNumBotellas();
             int mediasBotellas = registro.getNumMediasBotellas();
             int jarras = registro.getNumJarrasCerveza();
-            int litros = registro.getNumLitrosCerveza();
+        int litros = registro.getNumLitrosCerveza();
             int latas = registro.getNumLatasCerveza();
             int vino = registro.getNumBotellasVino();
             int chupitos = registro.getNumChupitos();
