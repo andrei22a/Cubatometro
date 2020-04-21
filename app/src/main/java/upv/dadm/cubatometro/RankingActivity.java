@@ -52,30 +52,25 @@ public class RankingActivity extends AppCompatActivity {
         /*** Obtener los miembros del grupo y guardarlos en el array members ***/
 
         /*** Obtener los registros de cada miembro y añadir al array data los nombres de los miembros y su puntuación cada 20 segundos ***/
-        new Timer().scheduleAtFixedRate(new TimerTask() {
+        dao.getMiembrosConRegistros(mAuth.getCurrentUser().getUid(), groupID, new MiembrosConRegistroListener() {
             @Override
-            public void run() {
-                dao.getMiembrosConRegistros(mAuth.getCurrentUser().getUid(), groupID, new MiembrosConRegistroListener() {
-                    @Override
-                    public void onMiembrosReceived(List<User> miembros) {
-                        miembrosID.clear();
-                        data.clear();
-                        for(User user : miembros){
-                            int puntos = calcularPuntos(user);
-                            String userID = user.getUserID();
-                            miembrosID.add(userID);
-                            Log.d("miembrosID", miembrosID.toString());
-                            data.add(new Ranking(user.getUsername(), puntos));
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable error) {
-
-                    }
-                });
+            public void onMiembrosReceived(List<User> miembros) {
+                miembrosID.clear();
+                data.clear();
+                for(User user : miembros){
+                    int puntos = calcularPuntos(user);
+                    String userID = user.getUserID();
+                    miembrosID.add(userID);
+                    Log.d("miembrosID", miembrosID.toString());
+                    data.add(new Ranking(user.getUsername(), puntos));
+                }
             }
-        },0, 20000);
+
+            @Override
+            public void onError(Throwable error) {
+
+            }
+        });
 
         listView = findViewById(R.id.rankingmiembros_listview_ranking);
         Collections.sort(data); // Ordenar el array descendentemente

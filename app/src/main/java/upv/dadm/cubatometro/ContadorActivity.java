@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -72,18 +73,23 @@ public class ContadorActivity extends AppCompatActivity {
         actualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("PUNTOS", calcularPuntos() + "");
-                Registro registro = new Registro();
-                registro.setNumLitrosCerveza(Integer.parseInt(numLitros.getText().toString()));
-                registro.setNumMediasBotellas(Integer.parseInt(numMediasBotellas.getText().toString()));
-                registro.setNumLatasCerveza(Integer.parseInt(numLatas.getText().toString()));
-                registro.setNumJarrasCerveza(Integer.parseInt(numJarras.getText().toString()));
-                registro.setNumChupitos(Integer.parseInt(numChupitos.getText().toString()));
-                registro.setNumBotellasVino(Integer.parseInt(numVino.getText().toString()));
-                registro.setNumBotellas(Integer.parseInt(numBotellas.getText().toString()));
-                Log.d("REGISTRO", registro.getNumBotellas() + "");
-                assert miembrosID != null;
-                dao.setRegistro(miembrosID, userID, groupID, registro);
+                if(numBotellas.getText().toString().equals("0") || numVino.getText().toString().equals("0") || numChupitos.getText().toString().equals("0") || numJarras.getText().toString().equals("0") || numLatas.getText().toString().equals("0") || numMediasBotellas.getText().toString().equals("0") || numLitros.getText().toString().equals("0")){
+                    Toast.makeText(ContadorActivity.this, "Alguno de los contadores es igual a 0", Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.d("PUNTOS", calcularPuntos() + "");
+                    Registro registro = new Registro();
+                    registro.setNumLitrosCerveza(Integer.parseInt(numLitros.getText().toString()));
+                    registro.setNumMediasBotellas(Integer.parseInt(numMediasBotellas.getText().toString()));
+                    registro.setNumLatasCerveza(Integer.parseInt(numLatas.getText().toString()));
+                    registro.setNumJarrasCerveza(Integer.parseInt(numJarras.getText().toString()));
+                    registro.setNumChupitos(Integer.parseInt(numChupitos.getText().toString()));
+                    registro.setNumBotellasVino(Integer.parseInt(numVino.getText().toString()));
+                    registro.setNumBotellas(Integer.parseInt(numBotellas.getText().toString()));
+                    Log.d("REGISTRO", registro.getNumBotellas() + "");
+                    assert miembrosID != null;
+                    dao.setRegistro(miembrosID, userID, groupID, registro);
+                }
+
 
                 //startActivity(new Intent(ContadorActivity.this, RankingActivity.class));
             }
