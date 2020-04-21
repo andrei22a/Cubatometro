@@ -90,7 +90,6 @@ public class DAO {
    }
 
    public void getMiembrosConRegistros(String userID, String groupID, final MiembrosConRegistroListener callback){
-        final List<Registro> registros = new ArrayList<>();
         final List<User> miembrosConRegistro = new ArrayList<>();
         final DatabaseReference groupMembersRef = FirebaseIni.getInstance().getReference("Users").child(userID).child("Groups").child(groupID).child("Miembros");
         groupMembersRef.addValueEventListener(new ValueEventListener() {
@@ -101,6 +100,7 @@ public class DAO {
                     member.setUserID(userID.getKey());
                     member.setUsername(userID.child("NombreUsuario").getValue().toString());
 
+                    final List<Registro> registros = new ArrayList<>();
                     for(DataSnapshot registrosID : userID.child("Registros").getChildren()) {
                         Registro registro = new Registro();
 
