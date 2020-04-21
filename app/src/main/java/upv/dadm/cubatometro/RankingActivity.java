@@ -37,6 +37,7 @@ public class RankingActivity extends AppCompatActivity {
     private ArrayList<Ranking> data = new ArrayList<>();
     private DAO dao = new DAO();
     private FirebaseAuth mAuth;
+    private ArrayList<String> miembrosID = new ArrayList<>();
 
 
     @Override
@@ -57,9 +58,13 @@ public class RankingActivity extends AppCompatActivity {
                 dao.getMiembrosConRegistros(mAuth.getCurrentUser().getUid(), groupID, new MiembrosConRegistroListener() {
                     @Override
                     public void onMiembrosReceived(List<User> miembros) {
+                        miembrosID.clear();
                         data.clear();
                         for(User user : miembros){
                             int puntos = calcularPuntos(user);
+                            String userID = user.getUserID();
+                            miembrosID.add(userID);
+                            Log.d("miembrosID", miembrosID.toString());
                             data.add(new Ranking(user.getUsername(), puntos));
                         }
                     }
@@ -80,7 +85,7 @@ public class RankingActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    @Override
+    /*@Override
     protected void onResume() {
         super.onResume();
         adapter = new RankingAdapter(data, this);
@@ -119,7 +124,7 @@ public class RankingActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d("ON DESTROY", data.toString());
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -132,14 +137,16 @@ public class RankingActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_actualizar_registros:
-                startActivity(new Intent(RankingActivity.this, ContadorActivity.class));
-                finish();
+                Intent registrosIntent = new Intent(RankingActivity.this, ContadorActivity.class);
+                registrosIntent.putStringArrayListExtra("miembrosID", miembrosID);
+                startActivity(registrosIntent);
                 return true;
             case R.id.menu_view_stadistics:
                 String groupID = getIntent().getStringExtra("groupID");
-                Intent intent = new Intent(RankingActivity.this, StadisticsActivity.class);
-                intent.putExtra("groupID", groupID);
-                startActivity(intent);
+                Intent stadisticsIntent = new Intent(RankingActivity.this, StadisticsActivity.class);
+                stadisticsIntent.putExtra("groupID", groupID);
+                startActivity(stadisticsIntent);
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);

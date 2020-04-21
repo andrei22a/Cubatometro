@@ -98,20 +98,19 @@ public class DAO {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot userID : dataSnapshot.getChildren()){
                     final User member = new User();
-                    member.setUserID(userID.toString());
+                    member.setUserID(userID.getKey());
                     member.setUsername(userID.child("NombreUsuario").getValue().toString());
 
                     for(DataSnapshot registrosID : userID.child("Registros").getChildren()) {
                         Registro registro = new Registro();
 
                         registro.setFecha(registrosID.child("FechaRegistro").getValue().toString());
-                        registro.setNumBotellas(Integer.parseInt(registrosID.child("NumeroBotellas").getValue().toString()));
-                        registro.setNumBotellasVino(Integer.parseInt(registrosID.child("NumeroBotellasVino").getValue().toString()));
-                        registro.setNumChupitos(Integer.parseInt(registrosID.child("NumeroChupitos").getValue().toString()));
-                        registro.setNumJarrasCerveza(Integer.parseInt(registrosID.child("NumeroJarrasCerveza").getValue().toString()));
-                        registro.setNumLatasCerveza(Integer.parseInt(registrosID.child("NumeroLatasCerveza").getValue().toString()));
-                        registro.setNumLitrosCerveza(Integer.parseInt(registrosID.child("NumeroLitrosCerveza").getValue().toString()));
-                        registro.setNumMediasBotellas(Integer.parseInt(registrosID.child("NumeroMediasBotellas").getValue().toString()));
+                        registro.setNumBotellas(Integer.valueOf(registrosID.child("NumeroBotellas").getValue().toString()));
+                        registro.setNumBotellasVino(Integer.valueOf(registrosID.child("NumeroBotellasVino").getValue().toString()));
+                        registro.setNumChupitos(Integer.valueOf(registrosID.child("NumeroChupitos").getValue().toString()));
+                        registro.setNumJarrasCerveza(Integer.valueOf(registrosID.child("NumeroJarrasCerveza").getValue().toString()));
+                        registro.setNumLatasCerveza(Integer.valueOf(registrosID.child("NumeroLatasCerveza").getValue().toString()));
+                        registro.setNumLitrosCerveza(Integer.valueOf(registrosID.child("NumeroLitrosCerveza").getValue().toString()));
                         registros.add(registro);
                     }
                     member.setRegistros(registros);
@@ -133,7 +132,7 @@ public class DAO {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(final DataSnapshot data : dataSnapshot.getChildren()) {
-                    final String username = data.child("NombreUsuario").getValue().toString();
+                    final String username = data.child("NombreUsuario").getValue(String.class);
 
                     User user = new User(null, username, data.getKey());
                     CreateGroupActivity.loadUser(user);
