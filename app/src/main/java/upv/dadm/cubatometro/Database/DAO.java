@@ -180,17 +180,17 @@ public class DAO {
         for(String miembroID : miembrosID) {
             DatabaseReference registrosUsuarioRef = FirebaseIni.getInstance().getReference("Users").child(miembroID).child("Groups")
                     .child(groupID).child("Miembros").child(userID).child("Registros");
-
+            HashMap<String, String> values = new HashMap<>();
             DatabaseReference nuevoRegistroRef = registrosUsuarioRef.push();
-            nuevoRegistroRef.child("FechaRegistro").setValue(nuevoRegistro.getFecha());
-            nuevoRegistroRef.child("NumeroBotellas").setValue(nuevoRegistro.getNumBotellas());
-            nuevoRegistroRef.child("NumeroBotellasVino").setValue(nuevoRegistro.getNumBotellasVino());
-            nuevoRegistroRef.child("NumeroChupitos").setValue(nuevoRegistro.getNumChupitos());
-            nuevoRegistroRef.child("NumeroJarrasCerveza").setValue(nuevoRegistro.getNumJarrasCerveza());
-            nuevoRegistroRef.child("NumeroLatasCerveza").setValue(nuevoRegistro.getNumLatasCerveza());
-            nuevoRegistroRef.child("NumeroLitrosCerveza").setValue(nuevoRegistro.getNumLitrosCerveza());
-            nuevoRegistroRef.child("NumeroMediasBotellas").setValue(nuevoRegistro.getNumMediasBotellas());
-
+            values.put("FechaRegistro", nuevoRegistro.getFecha());
+            values.put("NumeroBotellas", nuevoRegistro.getNumBotellas() + "");
+            values.put("NumeroBotellasVino", nuevoRegistro.getNumBotellasVino() + "");
+            values.put("NumeroChupitos", nuevoRegistro.getNumChupitos() + "");
+            values.put("NumeroJarrasCerveza", nuevoRegistro.getNumJarrasCerveza() + "");
+            values.put("NumeroLatasCerveza", nuevoRegistro.getNumLatasCerveza() + "");
+            values.put("NumeroLitrosCerveza", nuevoRegistro.getNumLitrosCerveza() + "");
+            values.put("NumeroMediasBotellas", nuevoRegistro.getNumMediasBotellas() + "");
+            nuevoRegistroRef.setValue(values);
         }
     }
 

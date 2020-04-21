@@ -73,8 +73,8 @@ public class ContadorActivity extends AppCompatActivity {
         actualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(numBotellas.getText().toString().equals("0") || numVino.getText().toString().equals("0") || numChupitos.getText().toString().equals("0") || numJarras.getText().toString().equals("0") || numLatas.getText().toString().equals("0") || numMediasBotellas.getText().toString().equals("0") || numLitros.getText().toString().equals("0")){
-                    Toast.makeText(ContadorActivity.this, "Alguno de los contadores es igual a 0", Toast.LENGTH_SHORT).show();
+                if(numBotellas.getText().toString().equals("0") && numVino.getText().toString().equals("0") && numChupitos.getText().toString().equals("0") && numJarras.getText().toString().equals("0") && numLatas.getText().toString().equals("0") && numMediasBotellas.getText().toString().equals("0") && numLitros.getText().toString().equals("0")){
+                    Toast.makeText(ContadorActivity.this, "Alguno de los contadores debe ser distinto de 0", Toast.LENGTH_SHORT).show();
                 } else {
                     Log.d("PUNTOS", calcularPuntos() + "");
                     Registro registro = new Registro();
