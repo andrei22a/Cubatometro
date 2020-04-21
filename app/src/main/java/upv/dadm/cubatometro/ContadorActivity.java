@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +34,6 @@ public class ContadorActivity extends AppCompatActivity {
     TextView numVino;
     TextView numChupitos;
 
-    private HashMap<String, List<Registro>> registros;
     private FirebaseAuth mAuth;
 
 
@@ -46,6 +46,8 @@ public class ContadorActivity extends AppCompatActivity {
         groupID = getSharedPreferences("groupDetails", MODE_PRIVATE).getString("groupID", "");
         mAuth = FirebaseAuth.getInstance();
         final String userID = mAuth.getCurrentUser().getUid();
+        final ArrayList<String> miembrosID = getIntent().getStringArrayListExtra("miembrosID");
+        Log.d("MIEMBROS", miembrosID.toString());
 
         numBotellas = findViewById(R.id.botellas_contador_textview);
         numMediasBotellas = findViewById(R.id.mediasbotellas_contador_textview);
@@ -66,39 +68,28 @@ public class ContadorActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         final DAO dao = new DAO();
 
-        Button actualizar = findViewById(R.id.actualizar_registro_button);
+        final Button actualizar = findViewById(R.id.actualizar_registro_button);
         actualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("PUNTOS", calcularPuntos() + "");
-                List<String> miembrosID = new ArrayList<>(registros.keySet());
-                for (Registro registro : Objects.requireNonNull(registros.get(userID))) {
-                    Log.d("BOTELLAS", registro.getNumBotellas() + "");
-                    registro.setNumBotellas(Integer.parseInt(numBotellas.getText().toString()));
-                    registro.setNumBotellasVino(Integer.parseInt(numVino.getText().toString()));
-                    registro.setNumChupitos(Integer.parseInt(numChupitos.getText().toString()));
-                    registro.setNumJarrasCerveza(Integer.parseInt(numJarras.getText().toString()));
-                    registro.setNumLatasCerveza(Integer.parseInt(numLatas.getText().toString()));
-                    registro.setNumMediasBotellas(Integer.parseInt(numMediasBotellas.getText().toString()));
-                    registro.setNumLitrosCerveza(Integer.parseInt(numLitros.getText().toString()));
-                    dao.setRegistro(miembrosID, userID, groupID, registro);
-                    Log.d("BOTELLAS", registro.getNumBotellas() + "");
-                }
+                Registro registro = new Registro();
+                registro.setNumLitrosCerveza(Integer.parseInt(numLitros.getText().toString()));
+                registro.setNumMediasBotellas(Integer.parseInt(numMediasBotellas.getText().toString()));
+                registro.setNumLatasCerveza(Integer.parseInt(numLatas.getText().toString()));
+                registro.setNumJarrasCerveza(Integer.parseInt(numJarras.getText().toString()));
+                registro.setNumChupitos(Integer.parseInt(numChupitos.getText().toString()));
+                registro.setNumBotellasVino(Integer.parseInt(numVino.getText().toString()));
+                registro.setNumBotellas(Integer.parseInt(numBotellas.getText().toString()));
+                Log.d("REGISTRO", registro.getNumBotellas() + "");
+                assert miembrosID != null;
+                dao.setRegistro(miembrosID, userID, groupID, registro);
+
+                //startActivity(new Intent(ContadorActivity.this, RankingActivity.class));
             }
+
+
         });
-
-        dao.getRegistros(userID, groupID, new RegistrosListener() {
-            @Override
-            public void onRegistrosReceived(HashMap<String, List<Registro>> registrosGrupo) {
-                registros = registrosGrupo;
-            }
-
-            @Override
-            public void onError(Throwable error) {
-
-            }
-        });
-
     }
 
     public int calcularPuntos(){
@@ -111,7 +102,7 @@ public class ContadorActivity extends AppCompatActivity {
         int vino = Integer.parseInt(numVino.getText().toString());
         int chupitos = Integer.parseInt(numChupitos.getText().toString());
 
-        return (botellas*20 + mediasBotellas*8 + jarras*2 + litros*3 + latas*1 + vino*4 + chupitos*1);
+        return (botellas*20 + mediasBotellas*8 + jarras*2 + litros*3 + latas + vino*4 + chupitos);
 
     }
 
