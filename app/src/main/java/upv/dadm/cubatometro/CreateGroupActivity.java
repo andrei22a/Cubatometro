@@ -1,6 +1,7 @@
 package upv.dadm.cubatometro;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -98,6 +100,7 @@ public class CreateGroupActivity extends AppCompatActivity {
 
         Button crearGrupo = findViewById(R.id.button_creategroup);
         crearGrupo.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 getSelectedMembers();
@@ -108,14 +111,17 @@ public class CreateGroupActivity extends AppCompatActivity {
                     /************** Añadir grupo a Firebase *********************/
                     Registro registroInicial = new Registro();
                     dao.insertNewGroup(groupID, groupName, members, registroInicial);
-                    try {
-                        uploadImageToFirebase(groupID);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    if(selectedImageUri != null){
+                        try {
+                            uploadImageToFirebase(groupID);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
+
                     startActivity(new Intent(CreateGroupActivity.this, GroupsActivity.class));
                 } else {
-                    toastMessage("You must type a name for your group");
+                    toastMessage("Debes elegir un nombre para tu grupo!");
                 }
 
             }
