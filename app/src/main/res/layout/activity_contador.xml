@@ -1,288 +1,317 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_row="8"
-    android:layout_column="5"
-    android:layout_margin="8dp"
-    tools:context=".ContadorActivity">
+    android:layout_height="match_parent">
 
-    <ImageButton
-        android:id="@+id/chupitos_quitar_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="6"
-        android:layout_column="1"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/round_buttons"
-        android:src="@drawable/ic_contador_quitar" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_row="0"
-        android:layout_column="0"
-        android:layout_gravity="center_vertical"
-        android:text="Botellas" />
+        android:text="@string/contador_description"
+        app:layout_constraintBottom_toTopOf="@+id/grid_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textStyle="bold"/>
 
-    <ImageButton
-        android:id="@+id/botellas_quitar_button"
+    <GridLayout
+        android:id="@+id/grid_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_row="0"
-        android:layout_column="1"
-        android:layout_marginStart="8dp"
-        android:layout_gravity="center_vertical"
-        android:background="@drawable/round_buttons"
-        android:src="@drawable/ic_contador_quitar" />
+        android:layout_row="8"
+        android:layout_column="5"
+        android:layout_margin="8dp"
+        tools:context=".ContadorActivity"
+        android:layout_gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:useDefaultMargins="true"
+        >
 
-    <TextView
-        android:id="@+id/botellas_contador_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="0"
-        android:layout_column="2"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_gravity="center_vertical"
-        android:text="0" />
+        <ImageButton
+            android:id="@+id/chupitos_quitar_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="6"
+            android:layout_column="1"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/round_buttons"
+            android:src="@drawable/ic_contador_quitar" />
 
-    <ImageButton
-        android:id="@+id/botellas_añadir_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="0"
-        android:layout_column="3"
-        android:background="@drawable/round_buttons"
-        android:src="@drawable/ic_contador_anyadir" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_gravity="center_vertical"
+            android:text="@string/botella_label" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="1"
-        android:layout_column="0"
-        android:layout_gravity="center_vertical"
-        android:text="Medias Botellas" />
+        <ImageButton
+            android:id="@+id/botellas_quitar_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:layout_marginStart="8dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/round_buttons"
+            android:src="@drawable/ic_contador_quitar" />
 
-    <ImageButton
-        android:id="@+id/mediasbotellas_quitar_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="1"
-        android:layout_column="1"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/round_buttons"
-        android:src="@drawable/ic_contador_quitar" />
+        <TextView
+            android:id="@+id/botellas_contador_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="2"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_gravity="center_vertical"
+            android:text="0" />
 
-    <TextView
-        android:id="@+id/mediasbotellas_contador_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="1"
-        android:layout_column="2"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_gravity="center_vertical"
-        android:text="0" />
+        <ImageButton
+            android:id="@+id/botellas_añadir_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="3"
+            android:background="@drawable/round_buttons"
+            android:src="@drawable/ic_contador_anyadir" />
 
-    <ImageButton
-        android:id="@+id/mediasbotellas_añadir_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="1"
-        android:layout_column="3"
-        android:background="@drawable/round_buttons"
-        android:src="@drawable/ic_contador_anyadir" />
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:layout_gravity="center_vertical"
+            android:text="@string/media_botella_label" />
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="2"
-        android:layout_column="0"
-        android:layout_gravity="center_vertical"
-        android:text="Jarras Cerveza" />
+        <ImageButton
+            android:id="@+id/mediasbotellas_quitar_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/round_buttons"
+            android:src="@drawable/ic_contador_quitar" />
 
-    <ImageButton
-        android:id="@+id/jarras_quitar_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="2"
-        android:layout_column="1"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/round_buttons"
-        android:src="@drawable/ic_contador_quitar" />
+        <TextView
+            android:id="@+id/mediasbotellas_contador_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="2"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_gravity="center_vertical"
+            android:text="0" />
 
-    <TextView
-        android:id="@+id/jarras_contador_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="2"
-        android:layout_column="2"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_gravity="center_vertical"
-        android:text="0" />
+        <ImageButton
+            android:id="@+id/mediasbotellas_añadir_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="3"
+            android:background="@drawable/round_buttons"
+            android:src="@drawable/ic_contador_anyadir" />
 
-    <ImageButton
-        android:id="@+id/jarras_añadir_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="2"
-        android:layout_column="3"
-        android:background="@drawable/round_buttons"
-        android:src="@drawable/ic_contador_anyadir" />
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:layout_gravity="center_vertical"
+            android:text="@string/jarra_cerveza_label" />
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="3"
-        android:layout_column="0"
-        android:layout_gravity="center_vertical"
-        android:text="Litros Cerveza" />
+        <ImageButton
+            android:id="@+id/jarras_quitar_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="2"
+            android:layout_column="1"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/round_buttons"
+            android:src="@drawable/ic_contador_quitar" />
 
-    <ImageButton
-        android:id="@+id/litros_quitar_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="3"
-        android:layout_column="1"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/round_buttons"
-        android:src="@drawable/ic_contador_quitar" />
+        <TextView
+            android:id="@+id/jarras_contador_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="2"
+            android:layout_column="2"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_gravity="center_vertical"
+            android:text="0" />
 
-    <TextView
-        android:id="@+id/litros_contador_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="3"
-        android:layout_column="2"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_gravity="center_vertical"
-        android:text="0"/>
+        <ImageButton
+            android:id="@+id/jarras_añadir_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="2"
+            android:layout_column="3"
+            android:background="@drawable/round_buttons"
+            android:src="@drawable/ic_contador_anyadir" />
 
-    <ImageButton
-        android:id="@+id/litros_añadir_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="3"
-        android:layout_column="3"
-        android:background="@drawable/round_buttons"
-        android:src="@drawable/ic_contador_anyadir" />
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="3"
+            android:layout_column="0"
+            android:layout_gravity="center_vertical"
+            android:text="@string/litro_cerveza_label" />
 
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="4"
-        android:layout_column="0"
-        android:layout_gravity="center_vertical"
-        android:text="Latas Cerveza" />
+        <ImageButton
+            android:id="@+id/litros_quitar_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="3"
+            android:layout_column="1"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/round_buttons"
+            android:src="@drawable/ic_contador_quitar" />
 
-    <ImageButton
-        android:id="@+id/latas_quitar_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="4"
-        android:layout_column="1"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/round_buttons"
-        android:src="@drawable/ic_contador_quitar" />
+        <TextView
+            android:id="@+id/litros_contador_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="3"
+            android:layout_column="2"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_gravity="center_vertical"
+            android:text="0"/>
 
-    <TextView
-        android:id="@+id/latas_contador_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="4"
-        android:layout_column="2"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_gravity="center_vertical"
-        android:text="0" />
+        <ImageButton
+            android:id="@+id/litros_añadir_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="3"
+            android:layout_column="3"
+            android:background="@drawable/round_buttons"
+            android:src="@drawable/ic_contador_anyadir" />
 
-    <ImageButton
-        android:id="@+id/latas_añadir_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="4"
-        android:layout_column="3"
-        android:background="@drawable/round_buttons"
-        android:src="@drawable/ic_contador_anyadir" />
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="4"
+            android:layout_column="0"
+            android:layout_gravity="center_vertical"
+            android:text="@string/lata_cerveza_label" />
 
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="5"
-        android:layout_column="0"
-        android:layout_gravity="center_vertical"
-        android:text="Botellas Vino" />
+        <ImageButton
+            android:id="@+id/latas_quitar_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="4"
+            android:layout_column="1"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/round_buttons"
+            android:src="@drawable/ic_contador_quitar" />
 
-    <ImageButton
-        android:id="@+id/vino_quitar_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="5"
-        android:layout_column="1"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/round_buttons"
-        android:src="@drawable/ic_contador_quitar" />
+        <TextView
+            android:id="@+id/latas_contador_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="4"
+            android:layout_column="2"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_gravity="center_vertical"
+            android:text="0" />
 
-    <TextView
-        android:id="@+id/vino_contador_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="5"
-        android:layout_column="2"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_gravity="center_vertical"
-        android:text="0" />
+        <ImageButton
+            android:id="@+id/latas_añadir_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="4"
+            android:layout_column="3"
+            android:background="@drawable/round_buttons"
+            android:src="@drawable/ic_contador_anyadir" />
 
-    <ImageButton
-        android:id="@+id/vino_añadir_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="5"
-        android:layout_column="3"
-        android:background="@drawable/round_buttons"
-        android:src="@drawable/ic_contador_anyadir" />
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="5"
+            android:layout_column="0"
+            android:layout_gravity="center_vertical"
+            android:text="@string/botella_vino_label" />
 
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="6"
-        android:layout_column="0"
-        android:layout_gravity="center_vertical"
-        android:text="Chupitos" />
+        <ImageButton
+            android:id="@+id/vino_quitar_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="5"
+            android:layout_column="1"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/round_buttons"
+            android:src="@drawable/ic_contador_quitar" />
 
-    <TextView
-        android:id="@+id/chupitos_contador_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="6"
-        android:layout_column="2"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_gravity="center_vertical"
-        android:text="0" />
+        <TextView
+            android:id="@+id/vino_contador_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="5"
+            android:layout_column="2"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_gravity="center_vertical"
+            android:text="0" />
 
-    <ImageButton
-        android:id="@+id/chupitos_añadir_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="6"
-        android:layout_column="3"
-        android:background="@drawable/round_buttons"
-        android:src="@drawable/ic_contador_anyadir" />
+        <ImageButton
+            android:id="@+id/vino_añadir_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="5"
+            android:layout_column="3"
+            android:background="@drawable/round_buttons"
+            android:src="@drawable/ic_contador_anyadir" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="6"
+            android:layout_column="0"
+            android:layout_gravity="center_vertical"
+            android:text="@string/chupito_label" />
+
+        <TextView
+            android:id="@+id/chupitos_contador_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="6"
+            android:layout_column="2"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_gravity="center_vertical"
+            android:text="0" />
+
+        <ImageButton
+            android:id="@+id/chupitos_añadir_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="6"
+            android:layout_column="3"
+            android:background="@drawable/round_buttons"
+            android:src="@drawable/ic_contador_anyadir" />
+
+
+
+    </GridLayout>
 
     <Button
         android:id="@+id/actualizar_registro_button"
@@ -290,6 +319,11 @@
         android:layout_height="wrap_content"
         android:layout_row="7"
         android:layout_column="3"
-        android:text="ACTUALIZAR" />
+        android:text="ACTUALIZAR"
+        app:layout_constraintTop_toBottomOf="@id/grid_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-</GridLayout>
+

@@ -10,10 +10,14 @@
     <string name="recordar_usuario">Recordar usuario en este dispositivo</string>
 
     <!-- Create group activity -->
+    <string name="create_group_label">Nuevo grupo</string>
     <string name="titulo_grupo_label">Nombre del grupo</string>
     <string name="añadir_miembros_label">Añadir miembros</string>
     <string name="buscar_miembros_label">Buscar miembro</string>
 
+    <!-- Contador activity -->
+    <string name="contador_description">Añade la cantidad de cada tipo de bebida que hayas tomado</string>
+    <string name="contador_label">Añadir registro</string>
     <!-- Ranking activity -->
     <string name="ranking_label">Ranking</string>
 
@@ -33,7 +37,7 @@
     <string name="menu_view_stadistics">Ver estadísticas</string>
 
     <!-- Chart -->
-    <string name="title_stadistics_activity_label">Estadísticas pasadas</string>
+    <string name="stadistics_label">Registros</string>
     <string name="introduce_dates_range_label">Introduce rango de fechas</string>
     <string name="beginning_date_label">Fecha de inicio: </string>
     <string name="end_date_label">Fecha de fin: </string>
@@ -41,13 +45,13 @@
     <string name="selected_dates_range_label">Desde %1s hasta %2s</string>
 
     <!-- Score fragment -->
-    <string name="botella_label">Botella</string>
-    <string name="media_botella_label">Media botella</string>
-    <string name="botella_vino_label">Botella de vino</string>
-    <string name="litro_cerveza_label">Litro de cerveza</string>
-    <string name="jarra_cerveza_label">Jarra de cerveza</string>
-    <string name="lata_cerveza_label">Lata de cerveza</string>
-    <string name="chupito_label">Chupito</string>
+    <string name="botella_label">Botellas</string>
+    <string name="media_botella_label">Medias botellas</string>
+    <string name="botella_vino_label">Botellas de vino</string>
+    <string name="litro_cerveza_label">Litros de cerveza</string>
+    <string name="jarra_cerveza_label">Jarras de cerveza</string>
+    <string name="lata_cerveza_label">Latas de cerveza</string>
+    <string name="chupito_label">Chupitos</string>
     <string name="botella_score_label">20 pts.</string>
     <string name="media_botella_score_label">8 pts.</string>
     <string name="botella_vino_score_label">4 pts.</string>

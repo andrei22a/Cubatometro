@@ -15,7 +15,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ContadorActivity"
-            android:parentActivityName=".RankingActivity" />
+            android:parentActivityName=".RankingActivity"
+            android:label="@string/contador_label"/>
         <activity android:name=".RegisterUserActivity" />
         <activity
             android:name=".RankingActivity"
@@ -24,7 +25,7 @@
         <activity
             android:name=".CreateGroupActivity"
             android:parentActivityName=".GroupsActivity"
-            android:label=""/>
+            android:label="@string/create_group_label"/>
         <activity android:name=".GroupsActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
@@ -35,7 +36,8 @@
         </activity>
         <activity
             android:name=".StadisticsActivity"
-            android:parentActivityName=".RankingActivity" />
+            android:parentActivityName=".RankingActivity"
+            android:label="@string/stadistics_label"/>
     </application>
 
 </manifest>
