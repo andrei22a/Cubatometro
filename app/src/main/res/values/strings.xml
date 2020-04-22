@@ -45,4 +45,21 @@
     <string name="search_button">Buscar registros</string>
     <string name="selected_dates_range_label">Desde %1s hasta %2s</string>
 
+    <!-- Score fragment -->
+    <string name="botella_label">Botella</string>
+    <string name="media_botella_label">Media botella</string>
+    <string name="botella_vino_label">Botella de vino</string>
+    <string name="litro_cerveza_label">Litro de cerveza</string>
+    <string name="jarra_cerveza_label">Jarra de cerveza</string>
+    <string name="lata_cerveza_label">Lata de cerveza</string>
+    <string name="chupito_label">Chupito</string>
+    <string name="botella_score_label">20 pts.</string>
+    <string name="media_botella_score_label">8 pts.</string>
+    <string name="botella_vino_score_label">4 pts.</string>
+    <string name="litro_cerveza_score_label">3 pts.</string>
+    <string name="jarra_cerveza_score_label">2 pts.</string>
+    <string name="lata_cerveza_score_label">1 pts.</string>
+    <string name="chupito_score_label">1 pts.</string>
+
+
 </resources>
