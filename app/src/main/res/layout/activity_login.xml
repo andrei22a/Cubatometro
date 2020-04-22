@@ -59,7 +59,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="84dp"
         android:layout_marginEnd="8dp"
-        android:text="Registrarse"
+        android:text="@string/registrar_usuario_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inicio_button_login" />
