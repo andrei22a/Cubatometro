@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -15,7 +16,9 @@
         android:layout_height="wrap_content"
         android:layout_row="6"
         android:layout_column="1"
-        android:src="@android:drawable/ic_menu_close_clear_cancel" />
+        android:layout_marginStart="8dp"
+        android:background="@drawable/round_buttons"
+        android:src="@drawable/ic_contador_quitar" />
 
     <TextView
         android:id="@+id/textView3"
@@ -32,9 +35,10 @@
         android:layout_height="wrap_content"
         android:layout_row="0"
         android:layout_column="1"
+        android:layout_marginStart="8dp"
         android:layout_gravity="center_vertical"
-        android:src="@android:drawable/ic_menu_close_clear_cancel"
-        />
+        android:background="@drawable/round_buttons"
+        android:src="@drawable/ic_contador_quitar" />
 
     <TextView
         android:id="@+id/botellas_contador_textview"
@@ -53,7 +57,8 @@
         android:layout_height="wrap_content"
         android:layout_row="0"
         android:layout_column="3"
-        android:src="@android:drawable/ic_menu_add" />
+        android:background="@drawable/round_buttons"
+        android:src="@drawable/ic_contador_añadir" />
 
     <TextView
         android:id="@+id/textView5"
@@ -70,7 +75,9 @@
         android:layout_height="wrap_content"
         android:layout_row="1"
         android:layout_column="1"
-        android:src="@android:drawable/ic_menu_close_clear_cancel" />
+        android:layout_marginStart="8dp"
+        android:background="@drawable/round_buttons"
+        android:src="@drawable/ic_contador_quitar" />
 
     <TextView
         android:id="@+id/mediasbotellas_contador_textview"
@@ -89,7 +96,8 @@
         android:layout_height="wrap_content"
         android:layout_row="1"
         android:layout_column="3"
-        android:src="@android:drawable/ic_menu_add" />
+        android:background="@drawable/round_buttons"
+        android:src="@drawable/ic_contador_añadir" />
 
     <TextView
         android:id="@+id/textView7"
@@ -106,7 +114,9 @@
         android:layout_height="wrap_content"
         android:layout_row="2"
         android:layout_column="1"
-        android:src="@android:drawable/ic_menu_close_clear_cancel" />
+        android:layout_marginStart="8dp"
+        android:background="@drawable/round_buttons"
+        android:src="@drawable/ic_contador_quitar" />
 
     <TextView
         android:id="@+id/jarras_contador_textview"
@@ -125,7 +135,8 @@
         android:layout_height="wrap_content"
         android:layout_row="2"
         android:layout_column="3"
-        android:src="@android:drawable/ic_menu_add" />
+        android:background="@drawable/round_buttons"
+        android:src="@drawable/ic_contador_añadir" />
 
     <TextView
         android:id="@+id/textView9"
@@ -142,7 +153,9 @@
         android:layout_height="wrap_content"
         android:layout_row="3"
         android:layout_column="1"
-        android:src="@android:drawable/ic_menu_close_clear_cancel" />
+        android:layout_marginStart="8dp"
+        android:background="@drawable/round_buttons"
+        android:src="@drawable/ic_contador_quitar" />
 
     <TextView
         android:id="@+id/litros_contador_textview"
@@ -161,7 +174,8 @@
         android:layout_height="wrap_content"
         android:layout_row="3"
         android:layout_column="3"
-        android:src="@android:drawable/ic_menu_add" />
+        android:background="@drawable/round_buttons"
+        android:src="@drawable/ic_contador_añadir" />
 
     <TextView
         android:id="@+id/textView11"
@@ -178,7 +192,9 @@
         android:layout_height="wrap_content"
         android:layout_row="4"
         android:layout_column="1"
-        android:src="@android:drawable/ic_menu_close_clear_cancel" />
+        android:layout_marginStart="8dp"
+        android:background="@drawable/round_buttons"
+        android:src="@drawable/ic_contador_quitar" />
 
     <TextView
         android:id="@+id/latas_contador_textview"
@@ -197,7 +213,8 @@
         android:layout_height="wrap_content"
         android:layout_row="4"
         android:layout_column="3"
-        android:src="@android:drawable/ic_menu_add" />
+        android:background="@drawable/round_buttons"
+        android:src="@drawable/ic_contador_añadir" />
 
     <TextView
         android:id="@+id/textView13"
@@ -214,7 +231,9 @@
         android:layout_height="wrap_content"
         android:layout_row="5"
         android:layout_column="1"
-        android:src="@android:drawable/ic_menu_close_clear_cancel" />
+        android:layout_marginStart="8dp"
+        android:background="@drawable/round_buttons"
+        android:src="@drawable/ic_contador_quitar" />
 
     <TextView
         android:id="@+id/vino_contador_textview"
@@ -233,7 +252,8 @@
         android:layout_height="wrap_content"
         android:layout_row="5"
         android:layout_column="3"
-        android:src="@android:drawable/ic_menu_add" />
+        android:background="@drawable/round_buttons"
+        android:src="@drawable/ic_contador_añadir" />
 
     <TextView
         android:id="@+id/textView15"
@@ -261,13 +281,15 @@
         android:layout_height="wrap_content"
         android:layout_row="6"
         android:layout_column="3"
-        android:src="@android:drawable/ic_menu_add" />
+        android:background="@drawable/round_buttons"
+        android:src="@drawable/ic_contador_añadir" />
 
     <Button
         android:id="@+id/actualizar_registro_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_row="7"
-        android:layout_column="4"
+        android:layout_column="3"
         android:text="ACTUALIZAR" />
+
 </GridLayout>

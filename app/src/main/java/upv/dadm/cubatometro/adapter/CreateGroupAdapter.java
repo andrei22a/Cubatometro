@@ -32,6 +32,7 @@ public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.
         this.data = data;
         fullData = new ArrayList<>(data);
         selectedMembers = new ArrayList<>(data.size());
+        setHasStableIds(true);
     }
 
     @NonNull
@@ -88,6 +89,16 @@ public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.
         return selectedMembers;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
     public Filter getFilter(){
         return filter;
     }
@@ -95,10 +106,11 @@ public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.
     private Filter filter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
             ArrayList<User> filteredList = new ArrayList<>();
             if (constraint == null || constraint.length() == 0){
-                filteredList.clear();
-                filteredList.addAll(fullData);
+                results.count = data.size();
+                results.values = data;
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
                 for (User user : data) {
@@ -107,7 +119,6 @@ public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.
                     }
                 }
             }
-            FilterResults results = new FilterResults();
             results.values = filteredList;
             return results;
         }
