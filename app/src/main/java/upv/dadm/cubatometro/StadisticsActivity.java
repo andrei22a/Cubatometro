@@ -77,7 +77,7 @@ public class StadisticsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stadistics);
 
-        groupID = getIntent().getStringExtra("groupID");
+        groupID = getSharedPreferences("groupDetails", MODE_PRIVATE).getString("groupID", "");
 
         mAuth = FirebaseAuth.getInstance();
         username = mAuth.getCurrentUser().getDisplayName();

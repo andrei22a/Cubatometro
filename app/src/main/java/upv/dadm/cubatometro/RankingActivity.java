@@ -145,7 +145,6 @@ public class RankingActivity extends AppCompatActivity {
             case R.id.menu_view_stadistics:
                 String groupID = getIntent().getStringExtra("groupID");
                 Intent stadisticsIntent = new Intent(RankingActivity.this, StadisticsActivity.class);
-                stadisticsIntent.putExtra("groupID", groupID);
                 startActivity(stadisticsIntent);
                 return true;
 

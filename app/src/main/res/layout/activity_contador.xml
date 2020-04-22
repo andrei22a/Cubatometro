@@ -58,7 +58,7 @@
         android:layout_row="0"
         android:layout_column="3"
         android:background="@drawable/round_buttons"
-        android:src="@drawable/ic_contador_añadir" />
+        android:src="@drawable/ic_contador_anyadir" />
 
     <TextView
         android:id="@+id/textView5"
@@ -97,7 +97,7 @@
         android:layout_row="1"
         android:layout_column="3"
         android:background="@drawable/round_buttons"
-        android:src="@drawable/ic_contador_añadir" />
+        android:src="@drawable/ic_contador_anyadir" />
 
     <TextView
         android:id="@+id/textView7"
@@ -136,7 +136,7 @@
         android:layout_row="2"
         android:layout_column="3"
         android:background="@drawable/round_buttons"
-        android:src="@drawable/ic_contador_añadir" />
+        android:src="@drawable/ic_contador_anyadir" />
 
     <TextView
         android:id="@+id/textView9"
@@ -175,7 +175,7 @@
         android:layout_row="3"
         android:layout_column="3"
         android:background="@drawable/round_buttons"
-        android:src="@drawable/ic_contador_añadir" />
+        android:src="@drawable/ic_contador_anyadir" />
 
     <TextView
         android:id="@+id/textView11"
@@ -214,7 +214,7 @@
         android:layout_row="4"
         android:layout_column="3"
         android:background="@drawable/round_buttons"
-        android:src="@drawable/ic_contador_añadir" />
+        android:src="@drawable/ic_contador_anyadir" />
 
     <TextView
         android:id="@+id/textView13"
@@ -253,7 +253,7 @@
         android:layout_row="5"
         android:layout_column="3"
         android:background="@drawable/round_buttons"
-        android:src="@drawable/ic_contador_añadir" />
+        android:src="@drawable/ic_contador_anyadir" />
 
     <TextView
         android:id="@+id/textView15"
@@ -282,7 +282,7 @@
         android:layout_row="6"
         android:layout_column="3"
         android:background="@drawable/round_buttons"
-        android:src="@drawable/ic_contador_añadir" />
+        android:src="@drawable/ic_contador_anyadir" />
 
     <Button
         android:id="@+id/actualizar_registro_button"
