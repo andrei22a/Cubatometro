@@ -2,16 +2,18 @@ package upv.dadm.cubatometro.entidades;
 
 import android.widget.ImageView;
 
+import androidx.annotation.Nullable;
+
 import java.util.List;
 
-public class User {
+public class User implements Comparable<User> {
     private String userID;
     private ImageView profilePic;
     private String username;
     private List<Registro> registros;
     private boolean isSelected;
 
-    public User(ImageView profilePic, String name, String userID, List<Registro> registros){
+    public User(ImageView profilePic, String name, String userID, List<Registro> registros) {
         this.profilePic = profilePic;
         this.username = name;
         this.userID = userID;
@@ -19,30 +21,33 @@ public class User {
         this.isSelected = false;
     }
 
-    public User(ImageView profilePic, String name, String userID){
+    public User(ImageView profilePic, String name, String userID) {
         this.profilePic = profilePic;
         this.username = name;
         this.userID = userID;
         this.isSelected = false;
     }
 
-    public User(String name, String userID, List<Registro> registros){
+    public User(String name, String userID, List<Registro> registros) {
         this.username = name;
         this.userID = userID;
         this.registros = registros;
         this.isSelected = false;
     }
 
-    public User(String name, String userID){
+    public User(String name, String userID) {
         this.username = name;
         this.userID = userID;
         this.isSelected = false;
     }
 
-    public User(){}
+    public User() {
+    }
 
-
-
+    @Override
+    public int compareTo(User o) {
+        return this.getUsername().toLowerCase().compareTo(o.username.toLowerCase());
+    }
 
     public String getUserID() {
         return userID;
@@ -83,4 +88,5 @@ public class User {
     public void setSelected(boolean selected) {
         this.isSelected = selected;
     }
+
 }

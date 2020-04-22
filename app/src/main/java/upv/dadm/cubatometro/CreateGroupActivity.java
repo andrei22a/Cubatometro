@@ -31,6 +31,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -88,6 +89,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                 if(newText == null || newText.length() == 0){
                     data.clear();
                     dao.getAllUsers();
+                    Collections.sort(data);
                 }
                 adapter.getFilter().filter(newText);
                 return true;
@@ -137,7 +139,6 @@ public class CreateGroupActivity extends AppCompatActivity {
 
         /* Array de prueba. Hay que sustituir por llamada a método getAllUsers() */
         dao.getAllUsers();
-        originalData = data;
 
 
         adapter = new CreateGroupAdapter(data);
@@ -187,6 +188,7 @@ public class CreateGroupActivity extends AppCompatActivity {
             data.add(user);
             adapter.notifyItemInserted(data.size());
         }
+        Collections.sort(data);
     }
 
     public void addCurrentUserToGroup(){
