@@ -3,6 +3,9 @@ package upv.dadm.cubatometro;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -11,8 +14,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -71,7 +76,6 @@ public class StadisticsActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stadistics);
-
 
         groupID = getIntent().getStringExtra("groupID");
 
@@ -146,6 +150,23 @@ public class StadisticsActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_stadistics, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return false;
+    }
+
     public void onClickSearchButton(View view){
         if(!initialDateInput.getText().toString().equals("") && !finalDateInput.getText().toString().equals("")){
             if(initialDateInput.getText().toString().matches("^\\d{1,2}\\/\\d{1,2}\\/\\d{4}$") && finalDateInput.getText().toString().matches("^\\d{1,2}\\/\\d{1,2}\\/\\d{4}$")){
@@ -190,9 +211,7 @@ public class StadisticsActivity extends AppCompatActivity {
         Date fechaFinalDate = format.parse(fechaFinal);
         Date fechaRegistroDate = format.parse(fechaRegistro);
 
-        if (fechaRegistroDate.compareTo(fechaFinalDate) <= 0 && fechaRegistroDate.compareTo(fechaInicialDate) >= 0) {
-            return true;
-        } else return false;
+        return fechaRegistroDate.compareTo(fechaFinalDate) <= 0 && fechaRegistroDate.compareTo(fechaInicialDate) >= 0;
     }
 
     private void toastMessage(String message){

@@ -95,14 +95,20 @@
         app:layout_constraintStart_toEndOf="@+id/usericon_imageview_register"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/usericon_imageview_register"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:src="@mipmap/ic_default_picture"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#FF000000"/>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

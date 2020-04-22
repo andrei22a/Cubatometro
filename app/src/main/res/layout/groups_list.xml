@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/groupicon_imageview_groups"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -16,7 +16,9 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:civ_border_width="1dp"
+        app:civ_circle_background_color="#FF000000"
+        android:src="@mipmap/ic_default_picture_round"/>
 
     <TextView
         android:id="@+id/groupname_textview_groups"

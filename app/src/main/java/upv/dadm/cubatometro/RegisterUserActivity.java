@@ -3,7 +3,9 @@ package upv.dadm.cubatometro;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -73,8 +75,8 @@ public class RegisterUserActivity extends AppCompatActivity {
             final String username = usernameInput.getText().toString();
             String email = emailInput.getText().toString();
             String password = passwordInput.getText().toString();
-            if(!email.equals("") && !password.equals("")){
 
+            if(!email.equals("") && !password.equals("")){
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
