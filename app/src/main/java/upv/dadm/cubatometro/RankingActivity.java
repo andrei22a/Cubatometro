@@ -33,7 +33,7 @@ import upv.dadm.cubatometro.entidades.User;
 
 public class RankingActivity extends AppCompatActivity {
     private String groupID;
-    private ListView listView;
+    private RecyclerView recyclerView;
     private RankingAdapter adapter;
     private ArrayList<Ranking> data = new ArrayList<>();
     private DAO dao = new DAO();
@@ -49,7 +49,8 @@ public class RankingActivity extends AppCompatActivity {
         groupID = getSharedPreferences("groupDetails", MODE_PRIVATE).getString("groupID", "");
 
         mAuth = FirebaseAuth.getInstance();
-        listView = findViewById(R.id.rankingmiembros_listview_ranking);
+        recyclerView = findViewById(R.id.rankingmiembros_listview_ranking);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         /*** Obtener los miembros del grupo y guardarlos en el array members ***/
 
@@ -68,7 +69,7 @@ public class RankingActivity extends AppCompatActivity {
                 }
                 Collections.sort(data); // Ordenar el array descendentemente
                 adapter = new RankingAdapter(data, getApplicationContext());
-                listView.setAdapter(adapter);
+                recyclerView.setAdapter(adapter);
 
             //    adapter.notifyDataSetChanged();
             }

@@ -145,6 +145,7 @@ public class CreateGroupActivity extends AppCompatActivity {
 
         /* Array de prueba. Hay que sustituir por llamada a método getAllUsers() */
         dao.getAllUsers();
+        originalData = data;
 
 
         adapter = new CreateGroupAdapter(data);
@@ -192,9 +193,11 @@ public class CreateGroupActivity extends AppCompatActivity {
     public static void loadUser(User user){
         if(!user.getUserID().equals(mAuth.getCurrentUser().getUid())) {
             data.add(user);
+            originalData.add(user);
             adapter.notifyItemInserted(data.size());
         }
         Collections.sort(data);
+        Collections.sort(originalData);
     }
 
     public void addCurrentUserToGroup(){
