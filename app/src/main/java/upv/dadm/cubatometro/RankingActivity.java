@@ -64,7 +64,7 @@ public class RankingActivity extends AppCompatActivity {
                     String userID = user.getUserID();
                     miembrosID.add(userID);
                     Log.d("miembrosID", miembrosID.toString());
-                    data.add(new Ranking(user.getUsername(), puntos));
+                    data.add(new Ranking(user.getUsername(), puntos, userID, user.getProfilePic()));
                 }
                 Collections.sort(data); // Ordenar el array descendentemente
                 adapter = new RankingAdapter(data, getApplicationContext());

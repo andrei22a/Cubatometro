@@ -1,6 +1,9 @@
 package upv.dadm.cubatometro.adapter;
 
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import upv.dadm.cubatometro.Database.DAO;
 import upv.dadm.cubatometro.Listeners.ImageListener;
 import upv.dadm.cubatometro.entidades.Ranking;
@@ -55,6 +59,7 @@ public class RankingAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.name = scoreView.findViewById(R.id.membername_textview_rankinglist);
             holder.points = scoreView.findViewById(R.id.memberpoints_textview_rankinglist);
+            holder.userIcon = scoreView.findViewById(R.id.membericon_imageview_rankinglist);
 
             scoreView.setTag(holder);
         } else {
@@ -64,6 +69,28 @@ public class RankingAdapter extends BaseAdapter {
         final Ranking m = data.get(position);
         holder.name.setText(m.getName());
         holder.points.setText(m.getPoints() + "");
+        if(data.get(position).getUserIcon() == null) new DAO().getUserProfilePics(data.get(position).getUserID(), new ImageListener() {
+            @Override
+            public void onImageReceived(String imageURI) {
+                /*if (imageURI == null){
+                    Resources resources = context.getResources();
+                    imageURI = new Uri.Builder()
+                            .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+                            .authority(resources.getResourcePackageName(R.mipmap.ic_default_picture))
+                            .appendPath(resources.getResourceTypeName(R.mipmap.ic_default_picture))
+                            .appendPath(resources.getResourceEntryName(R.mipmap.ic_default_picture))
+                            .build().toString();
+                }*/
+                Picasso.get().load(imageURI).noFade().into(holder.userIcon);
+            }
+
+            @Override
+            public void onError(Throwable error) {
+
+            }
+        });
+        else {holder.userIcon.setImageDrawable(data.get(position).getUserIcon().getDrawable());}
+
 
         return scoreView;
     }
@@ -71,6 +98,7 @@ public class RankingAdapter extends BaseAdapter {
     public static class ViewHolder{
         public TextView name;
         public TextView points;
+        public ImageView userIcon;
 
     }
 
