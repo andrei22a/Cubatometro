@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">Cubatometro</string>
+    <string name="app_name">Cubatómetro</string>
 
     <!-- Login activity -->
     <string name="login_text">Inicie sesión para seguir</string>
     <string name="username">Nombre de usuario</string>
     <string name="password">Contraseña</string>
     <string name="login_label">Iniciar sesión</string>
-    <string name="registar_usuario_label">Registarse</string>
+    <string name="registar_usuario_label">Registrarse</string>
     <string name="recordar_usuario">Recordar usuario en este dispositivo</string>
 
     <!-- Create group activity -->

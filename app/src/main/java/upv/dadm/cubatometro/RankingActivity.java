@@ -69,7 +69,8 @@ public class RankingActivity extends AppCompatActivity {
                 adapter = new RankingAdapter(data, getApplicationContext());
                 listView.setAdapter(adapter);
 
-                adapter.notifyDataSetChanged();            }
+            //    adapter.notifyDataSetChanged();
+            }
 
             @Override
             public void onError(Throwable error) {
@@ -78,6 +79,11 @@ public class RankingActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(RankingActivity.this, GroupsActivity.class));
     }
 
     /*@Override
