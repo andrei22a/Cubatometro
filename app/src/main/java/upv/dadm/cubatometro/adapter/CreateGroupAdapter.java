@@ -111,8 +111,8 @@ public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.
             FilterResults results = new FilterResults();
             ArrayList<User> filteredList = new ArrayList<>();
             if (constraint == null || constraint.length() == 0){
-                results.count = data.size();
-                results.values = data;
+                results.count = fullData.size();
+                results.values = fullData;
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
                 for (User user : data) {

@@ -13,6 +13,7 @@
         android:layout_weight="0.2"
         android:layout_marginTop="12dp"
         android:src="@mipmap/ic_default_picture_round"
+        app:civ_border_width="1dp"
         android:tag="" />
 
     <TextView
