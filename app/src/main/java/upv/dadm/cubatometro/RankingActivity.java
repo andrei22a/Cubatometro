@@ -86,47 +86,6 @@ public class RankingActivity extends AppCompatActivity {
         startActivity(new Intent(RankingActivity.this, GroupsActivity.class));
     }
 
-    /*@Override
-    protected void onResume() {
-        super.onResume();
-        adapter = new RankingAdapter(data, this);
-        listView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    protected void onRestart(){
-        super.onRestart();
-        Log.d("ON RESTART", data.toString());
-        adapter = new RankingAdapter(data, this);
-        listView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        Log.d("ON POST RESUME", data.toString());
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d("ON START", data.toString());
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d("ON STOP", data.toString());
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d("ON DESTROY", data.toString());
-    }*/
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater menuInflater = getMenuInflater();
@@ -143,7 +102,6 @@ public class RankingActivity extends AppCompatActivity {
                 startActivity(registrosIntent);
                 return true;
             case R.id.menu_view_stadistics:
-                String groupID = getIntent().getStringExtra("groupID");
                 Intent stadisticsIntent = new Intent(RankingActivity.this, StadisticsActivity.class);
                 startActivity(stadisticsIntent);
                 return true;

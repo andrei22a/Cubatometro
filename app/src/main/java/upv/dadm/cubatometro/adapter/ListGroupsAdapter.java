@@ -47,7 +47,7 @@ public class ListGroupsAdapter extends RecyclerView.Adapter<ListGroupsAdapter.Vi
         if(data.get(position).getImage() == null) new DAO().getGroupPic(data.get(position).getGroupID(), new ImageListener() {
             @Override
             public void onImageReceived(String imageURI) {
-                Picasso.get().load(imageURI).into(holder.groupIcon);
+                Picasso.get().load(imageURI).resize(50, 50).noFade().tag("GROUPS TAG").into(holder.groupIcon);
             }
 
             @Override

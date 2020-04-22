@@ -84,6 +84,13 @@ public class GroupsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(manager);
         recyclerView.addItemDecoration(new DividerItemDecoration(this));
 
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+
         dao.getGroups(mAuth.getCurrentUser().getUid(), new GroupsListener() {
             @Override
             public void onGroupsReceived(List<Grupo> grupos) {
