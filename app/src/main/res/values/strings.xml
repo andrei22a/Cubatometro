@@ -24,6 +24,7 @@
     <string name="username_register_label">Nombre de usuario</string>
     <string name="email_register_label">Correo electrónico</string>
     <string name="password_register_label">Contraseña</string>
+    <string name="foto_perfil_label">Elige una foto de perfil</string>
 
     <!-- Groups activity -->
     <string name="dialog_message">¿Estás seguro de que quieres eliminar este grupo?</string>
