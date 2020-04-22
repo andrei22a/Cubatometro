@@ -110,6 +110,11 @@ public class GroupsActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        return;
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu, menu);
