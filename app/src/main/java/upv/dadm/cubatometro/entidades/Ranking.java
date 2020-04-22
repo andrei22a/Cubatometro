@@ -1,5 +1,7 @@
 package upv.dadm.cubatometro.entidades;
 
+import android.widget.ImageView;
+
 public class Ranking implements Comparable<Ranking>{
     private String name;
     private int points;
@@ -24,6 +26,7 @@ public class Ranking implements Comparable<Ranking>{
     public void setPoints(int points) {
         this.points = points;
     }
+
 
     @Override
     public int compareTo(Ranking o) {

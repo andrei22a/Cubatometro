@@ -7,17 +7,17 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/groupicon_imageview_groups"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:civ_border_width="1dp"
-        app:civ_circle_background_color="#FF000000"
         android:src="@mipmap/ic_default_picture_round"/>
 
     <TextView
@@ -26,8 +26,10 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="28dp"
         android:layout_toEndOf="@+id/groupicon_imageview_groups"
+        android:textSize="20dp"
         android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/groupicon_imageview_groups"
         app:layout_constraintTop_toTopOf="parent" />

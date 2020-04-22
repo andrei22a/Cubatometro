@@ -5,11 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
+import upv.dadm.cubatometro.Database.DAO;
+import upv.dadm.cubatometro.Listeners.ImageListener;
 import upv.dadm.cubatometro.entidades.Ranking;
 import upv.dadm.cubatometro.R;
 
@@ -40,7 +45,7 @@ public class RankingAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View scoreView, ViewGroup parent){
-        ViewHolder holder;
+        final ViewHolder holder;
 
         if(inflater == null){
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

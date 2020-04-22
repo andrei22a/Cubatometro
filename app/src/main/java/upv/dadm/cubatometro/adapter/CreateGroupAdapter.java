@@ -47,7 +47,7 @@ public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.
         if(data.get(position).getProfilePic() == null) new DAO().getUserProfilePics(data.get(position).getUserID(), new ImageListener() {
             @Override
             public void onImageReceived(String imageURI) {
-                Picasso.get().load(imageURI).resize(50, 50).noFade().into(holder.memberIcon);
+                Picasso.get().load(imageURI).noFade().into(holder.memberIcon);
             }
 
             @Override
