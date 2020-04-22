@@ -7,17 +7,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:padding="10dp"
+    app:layout_constraintBottom_toTopOf="@id/grid_layout">
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/contador_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/contador_description"
-        app:layout_constraintBottom_toTopOf="@+id/grid_layout"
+        app:layout_constraintBottom_toTopOf="@+id/contador_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:textSize="22sp"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/contador_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/grid_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:civ_circle_background_color="#FF000000"
+        android:src="@mipmap/senior_potando"
+        android:layout_marginBottom="30dp"/>
+
+</LinearLayout>
 
     <GridLayout
         android:id="@+id/grid_layout"
@@ -41,9 +66,8 @@
             android:layout_height="wrap_content"
             android:layout_row="6"
             android:layout_column="1"
-            android:layout_marginStart="8dp"
             android:background="@drawable/round_buttons"
-            android:src="@drawable/ic_contador_quitar" />
+            android:src="@drawable/ic_contador_quitar"/>
 
         <TextView
             android:id="@+id/textView3"
@@ -52,7 +76,8 @@
             android:layout_row="0"
             android:layout_column="0"
             android:layout_gravity="center_vertical"
-            android:text="@string/botella_label" />
+            android:text="@string/botella_label"
+            android:textSize="20sp"/>
 
         <ImageButton
             android:id="@+id/botellas_quitar_button"
@@ -60,7 +85,6 @@
             android:layout_height="wrap_content"
             android:layout_row="0"
             android:layout_column="1"
-            android:layout_marginStart="8dp"
             android:layout_gravity="center_vertical"
             android:background="@drawable/round_buttons"
             android:src="@drawable/ic_contador_quitar" />
@@ -92,7 +116,8 @@
             android:layout_row="1"
             android:layout_column="0"
             android:layout_gravity="center_vertical"
-            android:text="@string/media_botella_label" />
+            android:text="@string/media_botella_label"
+            android:textSize="20sp"/>
 
         <ImageButton
             android:id="@+id/mediasbotellas_quitar_button"
@@ -100,7 +125,6 @@
             android:layout_height="wrap_content"
             android:layout_row="1"
             android:layout_column="1"
-            android:layout_marginStart="8dp"
             android:background="@drawable/round_buttons"
             android:src="@drawable/ic_contador_quitar" />
 
@@ -131,7 +155,8 @@
             android:layout_row="2"
             android:layout_column="0"
             android:layout_gravity="center_vertical"
-            android:text="@string/jarra_cerveza_label" />
+            android:text="@string/jarra_cerveza_label"
+            android:textSize="20sp"/>
 
         <ImageButton
             android:id="@+id/jarras_quitar_button"
@@ -139,7 +164,6 @@
             android:layout_height="wrap_content"
             android:layout_row="2"
             android:layout_column="1"
-            android:layout_marginStart="8dp"
             android:background="@drawable/round_buttons"
             android:src="@drawable/ic_contador_quitar" />
 
@@ -170,7 +194,8 @@
             android:layout_row="3"
             android:layout_column="0"
             android:layout_gravity="center_vertical"
-            android:text="@string/litro_cerveza_label" />
+            android:text="@string/litro_cerveza_label"
+            android:textSize="20sp"/>
 
         <ImageButton
             android:id="@+id/litros_quitar_button"
@@ -178,7 +203,6 @@
             android:layout_height="wrap_content"
             android:layout_row="3"
             android:layout_column="1"
-            android:layout_marginStart="8dp"
             android:background="@drawable/round_buttons"
             android:src="@drawable/ic_contador_quitar" />
 
@@ -209,7 +233,8 @@
             android:layout_row="4"
             android:layout_column="0"
             android:layout_gravity="center_vertical"
-            android:text="@string/lata_cerveza_label" />
+            android:text="@string/lata_cerveza_label"
+            android:textSize="20sp"/>
 
         <ImageButton
             android:id="@+id/latas_quitar_button"
@@ -217,7 +242,6 @@
             android:layout_height="wrap_content"
             android:layout_row="4"
             android:layout_column="1"
-            android:layout_marginStart="8dp"
             android:background="@drawable/round_buttons"
             android:src="@drawable/ic_contador_quitar" />
 
@@ -248,7 +272,8 @@
             android:layout_row="5"
             android:layout_column="0"
             android:layout_gravity="center_vertical"
-            android:text="@string/botella_vino_label" />
+            android:text="@string/botella_vino_label"
+            android:textSize="20sp"/>
 
         <ImageButton
             android:id="@+id/vino_quitar_button"
@@ -256,7 +281,6 @@
             android:layout_height="wrap_content"
             android:layout_row="5"
             android:layout_column="1"
-            android:layout_marginStart="8dp"
             android:background="@drawable/round_buttons"
             android:src="@drawable/ic_contador_quitar" />
 
@@ -287,7 +311,8 @@
             android:layout_row="6"
             android:layout_column="0"
             android:layout_gravity="center_vertical"
-            android:text="@string/chupito_label" />
+            android:text="@string/chupito_label"
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/chupitos_contador_textview"

@@ -17,7 +17,7 @@
     <string name="crear_grupo_button">Crear Grupo</string>
 
     <!-- Contador activity -->
-    <string name="contador_description">Añade la cantidad de cada tipo de bebida que hayas tomado</string>
+    <string name="contador_description">¿Cuánto has bebido?</string>
     <string name="contador_label">Añadir registro</string>
     <!-- Ranking activity -->
     <string name="ranking_label">Ranking</string>
