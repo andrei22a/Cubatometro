@@ -23,6 +23,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import upv.dadm.cubatometro.Database.DAO;
+import upv.dadm.cubatometro.Fragments.ScoreFragment;
 import upv.dadm.cubatometro.Listeners.MiembrosConRegistroListener;
 import upv.dadm.cubatometro.entidades.Grupo;
 import upv.dadm.cubatometro.entidades.Ranking;
@@ -105,7 +106,9 @@ public class RankingActivity extends AppCompatActivity {
                 Intent stadisticsIntent = new Intent(RankingActivity.this, StadisticsActivity.class);
                 startActivity(stadisticsIntent);
                 return true;
-
+            case R.id.menu_info_bebidas:
+                ScoreFragment myScoreFragment = new ScoreFragment();
+                myScoreFragment.show(getSupportFragmentManager(), "Score Fragment");
             default:
                 return super.onOptionsItemSelected(item);
 
