@@ -6,16 +6,19 @@
     <string name="username">Nombre de usuario</string>
     <string name="password">Contraseña</string>
     <string name="login_label">Iniciar sesión</string>
-    <string name="registar_usuario_label">Registrarse</string>
+    <string name="registrar_usuario_label">Registrarse</string>
     <string name="recordar_usuario">Recordar usuario en este dispositivo</string>
 
     <!-- Create group activity -->
     <string name="titulo_grupo_label">Nombre del grupo</string>
     <string name="añadir_miembros_label">Añadir miembros</string>
     <string name="buscar_miembros_label">Buscar miembro</string>
+    <string name="crear_grupo_button">Crear Grupo</string>
 
     <!-- Ranking activity -->
     <string name="ranking_label">Ranking</string>
+    <string name="miembro_label">Miembro</string>
+    <string name="puntuacion_label">Puntuación</string>
 
     <!-- Register user activity -->
     <string name="username_register_label">Nombre de usuario</string>
@@ -31,6 +34,8 @@
     <string name="menu_create_group">Crear grupo</string>
     <string name="menu_update_registro">Actualizar puntuación</string>
     <string name="menu_view_stadistics">Ver estadísticas</string>
+    <string name="menu_info_ranking">Infromación sobre bebidas</string>
+    <string name="menu_logout">Cerrar Sesión</string>
 
     <!-- Chart -->
     <string name="title_stadistics_activity_label">Estadísticas pasadas</string>

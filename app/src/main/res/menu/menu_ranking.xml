@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_info_bebidas"
-        android:title="Información sobre bebidas"
+        android:title="@string/menu_info_ranking"
         app:showAsAction="always"
         android:icon="@drawable/ic_info_icon" />
     <item
         android:id="@+id/menu_actualizar_registros"
         app:showAsAction="always"
-        android:title="Actualizar Puntuación"
+        android:title="@string/menu_update_registro"
         android:icon="@drawable/ic_drink_icon"/>
 
     <item
