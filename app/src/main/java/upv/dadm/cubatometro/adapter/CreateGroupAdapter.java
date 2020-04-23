@@ -24,13 +24,11 @@ import upv.dadm.cubatometro.R;
 
 public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.ViewHolder> {
     private ArrayList<User> data;
-    private ArrayList<User> fullData;
     private ArrayList<User> selectedMembers;
 
 
     public CreateGroupAdapter(ArrayList<User> data){
         this.data = data;
-        fullData = new ArrayList<>(data);
         selectedMembers = new ArrayList<>(data.size());
         setHasStableIds(true);
     }
@@ -57,26 +55,30 @@ public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.
         });
         else {holder.memberIcon.setImageDrawable(data.get(position).getProfilePic().getDrawable());}
         holder.memberName.setText(data.get(position).getUsername());
-        if (data.get(position).isSelected()){
-            holder.addMember.setChecked(true);
-        }
+
+        holder.addMember.setTag(position);
 
         holder.addMember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                int pos = (int) holder.addMember.getTag();
                 if (isChecked){
-                    data.get(position).setSelected(true);
-                    selectedMembers.add(data.get(position));
+                    data.get(pos).setSelected(true);
+                    selectedMembers.add(data.get(pos));
                 } else {
-                    data.get(position).setSelected(false);
-                    selectedMembers.remove(data.get(position));
+                    data.get(pos).setSelected(false);
+                    selectedMembers.remove(data.get(pos));
                 }
                 Log.d("SELECTED MEMBERS", selectedMembers.toString());
             }
         });
     }
 
-
+    public void updateList(ArrayList<User> list){
+        data.clear();
+        data.addAll(list);
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getItemCount() {
@@ -109,19 +111,21 @@ public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();
-            ArrayList<User> filteredList = new ArrayList<>();
-            if (constraint == null || constraint.length() == 0){
-                results.count = fullData.size();
-                results.values = fullData;
+            if (constraint == null || constraint.length() == 0) {
+                Log.d("SEARCHVIEW CLEARED", "true");
+                results.count = data.size();
+                results.values = data;
             } else {
+                ArrayList<User> filteredList = new ArrayList<>();
                 String filterPattern = constraint.toString().toLowerCase().trim();
                 for (User user : data) {
                     if (user.getUsername().toLowerCase().contains(filterPattern)) {
                         filteredList.add(user);
                     }
                 }
+                results.count = filteredList.size();
+                results.values = filteredList;
             }
-            results.values = filteredList;
             return results;
         }
 
@@ -134,12 +138,12 @@ public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.
     };
 
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
-        public ImageView memberIcon;
-        public TextView memberName;
-        public CheckBox addMember;
+    static class ViewHolder extends RecyclerView.ViewHolder{
+        ImageView memberIcon;
+        TextView memberName;
+        CheckBox addMember;
 
-        public ViewHolder(View v){
+        ViewHolder(View v){
             super(v);
             memberIcon = v.findViewById(R.id.membericon_imageview_memberlist);
             memberName = v.findViewById(R.id.membername_textview_memberlist);

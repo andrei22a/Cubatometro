@@ -77,8 +77,6 @@ public class CreateGroupActivity extends AppCompatActivity {
         //Este va a ser el id del grupo
         final String groupID = UUID.randomUUID().toString();
 
-        data.clear();
-
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -89,11 +87,10 @@ public class CreateGroupActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 if(newText == null || newText.length() == 0){
-                    data.clear();
-                    dao.getAllUsers();
-                    Collections.sort(data);
+                    adapter.updateList(originalData);
+                } else {
+                    adapter.getFilter().filter(newText);
                 }
-                adapter.getFilter().filter(newText);
                 return true;
             }
         });
@@ -145,8 +142,7 @@ public class CreateGroupActivity extends AppCompatActivity {
 
         /* Array de prueba. Hay que sustituir por llamada a método getAllUsers() */
         dao.getAllUsers();
-        originalData = data;
-
+        Log.d("ORIGINAL DATA", originalData.toString());
 
         adapter = new CreateGroupAdapter(data);
         recyclerView.setAdapter(adapter);
