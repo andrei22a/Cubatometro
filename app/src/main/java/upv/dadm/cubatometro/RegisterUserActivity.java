@@ -1,11 +1,6 @@
 package upv.dadm.cubatometro;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -18,6 +13,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,7 +24,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -35,9 +32,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import upv.dadm.cubatometro.Database.DAO;
-import upv.dadm.cubatometro.Database.FirebaseIni;
-import upv.dadm.cubatometro.entidades.Registro;
-import upv.dadm.cubatometro.entidades.User;
 
 public class RegisterUserActivity extends AppCompatActivity {
     private final static int PICK_IMAGE = 1;

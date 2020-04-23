@@ -6,7 +6,6 @@ import androidx.annotation.RequiresApi;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Calendar;
 import java.util.Date;
 
 public class Registro {
@@ -29,9 +28,6 @@ public class Registro {
         this.numLitrosCerveza = 0;
         this.numMediasBotellas = 0;
         this.numLatasCerveza = 0;
-
-        /*Calendar fechaActual = Calendar.getInstance();
-        this.fecha = fechaActual.get(Calendar.DATE) + "/" + fechaActual.get(Calendar.MONTH) + "/" + fechaActual.get(Calendar.YEAR);*/
 
         Date date = new Date();
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();

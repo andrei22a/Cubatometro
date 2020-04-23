@@ -19,8 +19,8 @@ import java.util.ArrayList;
 
 import upv.dadm.cubatometro.Database.DAO;
 import upv.dadm.cubatometro.Listeners.ImageListener;
-import upv.dadm.cubatometro.entidades.User;
 import upv.dadm.cubatometro.R;
+import upv.dadm.cubatometro.entidades.User;
 
 public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.ViewHolder> {
     private ArrayList<User> data;

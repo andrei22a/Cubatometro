@@ -7,10 +7,8 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,11 +17,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import upv.dadm.cubatometro.Database.DAO;
 import upv.dadm.cubatometro.Listeners.ImageListener;
-import upv.dadm.cubatometro.entidades.Ranking;
 import upv.dadm.cubatometro.R;
+import upv.dadm.cubatometro.entidades.Ranking;
 
 public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHolder> {
     private ArrayList<Ranking> data;
@@ -89,8 +86,8 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public TextView name;
-        public TextView points;
-        public ImageView userIcon;
+        TextView points;
+        ImageView userIcon;
 
         public ViewHolder(View v){
             super(v);

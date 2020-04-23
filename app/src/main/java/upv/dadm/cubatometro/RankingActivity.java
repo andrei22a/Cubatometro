@@ -126,7 +126,7 @@ public class RankingActivity extends AppCompatActivity {
             int latas = registro.getNumLatasCerveza();
             int vino = registro.getNumBotellasVino();
             int chupitos = registro.getNumChupitos();
-            res += botellas*20 + mediasBotellas*8 + jarras*2 + litros*3 + latas*1 + vino*4 + chupitos*1;
+            res += botellas*20 + mediasBotellas*8 + jarras*2 + litros*3 + latas + vino*4 + chupitos;
         }
 
         return res;

@@ -89,7 +89,6 @@ public class ContadorActivity extends AppCompatActivity {
                     registro.setNumBotellasVino(Integer.parseInt(numVino.getText().toString()));
                     registro.setNumBotellas(Integer.parseInt(numBotellas.getText().toString()));
                     Log.d("REGISTRO", registro.getNumBotellas() + "");
-                    assert miembrosID != null;
                     dao.setRegistro(miembrosID, userID, groupID, registro);
                 }
 

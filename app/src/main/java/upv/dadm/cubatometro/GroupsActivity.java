@@ -1,23 +1,20 @@
 package upv.dadm.cubatometro;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -25,15 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import upv.dadm.cubatometro.Database.DAO;
-import upv.dadm.cubatometro.Lib.OnItemClickListener;
-import upv.dadm.cubatometro.Lib.OnItemLongClickListener;
+import upv.dadm.cubatometro.Listeners.OnItemClickListener;
+import upv.dadm.cubatometro.Listeners.OnItemLongClickListener;
 import upv.dadm.cubatometro.Listeners.GroupsListener;
-import upv.dadm.cubatometro.Listeners.MiembrosConRegistroListener;
 import upv.dadm.cubatometro.adapter.DividerItemDecoration;
 import upv.dadm.cubatometro.adapter.ListGroupsAdapter;
 import upv.dadm.cubatometro.entidades.Grupo;
-import upv.dadm.cubatometro.entidades.Registro;
-import upv.dadm.cubatometro.entidades.User;
 
 public class GroupsActivity extends AppCompatActivity {
     SharedPreferences preferences;
@@ -65,7 +59,7 @@ public class GroupsActivity extends AppCompatActivity {
             public void onClickListener(final int position) {
                 String groupID = data.get(position).getGroupID();
                 editor.putString("groupID", groupID);
-                editor.commit();
+                editor.apply();
                 Intent intent = new Intent(GroupsActivity.this, RankingActivity.class);
                 intent.putExtra("groupID", groupID);
                 startActivity(intent);

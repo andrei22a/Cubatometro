@@ -1,7 +1,6 @@
 package upv.dadm.cubatometro.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,8 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import upv.dadm.cubatometro.Database.DAO;
-import upv.dadm.cubatometro.Lib.OnItemClickListener;
-import upv.dadm.cubatometro.Lib.OnItemLongClickListener;
+import upv.dadm.cubatometro.Listeners.OnItemClickListener;
+import upv.dadm.cubatometro.Listeners.OnItemLongClickListener;
 import upv.dadm.cubatometro.Listeners.ImageListener;
 import upv.dadm.cubatometro.R;
 import upv.dadm.cubatometro.entidades.Grupo;
