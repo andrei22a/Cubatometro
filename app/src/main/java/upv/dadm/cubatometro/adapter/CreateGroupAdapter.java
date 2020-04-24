@@ -56,6 +56,7 @@ public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.
         else {holder.memberIcon.setImageDrawable(data.get(position).getProfilePic().getDrawable());}
         holder.memberName.setText(data.get(position).getUsername());
 
+        holder.addMember.setSelected(data.get(position).isSelected());
         holder.addMember.setTag(position);
 
         holder.addMember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

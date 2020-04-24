@@ -54,7 +54,6 @@ public class CreateGroupActivity extends AppCompatActivity {
     public static CreateGroupAdapter adapter;
     private static Context context;
     private static ArrayList<User> data = new ArrayList<>();
-    private static ArrayList<User> originalData = new ArrayList<>();
     private static FirebaseAuth mAuth;
     private StorageReference mStorageRef;
     private Uri selectedImageUri;
@@ -87,7 +86,9 @@ public class CreateGroupActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 if(newText == null || newText.length() == 0){
-                    adapter.updateList(originalData);
+                    data.clear();
+                    dao.getAllUsers();
+                    Collections.sort(data);
                 } else {
                     adapter.getFilter().filter(newText);
                 }
@@ -188,11 +189,9 @@ public class CreateGroupActivity extends AppCompatActivity {
     public static void loadUser(User user){
         if(!user.getUserID().equals(mAuth.getCurrentUser().getUid())) {
             data.add(user);
-            originalData.add(user);
             adapter.notifyItemInserted(data.size());
         }
         Collections.sort(data);
-        Collections.sort(originalData);
     }
 
     public void addCurrentUserToGroup(){

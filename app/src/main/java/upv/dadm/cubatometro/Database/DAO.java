@@ -90,11 +90,11 @@ public class DAO {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                miembrosConRegistro.clear();
                 for(DataSnapshot userID : dataSnapshot.getChildren()){
                     final User member = new User();
                     member.setUserID(userID.getKey());
                     member.setUsername(userID.child("NombreUsuario").getValue().toString());
-
                     final List<Registro> registros = new ArrayList<>();
                     for(DataSnapshot registrosID : userID.child("Registros").getChildren()) {
                         Registro registro = new Registro();

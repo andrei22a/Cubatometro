@@ -71,6 +71,8 @@ public class ContadorActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         final DAO dao = new DAO();
 
+        final int[] newScore = {0};
+
         final Button actualizar = findViewById(R.id.actualizar_registro_button);
         actualizar.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)

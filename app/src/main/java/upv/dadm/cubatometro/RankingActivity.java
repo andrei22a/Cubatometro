@@ -47,10 +47,11 @@ public class RankingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ranking);
 
         groupID = getSharedPreferences("groupDetails", MODE_PRIVATE).getString("groupID", "");
-
         mAuth = FirebaseAuth.getInstance();
         recyclerView = findViewById(R.id.rankingmiembros_listview_ranking);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        data.clear();
 
         /*** Obtener los miembros del grupo y guardarlos en el array members ***/
 
@@ -60,6 +61,7 @@ public class RankingActivity extends AppCompatActivity {
             public void onMiembrosReceived(List<User> miembros) {
                 miembrosID.clear();
                 data.clear();
+                Log.d("DATA RANKING", data.toString());
                 for(User user : miembros){
                     int puntos = calcularPuntos(user);
                     String userID = user.getUserID();
@@ -67,11 +69,9 @@ public class RankingActivity extends AppCompatActivity {
                     Log.d("miembrosID", miembrosID.toString());
                     data.add(new Ranking(user.getUsername(), puntos, userID, user.getProfilePic()));
                 }
-                Collections.sort(data); // Ordenar el array descendentemente
-                adapter = new RankingAdapter(data, getApplicationContext());
-                recyclerView.setAdapter(adapter);
-
-            //    adapter.notifyDataSetChanged();
+                Collections.sort(data);
+                Log.d("DATA RANKING", data.toString());
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -80,6 +80,9 @@ public class RankingActivity extends AppCompatActivity {
             }
         });
 
+        adapter = new RankingAdapter(data, getApplicationContext());
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(adapter);
 
     }
 

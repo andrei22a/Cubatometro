@@ -21,6 +21,7 @@ import upv.dadm.cubatometro.Database.DAO;
 import upv.dadm.cubatometro.Listeners.ImageListener;
 import upv.dadm.cubatometro.R;
 import upv.dadm.cubatometro.entidades.Ranking;
+import upv.dadm.cubatometro.entidades.User;
 
 public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHolder> {
     private ArrayList<Ranking> data;
@@ -29,7 +30,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
     public RankingAdapter(ArrayList<Ranking> data, Context context){
         this.data = data;
         this.context = context;
-        setHasStableIds(false);
+        setHasStableIds(true);
     }
 
 
@@ -66,6 +67,15 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
             }
         });
         else {holder.userIcon.setImageDrawable(data.get(position).getUserIcon().getDrawable());}
+    }
+
+    public int getPosByName(String name){
+        for (int i = 0; i < data.size(); i++){
+            if (data.get(i).getName().toLowerCase().contains(name.toLowerCase())){
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
