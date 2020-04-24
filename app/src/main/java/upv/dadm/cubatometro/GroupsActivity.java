@@ -4,11 +4,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -34,6 +36,7 @@ import upv.dadm.cubatometro.entidades.User;
 public class GroupsActivity extends AppCompatActivity {
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
+    private long backPressedTime;
     private ListGroupsAdapter adapter;
     private RecyclerView recyclerView;
     private ArrayList<Grupo> data = new ArrayList<>();
@@ -107,7 +110,13 @@ public class GroupsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        return;
+        if ((backPressedTime + 2000) > System.currentTimeMillis()){
+            finishAffinity();
+            return;
+        } else {
+            Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
+        }
+        backPressedTime = System.currentTimeMillis();
     }
 
     @Override
