@@ -46,36 +46,30 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
         final Ranking m = data.get(position);
         holder.name.setText(m.getName());
         holder.points.setText(m.getPoints() + "");
-        if(m.getUserIcon() == null) new DAO().getUserProfilePics(m.getUserID(), new ImageListener() {
-            @Override
-            public void onImageReceived(String imageURI) {
-                if (imageURI == null){
-                    Resources resources = context.getResources();
-                    imageURI = new Uri.Builder()
-                            .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
-                            .authority(resources.getResourcePackageName(R.mipmap.ic_default_picture))
-                            .appendPath(resources.getResourceTypeName(R.mipmap.ic_default_picture))
-                            .appendPath(resources.getResourceEntryName(R.mipmap.ic_default_picture))
-                            .build().toString();
+        if(m.getUserIcon() == null) {
+            new DAO().getUserProfilePics(m.getUserID(), new ImageListener() {
+                @Override
+                public void onImageReceived(String imageURI) {
+                    if (imageURI == null){
+                        Resources resources = context.getResources();
+                        imageURI = new Uri.Builder()
+                                .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+                                .authority(resources.getResourcePackageName(R.mipmap.ic_default_picture))
+                                .appendPath(resources.getResourceTypeName(R.mipmap.ic_default_picture))
+                                .appendPath(resources.getResourceEntryName(R.mipmap.ic_default_picture))
+                                .build().toString();
+                    }
+                    Picasso.get().load(imageURI).noFade().into(holder.userIcon);
                 }
-                Picasso.get().load(imageURI).noFade().into(holder.userIcon);
-            }
 
-            @Override
-            public void onError(Throwable error) {
+                @Override
+                public void onError(Throwable error) {
 
-            }
-        });
-        else {holder.userIcon.setImageDrawable(data.get(position).getUserIcon().getDrawable());}
-    }
+                }
+            });
 
-    public int getPosByName(String name){
-        for (int i = 0; i < data.size(); i++){
-            if (data.get(i).getName().toLowerCase().contains(name.toLowerCase())){
-                return i;
-            }
         }
-        return -1;
+        else { holder.userIcon.setImageDrawable(data.get(position).getUserIcon().getDrawable()); }
     }
 
     @Override

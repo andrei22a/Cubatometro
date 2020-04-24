@@ -16,19 +16,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import upv.dadm.cubatometro.Database.DAO;
 import upv.dadm.cubatometro.Listeners.ImageListener;
+import upv.dadm.cubatometro.Listeners.OnItemClickListener;
 import upv.dadm.cubatometro.R;
 import upv.dadm.cubatometro.entidades.User;
 
 public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.ViewHolder> {
     private ArrayList<User> data;
+    private ArrayList<User> dataCopy;
     private ArrayList<User> selectedMembers;
 
 
     public CreateGroupAdapter(ArrayList<User> data){
         this.data = data;
+        this.dataCopy = data;
         selectedMembers = new ArrayList<>(data.size());
         setHasStableIds(true);
     }
@@ -75,12 +79,6 @@ public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.
         });
     }
 
-    public void updateList(ArrayList<User> list){
-        data.clear();
-        data.addAll(list);
-        notifyDataSetChanged();
-    }
-
     @Override
     public int getItemCount() {
         return data.size();
@@ -104,36 +102,37 @@ public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.
         return position;
     }
 
-    public Filter getFilter(){
-        return filter;
-    }
-
+    public Filter getFilter(){return filter;}
+    
     private Filter filter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            FilterResults results = new FilterResults();
+            ArrayList<User> filteredList = null;
             if (constraint == null || constraint.length() == 0) {
                 Log.d("SEARCHVIEW CLEARED", "true");
-                results.count = data.size();
-                results.values = data;
+                filteredList = dataCopy;
             } else {
-                ArrayList<User> filteredList = new ArrayList<>();
-                String filterPattern = constraint.toString().toLowerCase().trim();
-                for (User user : data) {
-                    if (user.getUsername().toLowerCase().contains(filterPattern)) {
-                        filteredList.add(user);
-                    }
+                filteredList = getFilteredResults(constraint.toString().toLowerCase());
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        ArrayList<User> getFilteredResults(String constraint){
+            ArrayList<User> results = new ArrayList<>();
+            for (User user : dataCopy){
+                if (user.getUsername().toLowerCase().contains(constraint)){
+                    results.add(user);
                 }
-                results.count = filteredList.size();
-                results.values = filteredList;
             }
             return results;
         }
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            data.clear();
-            data.addAll((ArrayList<User>) results.values);
+            data = ((ArrayList<User>) results.values);
             notifyDataSetChanged();
         }
     };

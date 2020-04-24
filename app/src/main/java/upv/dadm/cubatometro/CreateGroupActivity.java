@@ -38,6 +38,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import upv.dadm.cubatometro.Database.DAO;
+import upv.dadm.cubatometro.Listeners.OnItemClickListener;
 import upv.dadm.cubatometro.adapter.DividerItemDecoration;
 import upv.dadm.cubatometro.entidades.Grupo;
 import upv.dadm.cubatometro.entidades.Registro;
@@ -52,6 +53,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     private ArrayList<User> members = new ArrayList<>();
     private static RecyclerView recyclerView;
     public static CreateGroupAdapter adapter;
+    private static OnItemClickListener itemClickListener;
     private static Context context;
     private static ArrayList<User> data = new ArrayList<>();
     private static FirebaseAuth mAuth;
@@ -80,18 +82,13 @@ public class CreateGroupActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
+                adapter.getFilter().filter(query);
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if(newText == null || newText.length() == 0){
-                    data.clear();
-                    dao.getAllUsers();
-                    Collections.sort(data);
-                } else {
-                    adapter.getFilter().filter(newText);
-                }
+                adapter.getFilter().filter(newText);
                 return true;
             }
         });

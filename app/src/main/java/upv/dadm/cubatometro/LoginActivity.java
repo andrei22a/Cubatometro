@@ -21,6 +21,7 @@ public class LoginActivity extends AppCompatActivity{
     private FirebaseAuth mAuth;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+    private long backPressedTime;
     private EditText usernameInput;
     private EditText passwordInput;
     private CheckBox recordarLoginCheckbox;
@@ -90,6 +91,17 @@ public class LoginActivity extends AppCompatActivity{
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if ((backPressedTime + 2000) > System.currentTimeMillis()){
+            finishAffinity();
+            return;
+        } else {
+            Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
+        }
+        backPressedTime = System.currentTimeMillis();
     }
 
     private void toastMessage(String message){
