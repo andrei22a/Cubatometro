@@ -167,8 +167,10 @@ public class DAO {
         });
     }
 
-    public void deleteGroup(String userID, String groupID) {
-       FirebaseIni.getInstance().getReference("Users").child(userID).child("Groups").child(groupID).removeValue();
+    public void deleteGroup(List<String> memberIDs, String groupID) {
+        for(String memberID : memberIDs) {
+            FirebaseIni.getInstance().getReference("Users").child(memberID).child("Groups").child(groupID).removeValue();
+        }
     }
 
     public void setRegistro(List<String> miembrosID, String userID, String groupID, Registro nuevoRegistro){

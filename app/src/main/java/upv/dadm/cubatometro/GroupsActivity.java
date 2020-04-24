@@ -22,12 +22,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import upv.dadm.cubatometro.Database.DAO;
+import upv.dadm.cubatometro.Listeners.MiembrosConRegistroListener;
 import upv.dadm.cubatometro.Listeners.OnItemClickListener;
 import upv.dadm.cubatometro.Listeners.OnItemLongClickListener;
 import upv.dadm.cubatometro.Listeners.GroupsListener;
 import upv.dadm.cubatometro.adapter.DividerItemDecoration;
 import upv.dadm.cubatometro.adapter.ListGroupsAdapter;
 import upv.dadm.cubatometro.entidades.Grupo;
+import upv.dadm.cubatometro.entidades.User;
 
 public class GroupsActivity extends AppCompatActivity {
     SharedPreferences preferences;
@@ -142,8 +144,23 @@ public class GroupsActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 /******* Borrar el grupo de firebase *******/
-                dao.deleteGroup(mAuth.getCurrentUser().getUid(), data.get(position).getGroupID());
-                adapter.notifyItemRemoved(position);
+                dao.getMiembrosConRegistros(mAuth.getCurrentUser().getUid(), data.get(position).getGroupID(), new MiembrosConRegistroListener() {
+                    @Override
+                    public void onMiembrosReceived(List<User> miembros) {
+                        List<String> memberIDs = new ArrayList<>();
+                        for(User miembro : miembros){
+                            memberIDs.add(miembro.getUserID());
+                        }
+                        dao.deleteGroup(memberIDs, data.get(position).getGroupID());
+                        adapter.notifyItemRemoved(position);
+                    }
+
+                    @Override
+                    public void onError(Throwable error) {
+
+                    }
+                });
+
             }
         });
 
