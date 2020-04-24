@@ -151,7 +151,7 @@ public class GroupsActivity extends AppCompatActivity {
                         for(User miembro : miembros){
                             memberIDs.add(miembro.getUserID());
                         }
-                        dao.deleteGroup(memberIDs, data.get(position).getGroupID());
+                        dao.deleteGroup(mAuth.getCurrentUser().getUid(), memberIDs, data.get(position).getGroupID());
                         adapter.notifyItemRemoved(position);
                     }
 
