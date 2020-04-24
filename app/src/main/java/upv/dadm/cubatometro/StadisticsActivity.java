@@ -2,6 +2,7 @@ package upv.dadm.cubatometro;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
 
@@ -42,6 +44,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -107,6 +111,29 @@ public class StadisticsActivity extends AppCompatActivity {
         xAxis.setGranularity(1);
         xAxis.setValueFormatter(new IndexAxisValueFormatter(xLabels));
 
+        dao.getRegistros(mAuth.getCurrentUser().getUid(), groupID, new RegistrosListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onRegistrosReceived(HashMap<String, List<Registro>> registrosGrupo) throws ParseException {
+                Date date = new Date();
+                LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                String fechaActual = localDate.getDayOfMonth() + "/" + localDate.getMonthValue() + "/" + localDate.getYear();
+                LocalDate localDate1MonthAgo = localDate.minusMonths(1);
+                String fechaHace1Mes = localDate1MonthAgo.getDayOfMonth() + "/" + localDate1MonthAgo.getMonthValue()+ "/" + localDate1MonthAgo.getYear();
+
+
+                cargarDatosUltimoMes(fechaHace1Mes, fechaActual, registrosGrupo);
+
+                changeLabel(fechaHace1Mes, fechaActual);
+                lineChart.getLegend().setWordWrapEnabled(true);
+            }
+
+            @Override
+            public void onError(Throwable error) {
+
+            }
+        });
+
     }
 
     @Override
@@ -144,6 +171,7 @@ public class StadisticsActivity extends AppCompatActivity {
                         clearDateInputs();
                         changeLabel(initialDate, finalDate);
                         cargarDatos(registrosGrupo);
+                        lineChart.getLegend().setWordWrapEnabled(true);
                         progressBar.setVisibility(View.GONE);
                     }
 
@@ -189,6 +217,47 @@ public class StadisticsActivity extends AppCompatActivity {
 
             for(Registro registro : registrosUsuario) {
                 if(fechaEntreRango(registro.getFecha(), initialDate, finalDate)){
+                    numBotellas += registro.getNumBotellas();
+                    numMediasBotellas += registro.getNumMediasBotellas();
+                    numLitros += registro.getNumLitrosCerveza();
+                    numJarras += registro.getNumJarrasCerveza();
+                    numLatas += registro.getNumLatasCerveza();
+                    numVinos += registro.getNumBotellasVino();
+                    numChupitos += registro.getNumChupitos();
+                }
+            }
+
+            yValues.add(new Entry(1, numBotellas));
+            yValues.add(new Entry(2, numMediasBotellas));
+            yValues.add(new Entry(3, numLitros));
+            yValues.add(new Entry(4, numJarras));
+            yValues.add(new Entry(5, numLatas));
+            yValues.add(new Entry(6, numVinos));
+            yValues.add(new Entry(7, numChupitos));
+
+            LineDataSet lineDataSet = new LineDataSet(yValues, nombreUsuario);
+            lineDataSet.setColor(Color.rgb(randomColorGenerator(), randomColorGenerator(), randomColorGenerator()));
+            lineDataSet.setLineWidth(2f);
+            dataSets.add(lineDataSet);
+        }
+
+        LineData lineData = new LineData(dataSets);
+        lineChart.setData(lineData);
+
+    }
+
+    public void cargarDatosUltimoMes(String fechaInicial, String fechaFinal, HashMap<String, List<Registro>> registros) throws ParseException {
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+
+        for(Map.Entry<String, List<Registro>> entry : registros.entrySet()) {
+            float numBotellas = 0, numMediasBotellas = 0, numLitros = 0, numJarras = 0, numLatas = 0, numVinos = 0, numChupitos = 0;
+            List<Registro> registrosUsuario = entry.getValue();
+            String nombreUsuario = entry.getKey();
+            ArrayList<Entry> yValues = new ArrayList<>();
+
+
+            for(Registro registro : registrosUsuario) {
+                if(fechaEntreRango(registro.getFecha(), fechaInicial, fechaFinal)){
                     numBotellas += registro.getNumBotellas();
                     numMediasBotellas += registro.getNumMediasBotellas();
                     numLitros += registro.getNumLitrosCerveza();
