@@ -171,7 +171,7 @@ public class StadisticsActivity extends AppCompatActivity {
                         clearDateInputs();
                         changeLabel(initialDate, finalDate);
                         cargarDatos(registrosGrupo);
-                        lineChart.getLegend().setWordWrapEnabled(true);
+                        lineChart.getLegend().setWordWrapEnabled(true); // Esto no se que hace
                         progressBar.setVisibility(View.GONE);
                     }
 
