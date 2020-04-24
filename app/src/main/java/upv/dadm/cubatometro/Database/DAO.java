@@ -172,7 +172,7 @@ public class DAO {
             if(currentUserID.equals(memberID)){
                 FirebaseIni.getInstance().getReference("Users").child(memberID).child("Groups").child(groupID).removeValue();
             } else {
-                FirebaseIni.getInstance().getReference("Users").child(memberID).child("Groups").child(groupID).child("Miembros").child(memberID).removeValue();
+                FirebaseIni.getInstance().getReference("Users").child(memberID).child("Groups").child(groupID).child("Miembros").child(currentUserID).removeValue();
             }
 
         }
