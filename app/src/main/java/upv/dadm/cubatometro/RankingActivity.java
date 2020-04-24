@@ -50,7 +50,6 @@ public class RankingActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         recyclerView = findViewById(R.id.rankingmiembros_listview_ranking);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         data.clear();
 
         /*** Obtener los miembros del grupo y guardarlos en el array members ***/
