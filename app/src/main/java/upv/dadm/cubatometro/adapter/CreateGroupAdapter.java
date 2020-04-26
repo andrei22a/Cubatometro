@@ -103,7 +103,7 @@ public class CreateGroupAdapter extends RecyclerView.Adapter<CreateGroupAdapter.
     }
 
     public Filter getFilter(){return filter;}
-    
+
     private Filter filter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {

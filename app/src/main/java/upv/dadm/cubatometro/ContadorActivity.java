@@ -92,10 +92,10 @@ public class ContadorActivity extends AppCompatActivity {
                     registro.setNumBotellas(Integer.parseInt(numBotellas.getText().toString()));
                     Log.d("REGISTRO", registro.getNumBotellas() + "");
                     dao.setRegistro(miembrosID, userID, groupID, registro);
+
+                    startActivity(new Intent(ContadorActivity.this, RankingActivity.class));
                 }
 
-
-                startActivity(new Intent(ContadorActivity.this, RankingActivity.class));
             }
 
 
