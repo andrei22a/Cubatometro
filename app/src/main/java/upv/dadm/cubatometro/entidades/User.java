@@ -44,7 +44,7 @@ public class User implements Comparable<User> {
 
     @Override
     public int compareTo(User o) {
-        return this.getUsername().toLowerCase().compareTo(o.username.toLowerCase());
+        return this.getUsername().toLowerCase().compareTo(o.getUsername().toLowerCase());
     }
 
     public String getUserID() {

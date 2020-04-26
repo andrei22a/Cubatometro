@@ -75,6 +75,8 @@ public class CreateGroupActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
+        data.clear();
+
         //Este va a ser el id del grupo
         final String groupID = UUID.randomUUID().toString();
 

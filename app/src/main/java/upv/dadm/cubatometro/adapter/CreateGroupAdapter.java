@@ -16,11 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import upv.dadm.cubatometro.Database.DAO;
 import upv.dadm.cubatometro.Listeners.ImageListener;
-import upv.dadm.cubatometro.Listeners.OnItemClickListener;
 import upv.dadm.cubatometro.R;
 import upv.dadm.cubatometro.entidades.User;
 
